@@ -1,16 +1,9 @@
-
 --[[
 --=> تمت برمجة السورس وتطويره
 --==>> بواسطة @TAHAJ20 <<==
 -- للمزيد من المعلومات قناتنا @STORMCLI
 --]]
-redis = require('redis')
-json = dofile('./JSON.lua') 
-URL = require('socket.url') 
-HTTPS = require ("ssl.https") 
-https = require ("ssl.https")
-http  = require ("socket.http")
-serpent = require("serpent")
+redis = require('redis') json = dofile('./JSON.lua')  URL = require('socket.url')  HTTPS = require ("ssl.https")  https = require ("ssl.https") http  = require ("socket.http") serpent = require("serpent")
 tahadevstorm = redis.connect('127.0.0.1', 6379)
 function vardump(value)  print(serpent.block(value, {comment=false}))  end local AutoSet = function()
 io.write('\n\27[135mⓂ ❯❯ { قم بارسال ايدي المطور الاساسي } \n    \27[03949m')  local SUDO = tonumber(io.read())  if not tostring(SUDO):match('%d+') then SUDO = 373906612  end
@@ -552,7 +545,6 @@ if text == ""..botname..' شنو رئيك بهاي' or text == 'شنو رئيج 
 if text == 'توجيه' and tonumber(msg.reply_to_message_id_) > 0 and is_devtaha(msg) then  function fwwdmsg(taha,storm,sorc)  local list = tahadevstorm:smembers('botgps')  if tahadevstorm:scard("botgps") == 0 then  storm_sendMsg(msg.chat_id_, msg.id_, 1, "✖ ❯ عذرا لا يوجد مجموعات في البوت 🍃\n", 1, "md")   else   for k,v in pairs(list) do  forwardMessages(v, msg.chat_id_, {[0] = storm.id_}, 1)  end end  local gps = tahadevstorm:scard("botgps")       local text = '🚸 ❯❯ تم ارسال توجيه الى *{ '..gps..' }* مجموعات'  storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'md')  end  getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),fwwdmsg)  end
 if text == 'توجيه خاص' and tonumber(msg.reply_to_message_id_) > 0 and is_devtaha(msg) then  function fwwdmsg(taha,storm,sorc)  local list = tahadevstorm:smembers('usersbot')  if tahadevstorm:scard("usersbot") == 0 then  storm_sendMsg(msg.chat_id_, msg.id_, 1, "✖ ❯ عذرا لا يوجد مشتركين في البوت 🍃\n", 1, "md")   else   for k,v in pairs(list) do  forwardMessages(v, msg.chat_id_, {[0] = storm.id_}, 1)  end    local pv = tahadevstorm:scard("usersbot")       local text = '🚸 ❯❯ تم ارسال توجيه الى *{ '..pv..' }* مشتركين'  storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'md')  end end  getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),fwwdmsg)  end
 if text == 'توجيه للكل' and tonumber(msg.reply_to_message_id_) > 0 and is_devtaha(msg) then   function fwwdmsg(taha,storm,sorc)  local list = tahadevstorm:smembers('usersbot')   for k,v in pairs(list) do   forwardMessages(v, msg.chat_id_, {[0] = storm.id_}, 0)   end  local list = tahadevstorm:smembers('botgps')   for k,v in pairs(list) do   forwardMessages(v, msg.chat_id_, {[0] = storm.id_}, 0)   end   local grp = tahadevstorm:scard("botgps")    local pv = tahadevstorm:scard("usersbot")            local text = '🚸 ❯❯ تم ارسال توجيه الى ❮❮ 🚸\n📬 ❯❯ *{'..pv..'}* مشتركين 🍂 \n📮 ❯❯  *{ '..grp..' }* مجموعات 🍃'   storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'md')   end   getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),fwwdmsg)   end
-
 if text =='الاوامر' then if not is_mod(msg) then storm_sendMsg(msg.chat_id_, msg.id_, 1, "🚸❯❯ عذرا هاذا الامر للادمنيه فقط\n📮❯❯ ارسل *{م6}* لرئية الاوامر\n", 1, "md")  else
 local text = [[ 
 📍 اهــلا بك عــزيزي
@@ -569,8 +561,7 @@ local text = [[
 ٴ—💠——༺❯🚸❮༻——💠—
 📮❯ للمزيد من المعلومات راسلنا ❮📮
 💠❯❯ مطور البوت {@]]..sudouser..[[}
- ]] 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
+ ]]  storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
 if text =='م1' then if not is_mod(msg) then storm_sendMsg(msg.chat_id_, msg.id_, 1, "🚸❯❯ عذرا هاذا الامر للادمنيه فقط\n", 1, "md")  else
 local text = [[ 
 💥 • اهلا بك عزيزي المطور • 💥
@@ -610,8 +601,7 @@ local text = [[
 ٴ—💠——༺❯🚸❮༻——💠—
 📮❯ للمزيد من المعلومات راسلنا ❮📮
 💠❯❯ مطور البوت {@]]..sudouser..[[}
- ]] 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
+ ]]  storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
 if text =='م2' then if not is_mod(msg)  then storm_sendMsg(msg.chat_id_, msg.id_, 1, "🚸❯❯ عذرا هاذا الامر للادمنيه فقط\n", 1, "md")  else
 local text = [[ 
 💥•اهلا بك عزيزي المطور •💥
@@ -627,8 +617,7 @@ local text = [[
 ٴ—💠——༺❯🚸❮༻——💠—
 📮❯ للمزيد من المعلومات راسلنا ❮📮
 💠❯❯ مطور البوت {@]]..sudouser..[[}
- ]] 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
+ ]]  storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
 if text =='م3' then if not is_mod(msg)  then storm_sendMsg(msg.chat_id_, msg.id_, 1, "🚸❯❯ عذرا هاذا الامر للادمنيه فقط\n", 1, "md")  else
 local text = [[ 
 💥 • اهلا بك عزيزي المطور • 💥
@@ -670,8 +659,7 @@ local text = [[
 ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
 📮❯ للمزيد من المعلومات راسلنا ❮📮
 💠❯❯ مطور البوت {@]]..sudouser..[[}
- ]] 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
+ ]]  storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
 if text =='م4' then if not is_mod(msg)  then storm_sendMsg(msg.chat_id_, msg.id_, 1, "🚸❯❯ عذرا هاذا الامر للادمنيه فقط\n", 1, "md")  else
 local text = [[ 
 اهلا بك عزيزي المطور 
@@ -709,8 +697,7 @@ local text = [[
 ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
 📮❯ للمزيد من المعلومات راسلنا ❮📮
 💠❯❯ مطور البوت {@]]..sudouser..[[}
- ]] 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
+ ]]  storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
 if text =='م5' then if not is_mod(msg)  then storm_sendMsg(msg.chat_id_, msg.id_, 1, "🚸❯❯ عذرا هاذا الامر للادمنيه فقط\n", 1, "md")  else
 local text = [[ 
 💥• اهلا بك عزيزي المطور • 💥
@@ -727,8 +714,7 @@ local text = [[
 💭❯ ضع عدد الاضافه + لتعين العدد
 💭❯ ضع اسم + الاسم التريده
 ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
- ]] 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
+ ]]  storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
 if text =='م6' then
 local text = [[ 
 💥• اهلا بك في اوامر الاعضاء • 💥
@@ -761,8 +747,7 @@ local text = [[
 ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
 📮❯ للمزيد من المعلومات راسلنا ❮📮
 💠❯❯ مطور البوت {@]]..sudouser..[[}
- ]] 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'md')  end 
+ ]]  storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'md')  end 
 if text =='م7' then if not is_sudo(msg)  then storm_sendMsg(msg.chat_id_, msg.id_, 1, "🚸❯❯ عذرا هاذا الامر للمطور فقط\n", 1, "md")  else
 local text = [[ 
 💢❯❯ اهلا بك عزيزي المطور في 
@@ -787,8 +772,7 @@ local text = [[
 ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
 📮❯ للمزيد من المعلومات راسلنا ❮📮
 💠❯❯ مطور البوت {@]]..sudouser..[[}
- ]] 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
+ ]]  storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
 if text =='م8' then if not is_devtaha(msg) then  storm_sendMsg(msg.chat_id_, msg.id_, 1, "🚸❯❯ عذرا هاذا الامر للمطور الاساسي فقط\n", 1, "md")  else
 local text = [[ 
 💥 • اهلا بك عزيزي المطور • 💥
@@ -850,22 +834,22 @@ local text = [[
 ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
 📮❯ للمزيد من المعلومات راسلنا ❮📮
 💠❯❯ مطور البوت {@]]..sudouser..[[}
- ]] 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
+ ]]  storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
 if text == 'السورس' then
 local text = [[
-📮❯❯ اهلا بك في سورس ستورم
-📬❯❯ لتنصيب السورس اضغط على النص ليتم نسخه
-📇❯❯ اضغط هنا من فضلك 👇
-` هسه احطك `
-🍃❯❯ ضع رابط التنصيب ثم انتر
-♨❯❯ راح يطلب منك معلوماتك ومعلومات البوت
-☑❯❯ انتضر ثواني وراح يشتغل بسكرين ميحتاج تسوي سكرين
-💢❯❯ مطور السورس @tahaj20
-📯❯❯ قناتنا @stormcli
-]]
-storm_sendMsg(msg.chat_id_, msg.id_, 1,text, 1, 'md')  
-end
+💥❯ اهلا بك في السورس ❮💥
+ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
+🍃 ❯❯ انسخ الكود 👇 ثم افتح ترمنال وحط الرابط ثم انتر
+ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
+🚸 ❯❯ `git clone https://github.com/NOVAR1/STORM.git && cd STORM && chmod +x tg && chmod +x STORM.sh && ./STORM.sh`
+ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
+📬❯❯ لتشغيل البوت الصق الكود 👇 بالترمنال ثم انتر 
+`cd STORM && screen -S -X ./STORM.sh`
+ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
+🚸❯❯ للاستفسارت والاراء ❮❮🚸
+♨❯❯ المطور @TAHAJ20
+📯❯❯ قناتنا @STORMCLI
+]] storm_sendMsg(msg.chat_id_, msg.id_, 1,text, 1, 'md')   end
 if text == 'تعطيل' and is_sudo(msg) and add_in_ch(msg) then tahadevstorm:srem("addgrop", msg.chat_id_) tahadevstorm:del("addfrebot:"..msg.chat_id_, true) tahadevstorm:srem('bot:gpsby:id', msg.chat_id_)  tahadevstorm:srem("botgps", msg.chat_id_) function check_can_send(extra,result,success)  username = '@'..(result.username_ or 'ماكو معرف ❌')..''  local zo = '\n`┄•🚸•┄༻⚜༺┄•🚸•┄ `\n📬┊المجموعه *{ '..title_name(msg.chat_id_)..' }*\n📮 ❯❯ تم تعطيلها بنجاح ❮❮ 📮\n`┄┄┄┄┄┄┄┄┄┄┄┄┄┄`\n🚸┊بواسطه *{* ['..username..'] *}*\n`┄•🚸•┄༻⚜༺┄•🚸•┄ `'   storm_sendMsg(msg.chat_id_, msg.id_, 1,zo, 1, 'md')   if not is_devtaha(msg) then  if not tahadevstorm:get("data:bot:"..msg.chat_id_) then 
 local text = [[
 💥 اهلا عزيزي المطور 💥
@@ -1550,17 +1534,8 @@ storm_sendMsg( msg.chat_id_, msg.id_, 1, test, 1, "md") end
 if chat_type == 'super' then if text == "id" then
 function id_by_reply(extra, result, success) storm_sendMsg(msg.chat_id_, msg.id_, 1, '<b>📫 • ايديه </b> : [ <code>'..result.sender_user_id_..'</code> ]', 1, 'html') end  if tonumber(msg.reply_to_message_id_) == 0 then else getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),id_by_reply) end end
 if text == ("ايدي") and msg.reply_to_message_id_ == 0 then function getmepar(extra,result,success)  username = '@'..(result.username_ or 'ماكو معرف ❌')..''  local name = tahadevstorm:hget('gps:settings:'..msg.sender_user_id_ ,"setnameid")  if not name then   function setname(extra,result,success)  snm = result.first_name_  tahadevstorm:hset('gps:settings:'..msg.sender_user_id_ ,"setnameid" , snm)  end   getUser(msg.sender_user_id_,setname)  name = tahadevstorm:hget('gps:settings:'..msg.sender_user_id_ ,"setnameid") or '...'  end  local msgtaha = 357   local msggstaha = tahadevstorm:get('user:messages:'..msg.chat_id_..':'..msg.sender_user_id_) or 0   local nupmsgg =  tonumber((msggstaha / msgtaha) * 100)    local  tahah = 1   for k,v in pairs(tahadevstorm:hkeys("user:messages"..msg.chat_id_..":*")) do   if tahadevstorm:get("user:messages"..msg.chat_id_":"..v) > tahah then   tahah = tahadevstorm:get("user:messages"..msg.chat_id_":"..v)  end  end  local msguser = tonumber(tahadevstorm:get('user:messages:'..msg.chat_id_..':'..msg.sender_user_id_) or 1)  local gmsgs = tahadevstorm:get('groupmsg:'..msg.chat_id_..':')  local function getpro(extra, result, success)  if result.photos_[0] then if is_devtaha(msg) then t = 'مطور اساسي ♨'  elseif is_sudo(msg) then t = 'مطور 💥'  elseif is_owner(msg) then t = 'المنشئ 💥'  elseif is_monsh(msg) then t = 'المدير ✨'     elseif is_mod(msg) then t = 'ادمن الكروب 👮'  elseif is_vipgroups(msg) then t = 'مميز عام ✨'  elseif is_vipgroup(msg) then t = 'مميز 🎫'   else t = 'مجرد عضو 🙌'   end if not tahadevstorm:get('lock:id'..msg.chat_id_) then sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, result.photos_[0].sizes_[1].photo_.persistent_id_,'\n🚸 ❯ ايديك  ( '..msg.sender_user_id_..' )\n📯 ❯ معرفك ( '..username..' )\n♨ ❯ موقعك ( '..t..' )\n💠 ❯ تفاعلك ( '..formsgg(msguser)..' )\n📇 ❯ رسائلك ( '..msguser..' )\n📈 ❯ نسبه تفاعلك ( '..string.sub(nupmsgg, 1,5)..' % )\n📷 ❯ عدد صورك ( '..result.total_count_..' )\n', 1, 'md')  else if is_devtaha(msg) then t = 'مطور اساسي ♨'  elseif is_sudo(msg) then t = 'مطور 💥'  elseif is_owner(msg) then t = 'المنشئ 📬'  elseif is_monsh(msg) then t = 'المدير ✨'     elseif is_mod(msg) then t = 'ادمن الكروب 👮'  elseif is_vipgroups(msg) then t = 'مميز عام ✨'  elseif is_vipgroup(msg) then t = 'مميز 🚸'   else t = 'مجرد عضو 😂'   end
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '\n💥┊ الكروب ( <b>'..msg.chat_id_:gsub('-100','')..'</b> )\n🏅┊ ايديك  ( <b>'..msg.sender_user_id_..'</b> )\n📇┊ رسائل الكروب ( <b>'..gmsgs..'</b> )\n♻┊ معرفك ( '..username..' )\n💥┊ رسائلك ( <b>'..msguser..'</b> )\n💠┊ تفاعلك ( '..formsgg(msguser)..')\n🚀┊نسبه تفاعلك ( <b>'..string.sub(nupmsgg, 1,5)..' %</b>)\n🏇┊ اسمك  ( <code>'..name..'</code> )', 1, 'html')  end else
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '\n💥┊ الكروب ( <b>'..msg.chat_id_:gsub('-100','')..'</b> )\n🏅┊ ايديك  ( <b>'..msg.sender_user_id_..'</b> )\n📇┊ رسائل الكروب ( <b>'..gmsgs..'</b> )\n♻┊ معرفك ( '..username..' )\n💥┊ رسائلك ( <b>'..msguser..'</b> )\n💠┊ تفاعلك ( '..formsgg(msguser)..')\n🚀┊نسبه تفاعلك ( <b>'..string.sub(nupmsgg, 1,5)..' %</b>)\n??┊ اسمك  ( <code>'..name..'</code> )', 1, 'html')  end else
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '❌┊ انت لا تمتلك صوره في حسابك \n💥┊ الكروب ( <b>'..msg.chat_id_:gsub('-100','')..'</b> )\n🏅┊ ايديك  ( <b>'..msg.sender_user_id_..'</b> )\n📓┊ رسائل الكروب ( <b>'..gmsgs..'</b> )\n♻┊ معرفك ( '..username..' )\n💥┊ رسائلك ( <b>'..msguser..'</b> )\n🚸┊ تفاعلك ( '..formsgg(msguser)..')\n📇┊نسبه تفاعلك ( <b>'..string.sub(nupmsgg, 1,5)..' %</b>)\n🏇┊ اسمك  ( <code>'..name..'</code> )', 1, 'html')  end  end  tdcli_function ({    ID = "GetUserProfilePhotos",    user_id_ = msg.sender_user_id_,    offset_ = 0,    limit_ = 1  }, getpro, nil) end  getUser(msg.sender_user_id_, getmepar)  end
 if text and text:match("^الرتبه$") and msg.reply_to_message_id_ ~= 0 and is_mod(msg) then  function id_by_reply(extra, result, success) if result.id_ then if is_devtaha(result) then t = 'مطور اساسي 🕹' elseif is_sudo(result) then t = 'مطور ✨'  elseif is_owner(result) then t = 'المنشئ 📬' elseif is_monsh(result) then t = 'المدير ✨' elseif is_mod(result) then t = 'ادمن الكروب 👮' elseif is_vipgroups(result) then t = 'مميز عام 💢' elseif is_vipgroup(result) then t = 'مميز 🚸'  else t = 'مجرد عضو 🙌' end  end  local msgss = tonumber(tahadevstorm:get('user:messages:'..msg.chat_id_..':'..result.sender_user_id_) or 0)  local msgtaha = 357 local msggstaha = tahadevstorm:get('user:messages:'..msg.chat_id_..':'..result.sender_user_id_) or 0  local nupmsgg =  tonumber((msggstaha / msgtaha) * 100)  local  tahah = 1  for k,v in pairs(tahadevstorm:hkeys("user:messages"..msg.chat_id_..":*")) do if tahadevstorm:get("user:messages"..msg.chat_id_":"..v) > tahah then  tahah = tahadevstorm:get("user:messages"..msg.chat_id_":"..v) end end text = '🚸 ❯ اهلا بك في معلوماته ❮ 🚸 \n<code>﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎</code>\n🎮￤ ايديه  <b>{ '..result.sender_user_id_..' }</b>\n📯￤رتبته <b>{ '..t..' }</b>\n📇￤ رسايله <b>{ '..(tahadevstorm:get('user:messages:'..msg.chat_id_..':'..result.sender_user_id_) or 0)..' }</b>\n📮￤ نسبه تفاعله <b>{ '..string.sub(nupmsgg, 1,5)..'% }</b>\n♻￤ تفاعله { '..formsgg(msgss)..' }\n🚀￤ معرفه <b>{</b> '..storm_get_user(result.sender_user_id_)..' <b>}</b>\n🎳￤ اسمه  {<code> '..storm_get_name(result.sender_user_id_)..' </code>}\n<code>﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎</code>\n📮 ❯ قناتنا @stormcli'
 storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html') end getMessage(msg.chat_id_, msg.reply_to_message_id_,id_by_reply) end end end 
 function tdcli_update_callback(data) if (data.ID == "UpdateNewMessage") then   STORM(data.message_,data) elseif data.ID == 'UpdateMessageEdited' then  local function edited_cb(extra,result,success)   if not is_mod(result) and not is_vipgroup(result) and not is_vipgroups(result) and tahadevstorm:get('edit:Lock:'..data.chat_id_) == "lock" then delete_msg(data.chat_id_,{[0] = data.message_id_}) end    STORM(result,data)  end   tdcli_function ({   ID = "GetMessage", chat_id_ = data.chat_id_,   message_id_ = data.message_id_    }, edited_cb, nil)  elseif (data.ID == "UpdateOption" and data.name_ == "my_id") then  tdcli_function ({     ID="GetChats",    offset_order_="9223372036854775807",    offset_chat_id_=0,  limit_=20  }, dl_cb, nil) end end
------------------
-
-
-
-
-
-
-
-
