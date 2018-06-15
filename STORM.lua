@@ -236,7 +236,7 @@ if msg.content_.ID == "MessageChatAddMembers" then   if msg.content_.members_[0]
 local text = [[
 🚸┊العضو • <b>{</b> ]]..username..[[ <b>}</b>
 📬┊الايدي • <b>{ ]]..msg.sender_user_id_..[[ }</b>
-🚷┊قام باضاقع بوت <b>{</b>API<b>}</b>
+🚷┊قام باضافه بوت <b>{</b>API<b>}</b>
 <b> ================== </b>
 ❯❯❯ معلومات البوت ❮❮❮
  💠┊معرف البوت <b>{</b> @]]..msg.content_.members_[0].username_..[[ <b>}</b>
