@@ -476,7 +476,7 @@ if text and text:match('^رفع مطور @(.*)') and is_devtaha(msg) then     lo
 if text and text:match('^تنزيل مطور @(.*)') and is_devtaha(msg) then     local username = text:match('^تنزيل مطور @(.*)')  function vippyuser(extra,result,success)   if result.id_ then  tahadevstorm:srem('sudo:bot',result.id_) zo = '🚸 ❯ العضو <b>{</b> @'..username..' <b>}</b>\n📮 ❯ الايدي <b>{ '..result.id_..' }</b>\n🚀 ❯ تم تنزيله من المطورين\n<b>=•=•=•=•=•=•=•=•=•=•=•=</b>'  else    text = taha    end     storm_sendMsg(msg.chat_id_, msg.id_, 1,zo, 1, 'html')    end    saddbyusername(username,vippyuser)  end
 if text == 'تنزيل مطور' and is_devtaha(msg) then function sudo_reply(extra, result, success)  tahadevstorm:srem('sudo:bot',result.sender_user_id_) local user = result.sender_user_id_ zo = '🚸 ❯ العضو <b>{</b> '..storm_get_user(result.sender_user_id_)..' <b>}</b>\n📮 ❯ الايدي <b>{ '..result.sender_user_id_..' }</b>\n🚀 ❯ تم تنزيله من المطورين\n<b>=•=•=•=•=•=•=•=•=•=•=•=</b>' storm_sendMsg(msg.chat_id_, msg.id_, 1,zo, 1, 'html') end if tonumber(msg.reply_to_message_id_) == 0 then else getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),sudo_reply)   end end
 if text and text:match('^تنزيل مطور (%d+)') and is_devtaha(msg) then local user = text:match('تنزيل مطور (%d+)') tahadevstorm:srem('sudo:bot',user) zo = '📮 ❯ العضو <b>{ '..user..' }</b>\n🚀 ❯ تم تنزيله من المطورين\n<b>=•=•=•=•=•=•=•=•=•=•=•=</b>' storm_sendMsg(msg.chat_id_, msg.id_, 1,zo, 1, 'html') end end if is_sudo(msg) then
-if text == "تحديث السورس" and is_devtaha(msg) then  storm_sendMsg(msg.chat_id_, msg.id_, 1, '♻ • جاري تحديث السورس • ♻', 1, 'md') os.execute('rm -rf STORM.lua') os.execute('wget https://raw.githubusercontent.com/zuaus/zuaus/master/STORM.lua') sleep(0.5) storm_sendMsg(msg.chat_id_, msg.id_, 1, '🚸┊تم تحديث ♻ السورس ✔ ', 1, 'md')  end
+if text == "تحديث السورس" and is_devtaha(msg) then  storm_sendMsg(msg.chat_id_, msg.id_, 1, '♻ • جاري تحديث السورس • ♻', 1, 'md') os.execute('rm -rf STORM.lua') os.execute('wget https://raw.githubusercontent.com/zuaus/NOVAR1/master/STORM.lua') sleep(0.5) storm_sendMsg(msg.chat_id_, msg.id_, 1, '🚸┊تم تحديث ♻ السورس ✔ ', 1, 'md')  end
 if text == 'حظر عام' and is_devtaha(msg)   then if msg.reply_to_message_id_ == 0 then local user = msg.sender_user_id_ else function banreply(extra, result, success) banall(msg,msg.chat_id_,result.sender_user_id_) end end getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),banreply) end
 if text and text:match('^حظر عام @(.*)') and is_devtaha(msg)   then local username = text:match('حظر عام @(.*)') function banusername(extra,result,success) if result.id_ then   if tonumber(result.id_) == tonumber(bot_id) then  storm_sendMsg(msg.chat_id_, msg.id_, 1, '❌┊لا تستطيع طرد او حظر او كتم البوت', 1, 'md')  return false  end if storm1(msg.chat_id_,result.id_) then storm_sendMsg(msg.chat_id_, msg.id_, 1, '💥┊ لا تسطيع حضر او كتم او طرد ( الادمنيه و المدراء )', 1, 'md') else  tahadevstorm:sadd('storm:gbaned'..msg.chat_id_,result.id_)  zo = '🚸 ❯ العضو <b>{</b> @'..username..' <b>}</b>\n📮 ❯ الايدي <b>{ '..result.id_..' }</b>\n🚀 ❯ تم حظره عام\n'   end  storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'html')  end end saddbyusername(username,banusername) end
 if text and text:match('^حظر عام (%d+)') and is_devtaha(msg)  then local user = text:match('حظر عام (%d+)')  if tonumber(user) == tonumber(bot_id) then  storm_sendMsg(msg.chat_id_, msg.id_, 1, '❌┊لا تستطيع طرد او حظر او كتم البوت', 1, 'md')  return false  end if storm1(msg.chat_id_,user) then storm_sendMsg(msg.chat_id_, msg.id_, 1, '💥┊ لا تسطيع حضر او كتم او طرد ( الادمنيه و المدراء )', 1, 'md') else tahadevstorm:sadd('storm:gbaned',user)  zo = '📮 ❯ العضو <b>{ '..user..' }</b>\n🚀 ❯ تم حظره عام\n<b>=•=•=•=•=•=•=•=•=•=•=•=•=</b>' storm_sendMsg(msg.chat_id_, msg.id_, 1,zo, 1, 'html') end end
@@ -547,7 +547,7 @@ if text == 'توجيه خاص' and tonumber(msg.reply_to_message_id_) > 0 and is
 if text == 'توجيه للكل' and tonumber(msg.reply_to_message_id_) > 0 and is_devtaha(msg) then   function fwwdmsg(taha,storm,sorc)  local list = tahadevstorm:smembers('usersbot')   for k,v in pairs(list) do   forwardMessages(v, msg.chat_id_, {[0] = storm.id_}, 0)   end  local list = tahadevstorm:smembers('botgps')   for k,v in pairs(list) do   forwardMessages(v, msg.chat_id_, {[0] = storm.id_}, 0)   end   local grp = tahadevstorm:scard("botgps")    local pv = tahadevstorm:scard("usersbot")            local text = '🚸 ❯❯ تم ارسال توجيه الى ❮❮ 🚸\n📬 ❯❯ *{'..pv..'}* مشتركين 🍂 \n📮 ❯❯  *{ '..grp..' }* مجموعات 🍃'   storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'md')   end   getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),fwwdmsg)   end
 if text =='الاوامر' then if not is_mod(msg) then storm_sendMsg(msg.chat_id_, msg.id_, 1, "🚸❯❯ عذرا هاذا الامر للادمنيه فقط\n📮❯❯ ارسل *{م6}* لرئية الاوامر\n", 1, "md")  else
 local text = [[ 
-📍 اهــلا بك عــزيزي
+💥 • اهلا بك عزيزي ]]..get_rtba(msg)..[[ • 💥
 📫❯❯ في اوامر السورس ❮❮📫
 ٴ—💠——༺❯🚸❮༻——💠—
 🚀❯ م1« لعـرض قائمــه الـحمـايـه
@@ -564,7 +564,7 @@ local text = [[
  ]]  storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
 if text =='م1' then if not is_mod(msg) then storm_sendMsg(msg.chat_id_, msg.id_, 1, "🚸❯❯ عذرا هاذا الامر للادمنيه فقط\n", 1, "md")  else
 local text = [[ 
-💥 • اهلا بك عزيزي المطور • 💥
+💥 • اهلا بك عزيزي ]]..get_rtba(msg)..[[ • 💥
 📮❯❯ في اوامر الحمايه ❮❮📮
 
 ٴ—💠——༺❯🚸❮༻——💠— 
@@ -604,7 +604,7 @@ local text = [[
  ]]  storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
 if text =='م2' then if not is_mod(msg)  then storm_sendMsg(msg.chat_id_, msg.id_, 1, "🚸❯❯ عذرا هاذا الامر للادمنيه فقط\n", 1, "md")  else
 local text = [[ 
-💥•اهلا بك عزيزي المطور •💥
+💥 • اهلا بك عزيزي ]]..get_rtba(msg)..[[ • 💥
 📮❯ في اوامر الكتم والحظر و.. ❮📮
  ٴ—💠——༺❯🚸❮༻——💠—
 🚸❯❯ كتم { ايدي/معرف/رد }
@@ -620,7 +620,7 @@ local text = [[
  ]]  storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
 if text =='م3' then if not is_mod(msg)  then storm_sendMsg(msg.chat_id_, msg.id_, 1, "🚸❯❯ عذرا هاذا الامر للادمنيه فقط\n", 1, "md")  else
 local text = [[ 
-💥 • اهلا بك عزيزي المطور • 💥
+💥 • اهلا بك عزيزي ]]..get_rtba(msg)..[[ • 💥
 💠❯❯ في اوامر  الادمنيه ❮❮💠
 ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
 👮❯ رفع مميز » لرفع مميز 
@@ -662,7 +662,7 @@ local text = [[
  ]]  storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
 if text =='م4' then if not is_mod(msg)  then storm_sendMsg(msg.chat_id_, msg.id_, 1, "🚸❯❯ عذرا هاذا الامر للادمنيه فقط\n", 1, "md")  else
 local text = [[ 
-اهلا بك عزيزي المطور 
+💥 • اهلا بك عزيزي ]]..get_rtba(msg)..[[ • 💥
 💠❯❯ في اوامــر المدراء  ❮❮💠
 ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
 🎮❯ رفع ادمن » لرفع ادمن 
@@ -700,7 +700,7 @@ local text = [[
  ]]  storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'html')  end end 
 if text =='م5' then if not is_mod(msg)  then storm_sendMsg(msg.chat_id_, msg.id_, 1, "🚸❯❯ عذرا هاذا الامر للادمنيه فقط\n", 1, "md")  else
 local text = [[ 
-💥• اهلا بك عزيزي المطور • 💥
+💥 • اهلا بك عزيزي ]]..get_rtba(msg)..[[ • 💥
 🚸❯❯ في اوامــر المنشئين ❮❮🚸
 ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
 💠❯ تعطيل البوت » لتعطيل البوت
@@ -745,7 +745,7 @@ local text = [[
 ♨❯ اسم البوت+شنو رئيك بهاذا( بالرد )
 ♨❯ اسم البوتك+شنو رئيك بهاي (بالرد )
 ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
-📮❯ للمزيد من المعلومات راسلنا ❮📮
+📮❯ للمزيد من المعلومات راسلنا ❮??
 💠❯❯ مطور البوت {@]]..sudouser..[[}
  ]]  storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'md')  end 
 if text =='م7' then if not is_sudo(msg)  then storm_sendMsg(msg.chat_id_, msg.id_, 1, "🚸❯❯ عذرا هاذا الامر للمطور فقط\n", 1, "md")  else
@@ -954,7 +954,7 @@ if text == 'كتم' and tonumber(msg.reply_to_message_id_) > 0 and is_mod(msg) t
 if text and text:match('^كتم (%d+)') and is_mod(msg) then local user = text:match('كتم (%d+)')  if tonumber(user) == tonumber(bot_id) then  storm_sendMsg(msg.chat_id_, msg.id_, 1, '❌┊لا تستطيع طرد او حظر او كتم البوت', 1, 'md')  return false  end  if storm1(msg.chat_id_,user) then storm_sendMsg(msg.chat_id_, msg.id_, 1, '💥┊ لا تسطيع حضر او كتم او طرد ( الادمنيه و المدراء )', 1, 'md') else tahadevstorm:sadd('mutes'..msg.chat_id_,user)  zo = '📮 ❯ العضو <b>{ '..user..' }</b>\n🚀 ❯ تم كتمه بنجاح\n<b>=•=•=•=•=•=•=•=•=•=•=•=</b>' storm_sendMsg(msg.chat_id_, msg.id_, 1,zo, 1, 'html') end end
 if text and text:match('^كتم @(.*)') and is_mod(msg)   then local username = text:match('كتم @(.*)') function muteusername(extra,result,success) if result.id_ then  if tonumber(result.id_) == tonumber(bot_id) then  storm_sendMsg(msg.chat_id_, msg.id_, 1, '❌┊لا تستطيع طرد او حظر او كتم البوت', 1, 'md')  return false  end  if storm1(msg.chat_id_,result.id_) then storm_sendMsg(msg.chat_id_, msg.id_, 1, '💥┊ لا تسطيع حضر او كتم او طرد ( الادمنيه و المدراء )', 1, 'md') else  zo = '📮 ❯ العضو <b>{</b> @'..username..' <b>}</b>\n🚸 ❯ الايدي <b>{ '..result.id_..' }</b>\n🚀 ❯ تم كتمه بنجاح\n'  tahadevstorm:sadd('mutes'..msg.chat_id_,result.id_)  end end storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'html') end saddbyusername(username,muteusername) end 
 if text == 'الغاء الكتم' and tonumber(msg.reply_to_message_id_) > 0 and is_mod(msg) then function unmutereply(extra, result, success) unmute(msg,msg.chat_id_,result.sender_user_id_) end getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),unmutereply) end  
-if text and text:match('^الغاء الكتم (%d+)') and is_mod(msg) then  local user = text:match('الغاء الكتم (%d+)') tahadevstorm:srem('mutes'..msg.chat_id_,user)  zo = '📮 ❯ العضو <b>{ '..user..' }</b>\n🚀 ❯ تم الغاء كتمه\n<b>=•=•=•=•=•=•=•=•=•=•=•=</b>' storm_sendMsg(msg.chat_id_, msg.id_, 1,zo, 1, 'html') end 
+if text and text:match('^الغاء الكتم (%d+)') and is_mod(msg) then  local user = text:match('الغاء الكتم (%d+)') tahadevstorm:srem('mutes'..msg.chat_id_,user)  zo = '📮 ❯ العضو <b>{ '..user..' }</b>\n?? ❯ تم الغاء كتمه\n<b>=•=•=•=•=•=•=•=•=•=•=•=</b>' storm_sendMsg(msg.chat_id_, msg.id_, 1,zo, 1, 'html') end 
 if text and text:match('^الغاء الكتم @(.*)') and is_mod(msg) then local username = text:match('الغاء الكتم @(.*)') function unmuteusername(extra,result,success) if result.id_ then tahadevstorm:srem('mutes'..msg.chat_id_,result.id_)  zo = '🚸 ❯ العضو <b>{</b> @'..username..' <b>}</b>\n📮 ❯ الايدي <b>{ '..result.id_..' }</b>\n🚀 ❯ تم الغاء كتمه\n'  else zo = '❌ يوجد خطا في الاتصال '   end  storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'html')  end saddbyusername(username,unmuteusername) end 
 if text == 'المكتومين' and is_mod(msg) then if not tahadevstorm:get("lock:add"..msg.chat_id_) then local list = tahadevstorm:smembers('mutes'..msg.chat_id_) local t = '💥 • قائمه مكتومين الكروب • 💥\nٴ—⚜———༺🚸༻———⚜—  \n' for k, v in pairs(list) do if storm_get_user1 then t = t .. k .. "<b>~➣{</b> " ..storm_get_user1(v).."<b>}</b>\n"  else  t = t .. k .. " ~➣{" ..storm_get_user1(v).."<b>}</b>\n"  end  end if #list == 0 then t = '💥┊لا يوجد مكتومين في هاذه المجموعه' end storm_sendMsg(msg.chat_id_, msg.id_, 1,t, 1, 'html')       end end
 if text == ('مسح المكتومين') and is_mod(msg) then  tahadevstorm:del('mutes'..msg.chat_id_) storm_sendMsg(msg.chat_id_, msg.id_, 1,'💥┊ تم مسح المكتومين', 1, 'md') end end
@@ -1122,7 +1122,7 @@ if text =="🙈🙈🙈🙈" and  not tahadevstorm:get('lock:reoly:bot'..msg.cha
 if text =="🙊🙊🙊🙊" and  not tahadevstorm:get('lock:reoly:bot'..msg.chat_id_) then taha =   "فديت الخجل يبن القرده 😹😢"  storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") end
 if text =="🙊🙊🙊" and  not tahadevstorm:get('lock:reoly:bot'..msg.chat_id_) then taha =   "فديت الخجل يبن القرده 😹😹😢"   storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") end
 if text =="🙊🙊" and  not tahadevstorm:get('lock:reoly:bot'..msg.chat_id_) then taha =   "فديت الخجل يبن القرده 😹"  storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") end
-if text =="🙊" and  not tahadevstorm:get('lock:reoly:bot'..msg.chat_id_) then taha =   "فديت الخجل يبن القرده 😹😹"  storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") end
+if text =="🙊" and  not tahadevstorm:get('lock:reoly:bot'..msg.chat_id_) then taha =   "فديت الخجل يبن القرده 😹??"  storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") end
 if text =="😍😍😍😍" and  not tahadevstorm:get('lock:reoly:bot'..msg.chat_id_) then taha =   "صعد الحب🙄 الله يستر😹💔 من الزحف "  storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") end
 if text =="😍😍😍" and  not tahadevstorm:get('lock:reoly:bot'..msg.chat_id_) then taha =   "صعد الحب🙄 الله يستر😹💔 من الزحف 😂😹"  storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") end
 if text =="😍😍" and  not tahadevstorm:get('lock:reoly:bot'..msg.chat_id_) then taha =   "صعد الحب🙄 الله يستر😹💔 من الزحف 😂😹"  storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") end
