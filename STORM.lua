@@ -1043,7 +1043,7 @@ local add_bot_in_group = [[
 <b>=•=•=•=•=•=•=•=•=•=•=•=•=</b>
 💢┊قناتنا @STORMCLI
 ]] storm_sendMsg(msg.chat_id_, msg.id_, 1,add_bot_in_group, 1, 'html')   end end
-if text==('تفعيل') and not tahadevstorm:get("addfrebot:"..msg.chat_id_) and not tahadevstorm:get("setmoder:"..msg.chat_id_) then 
+if text==('تفعيل') and not is_sudo(msg)  and not tahadevstorm:get("addfrebot:"..msg.chat_id_) and not tahadevstorm:get("setmoder:"..msg.chat_id_) then 
 function check_can_send(extra,result,success)  username = '@'..(result.username_ or 'ماكو معرف ❌')..'' if not is_devtaha(msg) then
 if not tahadevstorm:get("data:bot:"..msg.chat_id_) then  
 local added = [[💥 اهلا عزيزي المطور 💥
@@ -1059,7 +1059,7 @@ local added = [[💥 اهلا عزيزي المطور 💥
 💢┊ايدي العضو <b>{ ]]..msg.sender_user_id_..[[ }</b>
 ✨┊معرف العضو <b>{</b> ]]..username..[[ <b>}</b>
 ]] storm_sendMsg(SUDO, 0, 1,added, 1, 'html')  tahadevstorm:setex("data:bot:"..msg.chat_id_, 100, true) end end end  getUser(msg.sender_user_id_,check_can_send) end        
-if text==('تفعيل') and add_in_ch(msg) and not tahadevstorm:get("addfrebot:"..msg.chat_id_) and not tahadevstorm:get("setmoder:"..msg.chat_id_) then if not msg.can_be_deleted_ == true then storm_sendMsg(msg.chat_id_, msg.id_, 1, "✖ ❯❯ انا لست ادمن في الكروب 🍃\n", 1, "md") else  if not tahadevstorm:get("lock:add:free"..msg.chat_id_) then tahadevstorm:del('lock:add'..msg.chat_id_)  username = data.administrator_count_
+if text==('تفعيل') and not is_sudo(msg)  and add_in_ch(msg) and not tahadevstorm:get("addfrebot:"..msg.chat_id_) and not tahadevstorm:get("setmoder:"..msg.chat_id_) then if not msg.can_be_deleted_ == true then storm_sendMsg(msg.chat_id_, msg.id_, 1, "✖ ❯❯ انا لست ادمن في الكروب 🍃\n", 1, "md") else  if not tahadevstorm:get("lock:add:free"..msg.chat_id_) then tahadevstorm:del('lock:add'..msg.chat_id_)  username = data.administrator_count_
 local function cb(extra,result,success) local moder = result.members_   for i = 0 , #moder do   if tahadevstorm:sismember('mods:'..msg.chat_id_,moder[i].user_id_) then   else tahadevstorm:sadd('mods:'..msg.chat_id_,moder[i].user_id_) end  end end    chek_moder(msg.chat_id_,cb)   function gpinfo(arg,data)   local function cb(extra,result,success)  local moder = result.members_    for i = data.administrator_count_ - 1 , #moder do   if tahadevstorm:sismember('moder'..msg.chat_id_,moder[i].user_id_) then  else tahadevstorm:sadd('moder'..msg.chat_id_,moder[i].user_id_) end   end end  chek_moder(msg.chat_id_,cb) end getChannelFull(msg.chat_id_, gpinfo, nil) 
 local add_bot_in_group = [[
 📇┊اهلا بك عزيزي المستخدم 🍃
@@ -1611,28 +1611,3 @@ l📮| يمكنك استخدام البوت بامان تام
 l📮|مطور السورس @TAHAJ20
 ]])
 tdcli_function ({     ID="GetChats",    offset_order_="9223372036854775807",    offset_chat_id_=0,  limit_=20  }, dl_cb, nil) end end
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
