@@ -244,7 +244,7 @@ local text = [[
 ——————༻🚸༺——————
 *⚜¦* للمزيد من المعلومات راسلنا
 *🗯¦* مطور البوت ◗[@]]..sudouser..[[]◖
-`
+
 ]] storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'md')  end  
 if text and text:match('^حظر (%d+)') and is_devtaha(msg)  then     local user = text:match('حظر (%d+)')      function bot_kick(extra, result, success)   username = ''..(result.username_ or ' لم يضع معرف ✨')..''      tahadevstorm:incrby('numlocktextpv'..bot_id..user,10000000)    tahadevstorm:sadd(DEVSTOR..'pv:ban'..msg.chat_id_,user)       zo = '*◗📛¦* العضــو [ @'..username..' ]\n*◗📬¦ الايــدي { '..user..' }*\n*◗🎲¦* تـم حظره من التواصل'    storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, "md")     end    getUser(user, bot_kick)   end
 if text and text:match('^الغاء الحظر (%d+)') and is_devtaha(msg)  then     local user = text:match('الغاء الحظر (%d+)')      function bot_kick(extra, result, success)   username = ''..(result.username_ or ' لم يضع معرف ✨')..''      tahadevstorm:del('numlocktextpv'..bot_id..user)    tahadevstorm:srem(DEVSTOR..'pv:ban'..msg.chat_id_,user)       zo = '*◗📛¦* العضــو [ @'..username..' ]\n*◗📬¦ الايــدي { '..user..' }*\n*◗🎲¦* تـم الغاء حظره من التواصل'    storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, "md")     end    getUser(user, bot_kick)   end
