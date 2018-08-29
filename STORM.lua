@@ -1798,7 +1798,7 @@ storm_sendMsg(msg.chat_id_, msg.id_, 1,''..result.first_name_..'', 1, 'html')
 end
 getUser(v,getmods)
 end
-if text == ("ايدي") and msg.reply_to_message_id_ == 0 and not tahadevstorm:get(DEVSTOR..'lock:id'..msg.chat_id_) and get_id(msg) then      
+if text == ("ايدي") and msg.reply_to_message_id_ == 0 and not tahadevstorm:get(DEVSTOR..'lock:id'..msg.chat_id_)  then      
 function getmepar(extra,result,success) 
 if result.username_ then username = '@'..result.username_ else username = ' لا يوجد 🎍 ' end
 local msguser = tonumber(tahadevstorm:get(DEVSTOR..'user:messages:'..msg.chat_id_..':'..msg.sender_user_id_) or 1) 
