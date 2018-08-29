@@ -1,0 +1,3 @@
+killall screen
+screen ./STORM.sh
+echo -e "STORM IS RUN BOT"
