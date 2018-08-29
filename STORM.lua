@@ -1792,7 +1792,7 @@ if text =="🙈🙈🙈🙈🙈" and  not tahadevstorm:get(DEVSTOR..'lock:reoly:
 if text == 'تنضيف المشتركين' and is_devtaha(msg) and add_in_ch(msg) then   local addgrop = tahadevstorm:scard(DEVSTOR.."usersbot") or 0  storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📛¦جاري تنضيف المشتركين *\n*♻¦ عدد المشتركين في البوت حاليا ◗'..addgrop..'◖* مشترك\n', 1, 'md')       sleep(1)   local list = tahadevstorm:smembers(DEVSTOR..'usersbot')     for k,v in pairs(list) do      rempv(v)   end local addgrop = tahadevstorm:scard(DEVSTOR.."usersbot") or 0   storm_sendMsg(msg.chat_id_, msg.id_, 1, '*🚸¦ اصبح عدد المشتركين الان ◗'..addgrop..'◖* مشترك \n', 1, 'md')        end  
 if chat_type == 'super' and tahadevstorm:get(DEVSTOR.."add:bot:group"..msg.chat_id_)  then if text == "id" then
 function id_by_reply(extra, result, success) storm_sendMsg(msg.chat_id_, msg.id_, 1, '<b>📫 • ايديه </b> : [ <code>'..result.sender_user_id_..'</code> ]', 1, 'html') end  if tonumber(msg.reply_to_message_id_) == 0 then else getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),id_by_reply) end end
-if text == ("ايدي") and msg.reply_to_message_id_ == 0 and not tahadevstorm:get(DEVSTOR..'lock:id'..msg.chat_id_) get_id(msg)  then      
+if text == ("ايدي") and msg.reply_to_message_id_ == 0 and not tahadevstorm:get(DEVSTOR..'lock:id'..msg.chat_id_) and get_id(msg)  then      
 function getmepar(extra,result,success) 
 if result.username_ then username = '@'..result.username_ else username = ' لا يوجد 🎍 ' end
 local msguser = tonumber(tahadevstorm:get(DEVSTOR..'user:messages:'..msg.chat_id_..':'..msg.sender_user_id_) or 1) 
