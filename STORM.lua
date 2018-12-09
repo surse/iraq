@@ -1147,7 +1147,7 @@ storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ تم الغاء الاذاعه 
 tahadevstorm:del(DEVSTOR.."bc:in:gropsfwd" .. msg.chat_id_ .. ":" .. msg.sender_user_id_) 
 return false  end 
 if msg.forward_info_ then 
-local gps = tahadevstorm:scard(DEVSTOR..'botgps')   
+local gps = tahadevstorm:scard(DEVSTOR..'bot:gpsby:id')   
 local list = tahadevstorm:smembers(DEVSTOR..'botgps')   
 for k,v in pairs(list) do  
 forwardMessages(v, msg.chat_id_, {[0] = msg.id_}, 1)  
@@ -1178,7 +1178,7 @@ forwardMessages(v, msg.chat_id_, {[0] = msg.id_}, 1)
 end   
 end 
 local gpspv = tahadevstorm:scard(DEVSTOR..'usersbot')   
-local gps = tahadevstorm:scard(DEVSTOR..'botgps')   
+local gps = tahadevstorm:scard(DEVSTOR..'bot:gpsby:id')   
 local gmfwd = '📮*¦ تمت اذاعة الى *'..
 '\n*⚀¦ » ❪'..gpspv..'❫* مشترك في الخاص'..
 '\n*⚁¦ » ❪'..gps..'❫* مجموعه في البوت\n💥' 
@@ -1205,7 +1205,7 @@ if text and text:match("^الغاء$") or text and text:match("^الغاء ✖$"
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ تم الغاء الاذاعه للمجموعات *\n✓", 1, "md") 
 tahadevstorm:del(DEVSTOR.."bc:in:grops" .. msg.chat_id_ .. ":" .. msg.sender_user_id_) 
 else 
-local gps = tahadevstorm:scard(DEVSTOR.."botgps") or 0 
+local gps = tahadevstorm:scard(DEVSTOR.."bot:gpsby:id") or 0 
 if msg.content_.text_ then
 whatbc = 'الرساله'
 local list = tahadevstorm:smembers(DEVSTOR..'bot:gpsby:id') 
@@ -1245,7 +1245,7 @@ if text and text:match("^الغاء$") or text and text:match("^الغاء ✖$"
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ تم الغاء الاذاعه للكل *\n✓", 1, "md") 
 tahadevstorm:del(DEVSTOR.."bc:in:all" .. msg.chat_id_ .. ":" .. msg.sender_user_id_)  
 else  
-local gps = tahadevstorm:scard(DEVSTOR.."botgps") or 0  
+local gps = tahadevstorm:scard(DEVSTOR.."bot:gpsby:id") or 0  
 if msg.content_.text_ then
 local list = tahadevstorm:smembers(DEVSTOR..'bot:gpsby:id') 
 for k,v in pairs(list) do 
@@ -3863,7 +3863,7 @@ for k,v in pairs(list) do
 sendSticker(v, 0, 0, 1, nil, b.content_.sticker_.sticker_.persistent_id_)   
 end 
 end
-local grp = tahadevstorm:scard(DEVSTOR.."botgps")  
+local grp = tahadevstorm:scard(DEVSTOR.."bot:gpsby:id")  
 local pv = tahadevstorm:scard(DEVSTOR.."usersbot")          
 local text = '📬*¦ تمت الاذاعه الى *'..
 '\n*⚀¦ » ❪'..pv..'❫* مشترك في الخاص'..
@@ -3883,11 +3883,6 @@ sleep(0.5)
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '🚸*¦* تم تحديث ♻ السورس ✔ ', 1, 'md') 
 dofile('STORM.lua')  
 end
-if text == 'مسح قائمه العام' and is_devtaha(msg) then 
-tahadevstorm:del(DEVSTOR..'storm:gbaned') 
-storm_sendMsg(msg.chat_id_, msg.id_, 1,'*📛¦* تم مسح قائمه المحظورين عام ', 1, 'md') 
-end	 
-
 if text == 'الاحصائيات' and is_devtaha(msg) then  
 local grall = tahadevstorm:scard(DEVSTOR.."botgps") or 0  
 local gradd = tahadevstorm:scard(DEVSTOR..'bot:gpsby:id') or 0  
@@ -3903,10 +3898,6 @@ pv = pv + 1
 end   
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '*🎲¦ تم مسح » ❪'..pv..'❫ من المشتركين *\n', 1, 'md') 
 end  
-
-
-
-
 if text == 'غادر' and is_owner(msg) then 
 tahadevstorm:srem(DEVSTOR.."addgrop", msg.chat_id_) 
 tahadevstorm:del(DEVSTOR.."add:bot:group"..msg.chat_id_, true) 
@@ -7414,7 +7405,7 @@ user_id_ = result.id_
 tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = result.id_, status_ = { ID = "ChatMemberStatusLeft" }, 
 },function(arg,ban) 
 if data and data.code_ and data.code_ == 6 then
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📌¦ لا استطيع استخراج معلوماته*\n💥', 1, 'md') 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*??¦ لا استطيع استخراج معلوماته*\n💥', 1, 'md') 
 return false  end
 if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "CHAT_ADMIN_REQUIRED" then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ يرجى تفعيل صلاحيه حظر المستخدمين لاتمكن من الغاء حظره عام *\n🍃', 1, 'md') 
