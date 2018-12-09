@@ -4,6 +4,9 @@ if text == "هلو" or text == "هلاو" or text == "هلوو" or text == "ها
 local taha = {'هلاوات 😻 مشعشع 💫','اهلا وسهلا 💔','😩كل شويه يجي واحد واكلة هلو😖 والله مليت 🤕🙌','Hello😻, my friend😿, how are you👮','😎كل هلا بك في كروبنا 🤕 نورت😼'} 
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha[math.random(#taha)], 1, 'html')  
 end 
+if text == 'بوت' then
+local taha = {'   نجب لك صارت قديمه صيحلي باسمي 😒💛','ها احجي شتريد 😏 صيحلي باسمي بعد لدكول بوت😢   ','  لۧاٲ   مو بوت اقرا اسمي✨ ',' نْجٍبْ لُگ عنْدِيَ آسم ۆصٍيَحٍـنْيَ بْيَة 😟😤ّ'} storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') end 
+
 if text == "شلونك" or text == "شلونكم"then 
 local taha = {'😹اني بلنسبه الي دايح 👻 شوف بقية الاعضاء😴','😕الحمد •للّـ🙏ّـرب وانته/ي 🤔','😡كل شويه واحد يكلي شلونك😪 وشلونكم عمي كلنه بخير كمل🤐','زين واسيا واثير 😹 ادري قديمه انجب 😷'}
  storm_sendMsg(msg.chat_id_, msg.id_, 1,taha[math.random(#taha)], 1, 'html')  
@@ -86,7 +89,7 @@ taha = [[
 💥¦ مہ8 » لعَرض اوامر اﻟ̣مطور الاساسي 
  ٴ━━━━━━━━━━
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
-🗯¦ مطور البوت »* ]] ..SUDOUSERNAME..[[
+🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
@@ -117,7 +120,7 @@ taha = [[
 💢¦ اوامر الطرد » لعرض اوامر الطرد
  ٴ━━━━━━━━━━
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
-🗯¦ مطور البوت »* ]] ..SUDOUSERNAME..[[
+🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
@@ -146,7 +149,7 @@ taha = [[
 🚜¦ شنو رئيك بهاي بالرد
  ٴ━━━━━━━━━━
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
-🗯¦ مطور البوت »* ]] ..SUDOUSERNAME..[[
+🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
@@ -169,7 +172,7 @@ taha = [[
 ♦️¦ رفع القيود » { ايدي › معرف › رد }
  ٴ━━━━━━━━━━
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
-🗯¦ مطور البوت »* ]] ..SUDOUSERNAME..[[
+🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
@@ -223,7 +226,7 @@ taha = [[
 📨¦ المگتومين «
  ٴ━━━━━━━━━━
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
-🗯¦ مطور البوت »* ]] ..SUDOUSERNAME..[[
+🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
@@ -270,7 +273,7 @@ taha = [[
 📬¦ تفعيل ‹› تعطيل » الردود بالرد 
  ٴ━━━━━━━━━━
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
-🗯¦ مطور البوت »* ]] ..SUDOUSERNAME..[[
+🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
@@ -293,7 +296,7 @@ taha = [[
 📓¦ ضع اسمہ + الاسم التريدهۂ
  ٴ━━━━━━━━━━
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
-🗯¦ مطور البوت »* ]] ..SUDOUSERNAME..[[
+🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
@@ -312,7 +315,7 @@ taha = [[
 🏵¦ مسح المنشئين – المنشئين !
 ٴ━━━━━━━━━━
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
-🗯¦ مطور البوت »* ]] ..SUDOUSERNAME..[[
+🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
@@ -397,7 +400,7 @@ taha = [[
 📂¦ تعطيل ملف + اسم الملف
 ٴ━━━━━━━━━━
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
-🗯¦ مطور البوت »* ]] ..SUDOUSERNAME..[[
+🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
@@ -419,7 +422,7 @@ taha = [[
 📬¦ الجهات ‹› السيلفي 
  ٴ━━━━━━━━━━
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
-🗯¦ مطور البوت »* ]] ..SUDOUSERNAME..[[
+🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
@@ -442,7 +445,7 @@ taha = [[
 🌀¦ الجهات ‹› السيلفي 
  ٴ━━━━━━━━━━
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
-🗯¦ مطور البوت »* ]] ..SUDOUSERNAME..[[
+🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
@@ -465,7 +468,7 @@ taha = [[
 ⚜¦ الجهات ‹› السيلفي 
  ٴ━━━━━━━━━━
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
-🗯¦ مطور البوت »* ]] ..SUDOUSERNAME..[[
+🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
