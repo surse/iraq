@@ -3359,6 +3359,16 @@ tahadevstorm:del(DEVSTOR.."mall:addreply1:video:gp"..v..bot_id)
 tahadevstorm:del(DEVSTOR.."mall:addreply1:document:gp"..v..bot_id)
 tahadevstorm:del(DEVSTOR.."mall:addreply1:audio:gp"..v..bot_id)
 tahadevstorm:srem(DEVSTOR.."rep:media:all"..bot_id,v)    
+tahadevstorm:del("add:repallt"..msg.sender_user_id_..bot_id)    
+tahadevstorm:del("add:repallt:gif:all"..v..bot_id)    
+tahadevstorm:del("add:rep:tvico:all"..v..bot_id)    
+tahadevstorm:del("add:rep:tstekr:all"..v..bot_id)    
+tahadevstorm:del("add:rep:text:all"..v..bot_id)    
+tahadevstorm:del("mall:addreply1:photo:gp"..v..bot_id)
+tahadevstorm:del("mall:addreply1:video:gp"..v..bot_id)
+tahadevstorm:del("mall:addreply1:document:gp"..v..bot_id)
+tahadevstorm:del("mall:addreply1:audio:gp"..v..bot_id)
+tahadevstorm:srem("rep:media:all"..bot_id,v)    
 end    
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📛¦* المجموعه تحتوي على *{"..taha.."}* رد \n*📮¦* تم مسح الردود جميعها \n", 1, 'md')    
 end
@@ -5207,7 +5217,7 @@ zo = '📮¦ العضــو » ❪ '..CatchName(data.first_name_,15)..' ❫\n�
 stormmonshn(msg.chat_id_, user, msg.id_, zo, 16, utf8.len(CatchName(data.first_name_,15)))  
 tahadevstorm:sadd(DEVSTOR..'storm:kick'..msg.chat_id_,user)   
 else
-zo = '*📮¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..user..'` ❫\n*🚸¦* تـم طرده من الكروب\n🍃'     
+zo = '*??¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..user..'` ❫\n*🚸¦* تـم طرده من الكروب\n🍃'     
 tahadevstorm:sadd(DEVSTOR..'storm:kick'..msg.chat_id_,user)   
 seavusername(user) 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
