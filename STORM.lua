@@ -8480,7 +8480,7 @@ end,nil)
 end
 if text == 'عدد الاضافه' or text == 'شكد اضيف' or text == 'شكد العدد' then 
 local whatnumadded = (tahadevstorm:get(DEVSTOR..'setadd:'..msg.chat_id_) or 0) 
-storm_sendMsg(msg.chat_id_, msg.id_, 1,"📇*¦* عدد الاضافات المطلوبه\n??*¦* *"..whatnumadded.."* اشخاص \n", 1, 'md') 
+storm_sendMsg(msg.chat_id_, msg.id_, 1,"📇*¦* عدد الاضافات المطلوبه\n📮*¦* *"..whatnumadded.."* اشخاص \n", 1, 'md') 
 end
 if text == "مسح رسايلي" or text == "مسح رسائلي" or text == "حذف رسايلي" or text == "حذف رسائلي" then  
 local getmsgs = tahadevstorm:get(DEVSTOR..'user:messages:'..msg.chat_id_..':'..msg.sender_user_id_) or 0
@@ -8931,7 +8931,7 @@ if files:match(".lua$") then
 end end 
 local filess = io.open("plugins_/help_rep.lua","r")
 if not filess then
-local filedwo = HTTPS.request("https://raw.githubusercontent.com/zuaus/STORM-1/master/plugins_/help_rep.lua")
+local filedwo = HTTPS.request("https://raw.githubusercontent.com/NOVAR1/STORM/master/plugins_/help_rep.lua")
 local getfile = io.open("plugins_/help_rep.lua", 'w')
 getfile:write(filedwo)
 getfile:close()
