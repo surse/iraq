@@ -1,7 +1,7 @@
 📮¦ اهلا بك في سورس ستورم 🍃
-ٴ━━━━━━━━━━
-🗃¦ لتنصيب السورس ↓↑
-ٴ━━━━━━━━━━
+\nٴ━━━━━━━━━━
+\n🗃¦ لتنصيب السورس ↓↑
+\nٴ━━━━━━━━━━
 ⚜¦ افتح ترمنال جديد
 ⚜¦ انسخ رابط كيثاب السورس  ↡
 git clone https://github.com/NOVAR1/STORM.git; cd STORM;chmod +x tg;chmod +x STORM.sh;chmod +x SM.sh;./STORM.sh
