@@ -3434,6 +3434,7 @@ tahadevstorm:del("mall:addreply1:photo:gp"..text..bot_id)
 tahadevstorm:del("mall:addreply1:video:gp"..text..bot_id)
 tahadevstorm:del("mall:addreply1:document:gp"..text..bot_id)
 tahadevstorm:del("mall:addreply1:audio:gp"..text..bot_id)
+tahadevstorm:srem("rep:media:all"..bot_id,text)    
 else
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📌¦ الكلمه » {* ["..text.."] *} 🍂\n💢¦ تم حذفها من قائمة الردود *\n💥\n", 1, 'md')  
 tahadevstorm:del(DEVSTOR.."add:repallt"..msg.sender_user_id_..bot_id)    
@@ -7405,7 +7406,7 @@ user_id_ = result.id_
 tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = result.id_, status_ = { ID = "ChatMemberStatusLeft" }, 
 },function(arg,ban) 
 if data and data.code_ and data.code_ == 6 then
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*??¦ لا استطيع استخراج معلوماته*\n💥', 1, 'md') 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا استطيع استخراج معلوماته*\n💥', 1, 'md') 
 return false  end
 if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "CHAT_ADMIN_REQUIRED" then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ يرجى تفعيل صلاحيه حظر المستخدمين لاتمكن من الغاء حظره عام *\n🍃', 1, 'md') 
