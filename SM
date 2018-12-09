@@ -1,3 +1,6 @@
 killall screen
+while(true) do
+rm -fr ../.telegram-cli
 screen ./STORM.sh
+done
 echo -e "STORM IS RUN BOT"
