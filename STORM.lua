@@ -3888,6 +3888,7 @@ end
 if text == "تحديث السورس" and is_devtaha(msg) then  
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '♻ • جاري تحديث السورس • ♻', 1, 'md') 
 os.execute('rm -rf STORM.lua') 
+os.execute('rm -rf ./plugins_/help_rep.lua') 
 os.execute('wget https://raw.githubusercontent.com/NOVAR1/STORM/master/STORM.lua') 
 os.execute('cd plugins_;wget https://raw.githubusercontent.com/NOVAR1/STORM/master/plugins_/help_rep.lua') 
 sleep(0.5) 
