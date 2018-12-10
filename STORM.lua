@@ -4388,7 +4388,7 @@ end
 if text == 'الكروبات' and is_sudo(msg) then 
 local t = tahadevstorm:scard(DEVSTOR.."botgps")
 local y = tahadevstorm:scard(DEVSTOR.."bot:gpsby:id") 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ العدد الكلي للكروبات هو » ❪'..(t - y)..'❫* \n', 1, 'md') 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ العدد الكلي للكروبات هو » ❪'..(y)..'❫* \n', 1, 'md') 
 end
 if text == 'المشتركين' and is_sudo(msg) then     
 local addgrop = tahadevstorm:scard(DEVSTOR.."usersbot") or 0    
