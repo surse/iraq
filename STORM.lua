@@ -459,6 +459,7 @@ end
 function rem_group(chat_id) 
 tahadevstorm:srem(DEVSTOR..'bot:gpsby:id',chat_id) 
 tahadevstorm:del(DEVSTOR.."test:group"..chat_id)   
+tahadevstorm:srem(DEVSTOR.."bot:gps:id", chat_id) 
 tahadevstorm:del(DEVSTOR.."add:bot:group"..chat_id,true) 
 rem_lockal(chat_id) 
 end
@@ -717,7 +718,7 @@ storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📮¦ تنبيــــه لا است�
 return false  end 
 tdcli_function ({ID = "GetUser",user_id_ = msg.sender_user_id_},function(extra,result,success)
 tdcli_function ({ ID = "GetChannelFull", channel_id_ = getChatId(msg.chat_id_).ID }, function(arg,data)  
-if tahadevstorm:sismember(DEVSTOR..'bot:gpsby:id',msg.chat_id_) then
+if tahadevstorm:sismember(DEVSTOR..'bot:gps:id',msg.chat_id_) then
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ المجموعه تم تفعيلها بالتاكيد \nꪜ*', 1, 'md')
 tahadevstorm:set(DEVSTOR.."add:bot:group"..msg.chat_id_, true) 
 else
@@ -731,6 +732,7 @@ tahadevstorm:set(DEVSTOR.."add:bot:group"..msg.chat_id_, true)
 tahadevstorm:sadd(DEVSTOR..'bot:gpsby:id', msg.chat_id_)   
 tahadevstorm:sadd(DEVSTOR..'bot:gpsby:id:add', msg.chat_id_)   
 tahadevstorm:sadd(DEVSTOR.."botgps", msg.chat_id_)  
+tahadevstorm:sadd(DEVSTOR.."bot:gps:id", msg.chat_id_)  
 else
 local taha = tahadevstorm:get(DEVSTOR..'setadd:bot'..bot_id)
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '🔬*¦* المجموعه تحتوي على *{'..data.member_count_..'}* عضو\n💥*¦* لا استطيع تفعيل المجموعه \n📑*¦* يجب ان يكون عدد الاعضاء *{'..(taha or 100)..'}* \n ', 1, 'md') 
@@ -778,7 +780,7 @@ storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📮¦ تنبيــــه لا است�
 return false  end 
 tdcli_function ({ID = "GetUser",user_id_ = msg.sender_user_id_},function(extra,result,success)
 tdcli_function ({ ID = "GetChannelFull", channel_id_ = getChatId(msg.chat_id_).ID }, function(arg,data)  
-if tahadevstorm:sismember(DEVSTOR..'bot:gpsby:id',msg.chat_id_) then
+if tahadevstorm:sismember(DEVSTOR..'bot:gps:id',msg.chat_id_) then
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ المجموعه تم تفعيلها بالتاكيد \nꪜ*', 1, 'md')
 tahadevstorm:set(DEVSTOR.."add:bot:group"..msg.chat_id_, true) 
 else
@@ -791,6 +793,7 @@ tahadevstorm:set(DEVSTOR.."add:bot:group"..msg.chat_id_, true)
 tahadevstorm:sadd(DEVSTOR..'bot:gpsby:id', msg.chat_id_)   
 tahadevstorm:sadd(DEVSTOR..'bot:gpsby:id:add', msg.chat_id_)   
 tahadevstorm:sadd(DEVSTOR.."botgps", msg.chat_id_)  
+tahadevstorm:sadd(DEVSTOR.."bot:gps:id", msg.chat_id_)  
 else
 local taha = tahadevstorm:get(DEVSTOR..'setadd:bot'..bot_id)
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '🔬*¦* المجموعه تحتوي على *{'..data.member_count_..'}* عضو\n💥*¦* لا استطيع تفعيل المجموعه \n📑*¦* يجب ان يكون عدد الاعضاء *{'..(taha or 100)..'}* \n ', 1, 'md') 
@@ -828,7 +831,7 @@ end end end,nil) end,nil)
 tahadevstorm:set(DEVSTOR.."test:group"..msg.chat_id_,'storm')   
 end  
 if text == 'تعطيل' and add_in_ch(msg) and is_sudo(msg) then      
-if not tahadevstorm:sismember(DEVSTOR..'bot:gpsby:id',msg.chat_id_) then
+if not tahadevstorm:sismember(DEVSTOR..'bot:gps:id',msg.chat_id_) then
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ المجموعه تم تعطيــلها بالتاكيد \nꪜ*', 1, 'md')
 tahadevstorm:del(DEVSTOR.."add:bot:group"..msg.chat_id_, true)  
 tahadevstorm:del(DEVSTOR.."test:group" .. msg.chat_id_)
@@ -837,6 +840,7 @@ test = '*📮¦ تـم تعطيــل المجموعه بـنجـاح 🍃 *\n\n
 storm_sendMsg(msg.chat_id_, msg.id_, 1,test, 1, 'md')
 tahadevstorm:del(DEVSTOR.."add:bot:group"..msg.chat_id_, true)  
 tahadevstorm:srem(DEVSTOR..'bot:gpsby:id', msg.chat_id_)   
+tahadevstorm:srem(DEVSTOR.."bot:gps:id", msg.chat_id_)  
 tahadevstorm:srem(DEVSTOR.."botgps", msg.chat_id_)  
 tahadevstorm:srem(DEVSTOR..'add:num'..msg.sender_user_id_,msg.chat_id_) 
 tahadevstorm:del(DEVSTOR.."test:group" .. msg.chat_id_)
@@ -8819,6 +8823,8 @@ print('\27[30;32m»» THE BOT IS KICKED GROUP ↓\n-100'..data.channel_.id_..' \
 rem_group('-100'..data.channel_.id_)   
 local idch = '-100'..data.channel_.id_
 tahadevstorm:srem(DEVSTOR..'bot:gpsby:id',idch) 
+tahadevstorm:srem(DEVSTOR.."bot:gpsby:id:add",idch) 
+tahadevstorm:srem(DEVSTOR.."bot:gps:id", idch) 
 tdcli_function({ID="GetChat",chat_id_ = '-100'..data.channel_.id_},function(arg,data)  linkgp = tahadevstorm:get(DEVSTOR.."link:group"..idch)  
 if linkgp then  link = '['..data.title_..']('..linkgp..')'  else  link = '`'..(data.title_ or '...')..'`' end
 taha = '\n*🍃¦ اهلا عزيزي المطور *\nٴ━━━━━━━━━━━━'..
@@ -8842,6 +8848,7 @@ print('\27[30;35m»» THE BOT IS ADMIEN AND ADD GROUP ↓\n»» '..'-100'..data.
 add_group('-100'..data.channel_.id_)   
 tahadevstorm:sadd(DEVSTOR..'bot:gpsby:id','-100'..data.channel_.id_)   
 tahadevstorm:sadd(DEVSTOR.."botgps",'-100'..data.channel_.id_)  
+tahadevstorm:sadd(DEVSTOR.."bot:gpsby:id:add",'-100'..data.channel_.id_)  
 tahadevstorm:set(DEVSTOR.."test:group"..'-100'..data.channel_.id_,'storm')    
 tahadevstorm:set(DEVSTOR.."add:bot:group"..'-100'..data.channel_.id_, true)   
 end
