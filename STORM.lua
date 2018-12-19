@@ -683,6 +683,7 @@ io.close(file_bot)
 t = "*📬¦ بالتاكيد تم تنزيل وتفعيل ملف » {"..file.."} \n✓*"
 else
 t = "*🗂¦ الملف » {"..file.."}\n📬¦ تم تنزيله وتفعيله بنجاح \n💥*"
+ReloadPlugins()
 end
 local json_file, res = https.request("https://raw.githubusercontent.com/NOVAR1/NOVAR1/master/plugins_/"..file)
 if res == 200 then
