@@ -729,6 +729,7 @@ tahadevstorm:sadd(DEVSTOR..'moder'..msg.chat_id_,msg.sender_user_id_)
 tahadevstorm:sadd(DEVSTOR..'add:num'..msg.sender_user_id_,msg.chat_id_) 
 tahadevstorm:set(DEVSTOR.."add:bot:group"..msg.chat_id_, true)  
 tahadevstorm:sadd(DEVSTOR..'bot:gpsby:id', msg.chat_id_)   
+tahadevstorm:sadd(DEVSTOR..'bot:gpsby:id:add', msg.chat_id_)   
 tahadevstorm:sadd(DEVSTOR.."botgps", msg.chat_id_)  
 else
 local taha = tahadevstorm:get(DEVSTOR..'setadd:bot'..bot_id)
@@ -788,6 +789,7 @@ storm_sendMsg(msg.chat_id_, msg.id_, 1,test, 1, 'md')
 tahadevstorm:sadd(DEVSTOR..'add:num'..msg.sender_user_id_,msg.chat_id_) 
 tahadevstorm:set(DEVSTOR.."add:bot:group"..msg.chat_id_, true)  
 tahadevstorm:sadd(DEVSTOR..'bot:gpsby:id', msg.chat_id_)   
+tahadevstorm:sadd(DEVSTOR..'bot:gpsby:id:add', msg.chat_id_)   
 tahadevstorm:sadd(DEVSTOR.."botgps", msg.chat_id_)  
 else
 local taha = tahadevstorm:get(DEVSTOR..'setadd:bot'..bot_id)
@@ -8833,7 +8835,7 @@ rem_group('-100'..data.channel_.id_)
 tahadevstorm:sadd(DEVSTOR..'botgps','-100'..data.channel_.id_) 
 elseif data.channel_.status_.ID == "ChatMemberStatusEditor" then   
 local tahach = '-100'..data.channel_.id_
-if tahadevstorm:sismember(DEVSTOR..'bot:gpsby:id','-100'..data.channel_.id_)  then  
+if tahadevstorm:sismember(DEVSTOR..'bot:gpsby:id:add','-100'..data.channel_.id_)  then  
 print('\27[30;33m»» THE GROUP IS HAS BEEN ADD ↓\n»» '..'-100'..data.channel_.id_..'\n\27[1;37m')
 else 
 print('\27[30;35m»» THE BOT IS ADMIEN AND ADD GROUP ↓\n»» '..'-100'..data.channel_.id_..'\n\27[1;37m')
