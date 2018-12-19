@@ -320,7 +320,7 @@ taha = 'اقوى متفاعل 👑'
 elseif msgs < 7000 then 
 taha = 'ملك التفاعل 🎭' 
 elseif msgs < 9500 then 
-taha = 'امبروطور التفاعل ' 
+taha = 'امبروطور التفاعل' 
 elseif msgs < 10000000000 then 
 taha = 'رب التفاعل 😂💜'  
 end 
@@ -8699,7 +8699,7 @@ t = 'مميز عام 🌟'
 elseif tahadevstorm:sismember(DEVSTOR..'vip:group'..msg.chat_id_,msg.sender_user_id_) then
 t = 'عضو مميز ⭐'
 else
-t = 'عظو 👶'
+t = 'عضو 👶'
 end
 local zo = '\n📮¦ رتبة البوت » ❲ {'..t..'} ❳\n📬¦ رتبتة الكروب » ❲ ❛'..rtpa..'❜ ❳\n💥'
 monsend(msg,msg.chat_id_,zo,msg.sender_user_id_)   
