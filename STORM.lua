@@ -8057,7 +8057,7 @@ tahadevstorm:del(DEVSTOR..'kick:'..msg.chat_id_..':'..msg.sender_user_id_, true)
 return false  end  
 local hash = 'kick:'..msg.chat_id_..':'..msg.sender_user_id_ 
 tahadevstorm:set(DEVSTOR..hash, "waite") 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '??*¦* رائع الان يمكنك تطبيق الشروط\n⚀*¦* ارسل ❪ نعم ❫ ليتم طردك\n*⚁¦* ارسل ❪ لا ❫ لالغاء طردك\n💥', 1, 'md') 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '📮*¦* رائع الان يمكنك تطبيق الشروط\n⚀*¦* ارسل ❪ نعم ❫ ليتم طردك\n*⚁¦* ارسل ❪ لا ❫ لالغاء طردك\n💥', 1, 'md') 
 end,nil)
 end 
 if text then 
@@ -8827,7 +8827,6 @@ print('\27[30;33m»» THE GROUP IS HAS BEEN ADD ↓\n»» '..'-100'..data.channe
 else 
 print('\27[30;35m»» THE BOT IS ADMIEN AND ADD GROUP ↓\n»» '..'-100'..data.channel_.id_..'\n\27[1;37m')
 add_group('-100'..data.channel_.id_)   
-tahadevstorm:sadd(DEVSTOR..'bot:gpsby:id','-100'..data.channel_.id_)
 tahadevstorm:sadd(DEVSTOR.."botgps",'-100'..data.channel_.id_)  
 tahadevstorm:set(DEVSTOR.."test:group"..'-100'..data.channel_.id_,'storm')    
 tahadevstorm:set(DEVSTOR.."add:bot:group"..'-100'..data.channel_.id_, true)   
