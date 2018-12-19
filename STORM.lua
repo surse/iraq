@@ -8284,6 +8284,7 @@ if tahadevstorm:get(DEVSTOR..'lock:id:photo'..msg.chat_id_)  then
 taha = '*📮¦ تم تفعيل الايدي *\n✓' 
 storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
 tahadevstorm:del(DEVSTOR..'lock:id:photo'..msg.chat_id_) 
+tahadevstorm:del(DEVSTOR..'lock:id'..msg.chat_id_) 
 else
 taha = '*📮¦ بالتاكيد تم تفعيل الايدي  *\n✓' 
 storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
@@ -8294,6 +8295,7 @@ if not tahadevstorm:get(DEVSTOR..'lock:id:photo'..msg.chat_id_)  then
 taha = '*📮¦ تم تعطيل الايدي بالصوره *\n✓' 
 storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
 tahadevstorm:set(DEVSTOR..'lock:id:photo'..msg.chat_id_,true) 
+tahadevstorm:set(DEVSTOR..'lock:id'..msg.chat_id_,true) 
 else
 taha = '*📮¦ بالتاكيد تم تعطيل الايدي بالصوره *\n✓' 
 storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
@@ -8783,7 +8785,7 @@ end
 end
 end
 else
-if not tahadevstorm:get(DEVSTOR..'lock:id:photo'..msg.chat_id_) then      
+if tahadevstorm:get(DEVSTOR..'lock:id:photo'..msg.chat_id_) then      
 local get_id_text = tahadevstorm:get(DEVSTOR.."KLISH:ID")
 if get_id_text then
 storm_sendMsg(msg.chat_id_, msg.id_, 1,get_id(msg,taha,get_id_text), 1, 'html')   
