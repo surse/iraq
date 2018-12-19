@@ -1,4 +1,5 @@
 local function tahaq(msg)
+if chat_type == 'super' then 
 if not tahadevstorm:get(DEVSTOR..'lock:reoly:bot'..msg.chat_id_) then
 if text == "هلو" or text == "هلاو" or text == "هلوو" or text == "هاي" then 
 local taha = {'هلاوات 😻 مشعشع 💫','اهلا وسهلا 💔','😩كل شويه يجي واحد واكلة هلو😖 والله مليت 🤕🙌','Hello😻, my friend😿, how are you👮','😎كل هلا بك في كروبنا 🤕 نورت😼'} 
@@ -482,5 +483,6 @@ taha = [[
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
+end
 end
 return {THESTORM=tahaq,}
