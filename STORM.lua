@@ -178,12 +178,12 @@ end
 end
 end
 end
-print("FILES IN BOT ↓")
-print("____________________")
+print("____________________\nFILES IN BOT ↓")
+print("____________________\n")
 local files = io.popen('ls plugins_'):lines()
 for fa in files do
 if fa:match(".lua$") then
-print(fa)
+print(fa..'\n\n')
 end
 end 
 ReloadPlugins()
@@ -192,6 +192,7 @@ function is_sudo(msg) local hash = tahadevstorm:sismember(DEVSTOR..'sudo:bot',ms
 function is_bot(msg) if tonumber(BOTS) == BOTS then return true else return false end end 
 function is_owner(msg) local hash = tahadevstorm:sismember(DEVSTOR..'moder'..msg.chat_id_,msg.sender_user_id_)    if hash or is_devtaha(msg) or is_sudo(msg) then    return true    else    return false    end end
 function is_monsh(msg) local hash = tahadevstorm:sismember(DEVSTOR..'modergroup'..msg.chat_id_,msg.sender_user_id_)    if hash or  is_devtaha(msg) or is_sudo(msg) or is_owner(msg) then    return true    else    return false    end end
+function is_canban(msg) local hash = tahadevstorm:sismember(DEVSTOR..'SET:BAN'..msg.chat_id_,msg.sender_user_id_)    if hash or  is_devtaha(msg) or is_sudo(msg) or is_owner(msg) then    return true    else    return false    end end
 function is_mod(msg) local hash = tahadevstorm:sismember(DEVSTOR..'mods:'..msg.chat_id_,msg.sender_user_id_)    if hash or  is_devtaha(msg) or is_sudo(msg) or is_owner(msg) or is_monsh(msg) then    return true    else    return false    end end
 function changetitle(chat_id, title) tdcli_function ({ ID = "ChangeChatTitle", chat_id_ = chat_id, title_ = title  }, dl_cb, nil) end
 function is_vipgroups(msg)  local hash = tahadevstorm:sismember(DEVSTOR..'vip:groups',msg.sender_user_id_) if hash or  is_devtaha(msg) then return true else return false end end
@@ -253,6 +254,52 @@ end
 else
 return var
 end
+end
+local function storm_send(chat_id, reply_to_message_id, text)
+local TextParseMode = {ID = "TextParseModeMarkdown"}
+tdcli_function ({ID = "SendMessage",chat_id_ = chat_id,reply_to_message_id_ = reply_to_message_id,disable_notification_ = 1,from_background_ = 1,reply_markup_ = nil,input_message_content_ = {ID = "InputMessageText",text_ = text,disable_web_page_preview_ = 1,clear_draft_ = 0,entities_ = {},parse_mode_ = TextParseMode,},}, dl_cb, nil)
+end
+function getrtp(chat,user) 
+local sudoe = tahadevstorm:sismember(DEVSTOR..'sudo:bot',user) 
+local noow = tahadevstorm:sismember(DEVSTOR..'moder'..chat,user) 
+if tonumber(SUDO) == tonumber(user) or sudoe or monh   then 
+return true 
+else 
+return false 
+end 
+end 
+function getrtpno(chat,user) 
+local moder =  tahadevstorm:sismember(DEVSTOR..'modergroup'..chat,user) 
+local mod tahadevstorm:sismember(DEVSTOR..'mods:'..chat,user) 
+if not moder or not mod  then 
+return true 
+else 
+return false 
+end 
+end 
+function sendMention(msg,chat,text,user)   
+entities = {}   
+entities[0] = {ID='MessageEntityBold', offset_=0, length_=0}   
+if text and text:match('{') and text:match('}')  then   
+local x = utf8.len(text:match('(.*){'))   
+local offset = x + 1  
+local y = utf8.len(text:match('{(.*)}'))   
+local length = y + 1  
+text = text:gsub('{','')   
+text = text:gsub('}','')   
+table.insert(entities,{ID="MessageEntityMentionName", offset_=offset, length_=length, user_id_=user})   
+end   
+return tdcli_function ({ID="SendMessage", chat_id_=chat, reply_to_message_id_=msg.id_, disable_notification_=0, from_background_=1, reply_markup_=nil, input_message_content_={ID="InputMessageText", text_=text, disable_web_page_preview_=1, clear_draft_=0, entities_=entities}}, dl_cb, nil)   
+end
+function CatchNamertprtp(Name) 
+ChekName = utf8.sub(Name,0,25) 
+Name = ChekName 
+if utf8.len(Name) > 24 then
+t=  Name..' ...' 
+else
+t = Name
+end
+return t
 end
 function dl_cb(dol, info) end  function getInputFile(file) if file:match('/') then infile = {ID = "InputFileLocal", path_ = file} elseif file:match('^%d+$') then infile = {ID = "InputFileId", id_ = file} else infile = {ID = "InputFilePersistentId", persistent_id_ = file} end return infile end
 function sendDocument(chat_id, reply_to_message_id, disable_notification, from_background, reply_markup, document, caption, dl_cb, cmd) tdcli_function ({ID = "SendMessage",chat_id_ = chat_id,reply_to_message_id_ = reply_to_message_id,disable_notification_ = disable_notification,from_background_ = from_background,reply_markup_ = reply_markup,input_message_content_ = {ID = "InputMessageDocument",document_ = getInputFile(document),caption_ = caption},}, dl_cb, cmd) end
@@ -468,52 +515,150 @@ tahadevstorm:sadd(DEVSTOR..'bot:gpsby:id',chat_id)
 tahadevstorm:sadd(DEVSTOR.."botgps",chat_id)  
 tahadevstorm:set(DEVSTOR.."test:group"..chat_id,'storm')    
 tahadevstorm:set(DEVSTOR.."add:bot:group"..chat_id, true)   
+add_lockal(chat_id)
 end
-function get_rtba(msg) if is_devtaha(msg) then t = 'المطور'  elseif is_sudo(msg) then t = 'المطور'  elseif is_owner(msg) then t = 'المنشئ'  elseif is_monsh(msg) then t = 'المدير'  elseif is_mod(msg) then t = 'الادمن'  end  return t end
-function sendaction(chat_id, action, progress) tdcli_function ({ ID = "SendChatAction",  chat_id_ = chat_id, action_ = {  ID = "SendMessage" .. action .. "Action", progress_ = progress or 100} }, dl_cb, nil) end
-local function deleteMessagesFromUser(chat_id, user_id, cb, cmd)  tdcli_function ({ ID = "DeleteMessagesFromUser",  chat_id_ = chat_id, user_id_ = user_id }, cb or dl_cb, cmd) end
-function check_markdown(text)  str = text if str then if str:match('_') then output = str:gsub('_',[[_]]) elseif str:match('*') then output = str:gsub('*','\\*') elseif str:match('`') then output = str:gsub('`','\\`') else output = str end return output end end
-function is_filter(msg, value)  local names = tahadevstorm:smembers(DEVSTOR..'filters:'..msg.chat_id_)  local var = false for i=1, #names do  if names[i] == value and not is_vipgroup(msg) then  var = true      end end return var  end 
-function is_muted(chat,user) local hash =  tahadevstorm:sismember(DEVSTOR..'mutes'..chat,user) if hash then return true else return false end end
-function stormmonshn(chat_id, user_id, msg_id, text, offset, length) local tt = tahadevstorm:get(DEVSTOR..'endmsg') or '' tdcli_function ({ ID = "SendMessage", chat_id_ = chat_id, reply_to_message_id_ = msg_id, disable_notification_ = 0, from_background_ = 1, reply_markup_ = nil, input_message_content_ = { ID = "InputMessageText", text_ = text..'\n\n'..tt, disable_web_page_preview_ = 1, clear_draft_ = 0, entities_ = {[0]={ ID="MessageEntityMentionName", offset_=offset, length_=length, user_id_=user_id }, }, }, }, dl_cb, nil) end
-function storm1(chat,user) local sudoe = tahadevstorm:sismember(DEVSTOR..'sudo:bot',user)  local vipss = tahadevstorm:sismember(DEVSTOR..'vip:groups',user)  local monh = tahadevstorm:sismember(DEVSTOR..'modergroup'..chat,user)  local noow = tahadevstorm:sismember(DEVSTOR..'moder'..chat,user)  local nomo = tahadevstorm:sismember(DEVSTOR..'mods:'..chat,user)  local novip2 = tahadevstorm:sismember(DEVSTOR..'vip:group'..chat,user)  if tonumber(SUDO) == tonumber(user) or sudoe or vipss or monh  or noow or nomo  or novip2 then  return true  else  return false  end  end 
-function storm2(chat,user) local sudoe = tahadevstorm:sismember(DEVSTOR..'sudo:bot',user)  local vipss = tahadevstorm:sismember(DEVSTOR..'vip:groups',user)  local noow = tahadevstorm:sismember(DEVSTOR..'moder'..chat,user)  if tonumber(SUDO) == tonumber(user) or sudoe or vipss or noow  then  return true else  return false end end 
-function storm3(chat,user) local sudoe = tahadevstorm:sismember(DEVSTOR..'sudo:bot',user) local noow = tahadevstorm:sismember(DEVSTOR..'moder'..chat,user) if tonumber(SUDO) == tonumber(user) or sudoe or monh   then return true else return false end end 
-function storm4(chat,user) local sudoe = tahadevstorm:sismember(DEVSTOR..'sudo:bot',user)     local noow = tahadevstorm:sismember(DEVSTOR..'moder'..chat,user)     local monh = tahadevstorm:sismember(DEVSTOR..'modergroup'..chat,user)     local memr = tahadevstorm:sismember(DEVSTOR..'mepar',user)    if tonumber(SUDO) == tonumber(user) or sudoe or monh or memr or noow then     return true     else     return false     end     end 
-function getInputFile(file) local input = tostring(file) if file:match('/') then infile = {ID = "InputFileLocal", path_ = file} elseif file:match('^%d+$') then infile = {ID = "InputFileId", id_ = file} else infile = {ID = "InputFilePersistentId", persistent_id_ = file} end return infile end
-function send_inlinestorm(chat_id,text,keyboard,inline,reply_id) local url = 'https://api.telegram.org/bot'..chaneel if keyboard then stormtoken = url .. '/sendMessage?chat_id=' ..chat_id.. '&text='..URL.escape(text)..'&parse_mode=html&reply_markup='..URL.escape(json:encode(keyboard)) else stormtoken = url .. '/sendMessage?chat_id=' ..chat_id.. '&text=' ..URL.escape(text)..'&parse_mode=html' end https.request(stormtoken) end
-local function getUserProfilePhotos(user_id, offset, limit, cb, cmd)  tdcli_function ({  ID = "GetUserProfilePhotos",   user_id_ = user_id,  offset_ = offset,  limit_ = limit  }, cb or dl_cb, cmd) end
-local function deleteMessages(chat_id, message_ids, cb, cmd)   tdcli_function ({  ID = "DeleteMessages",  chat_id_ = chat_id,  message_ids_ = message_ids  }, cb or dl_cb, cmd) end
-local function forwardMessages(chat_id, from_chat_id, message_ids, disable_notification, cb, cmd)  tdcli_function ({    ID = "ForwardMessages",    chat_id_ = chat_id,    from_chat_id_ = from_chat_id,    message_ids_ = message_ids,    disable_notification_ = disable_notification,    from_background_ = 1 }, cb or dl_cb, cmd) end
-function getUser(user_id, cb) tdcli_function ({   ID = "GetUser",  user_id_ = user_id }, cb, nil) end
-local function getMessage(chat_id, message_id,cb) tdcli_function ({ ID = "GetMessage", chat_id_ = chat_id, message_id_ = message_id }, cb, nil) end 
-function OpenChat(chat_id, cb) tdcli_function ({ID = "OpenChat",chat_id_ = chat_id}, cb or dl_cb, nil) end
-function getChat(chat_id, dl_cb, cmd)tdcli_function ({ID = "GetChat",chat_id_ = chat_id}, dl_cb, cmd) end
-function pin(channel_id, message_id, disable_notification)   tdcli_function ({  ID = "PinChannelMessage",  channel_id_ = getChatId(channel_id).ID,  message_id_ = message_id,  disable_notification_ = 1  }, dl_cb, cmd)   end
-local function timstoop() local uptime = io.popen("uptime -p"):read("*all") minutes = uptime:match(", %d+ minutes") or uptime:match(", %d+ minute") if minutes then minutes = minutes else minutes = "" end local c_ = string.match(minutes, "%d+") if c_ then c = c_ else c = 0 end return c..' دقيقه ' end
-local function getUser(user_id,cb) tdcli_function ({ ID = "GetUser", user_id_ = user_id }, cb, nil) end 
-local function changeChatMemberStatus(chat_id, user_id, status) tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = chat_id, user_id_ = user_id, status_ = { ID = "ChatMemberStatus" .. status }, }, dl_cb, nil) end 
-local function getChatHistory(chat_id, from_message_id, offset, limit,cb)tdcli_function ({ ID = "GetChatHistory", chat_id_ = chat_id, from_message_id_ = from_message_id, offset_ = offset, limit_ = limit }, cb, nil) end 
-local function getMe(cb) tdcli_function ({ID = "GetMe",}, cb, nil) end
-local function unpinChannelMessage(channel_id) tdcli_function ({ ID = "UnpinChannelMessage", channel_id_ = getChatId(channel_id).ID }, dl_cb, nil) end 
-local function pinChannelMessage(channel_id, message_id,disable_notification) tdcli_function ({ ID = "PinChannelMessage", channel_id_ = getChatId(channel_id).ID, message_id_ = message_id, disable_notification_ = disable_notification, }, dl_cb, nil) end
-function storm_sendMssg(chat_id, text, reply_to_message_id, markdown) send_api = "https://api.telegram.org/bot"..chaneel local url = send_api..'/sendMessage?chat_id=' .. chat_id .. '&text=' .. URL.escape(text) if reply_to_message_id ~= 0 then url = url .. '&reply_to_message_id=' .. reply_to_message_id/2097152/0.5  end if markdown == 'md' or markdown == 'markdown' then url = url..'&parse_mode=Markdown' elseif markdown == 'html' then url = url..'&parse_mode=HTML' end return s_api(url)  end
-function GetInputFile(file)  local file = file or ""   if file:match('/') then  infile = {ID= "InputFileLocal", path_  = file}  elseif file:match('^%d+$') then  infile = {ID= "InputFileId", id_ = file}  else  infile = {ID= "InputFilePersistentId", persistent_id_ = file}  end return infile end
-function sendAudio(chat_id,reply_id,audio,title,caption)  pcall(tdcli_function({  ID="SendMessage",  chat_id_ = chat_id,  reply_to_message_id_ = reply_id,  disable_notification_ = 0,  from_background_ = 1,  reply_markup_ = nil,  input_message_content_ = {  ID="InputMessageAudio",  audio_ = GetInputFile(audio),  duration_ = '',  title_ = title or '',  performer_ = '',  caption_ = caption or ''  }},dl_cb,nil))  end  
-local function sendVideo(chat_id, reply_to_message_id, disable_notification, from_background, reply_markup, video, duration, width, height, caption, cb, cmd)    local input_message_content = {      ID = "InputMessageVideo",      video_ = getInputFile(video),      added_sticker_file_ids_ = {},      duration_ = duration or 0,      width_ = width or 0,      height_ = height or 0,      caption_ = caption    }    sendRequest('SendMessage', chat_id, reply_to_message_id, disable_notification, from_background, reply_markup, input_message_content, cb, cmd)  end
-function sendChatAction(chatid,action,func) pcall(tdcli_function({ID = 'SendChatAction',chat_id_ = chatid,action_ = {ID = "SendMessage"..action.."Action",progress_ = 1},}, func or dl_cb,nil)) end
-function getchat(GroupID,func) pcall(tdcli_function({ID="GetChat",chat_id_ = GroupID},func or dl_cb,nil)) end
-function numrgroup(GroupID)  tdcli_function ({ ID = "GetChannelFull",channel_id_ = getChatId(GroupID).ID },function(arg,tah)   tahadevstorm:set(DEVSTOR.."numgrop"..GroupID,tah.member_count_) end,nil)  return tahadevstorm:get(DEVSTOR.."numgrop"..GroupID)   end
-function title_name(GroupID) pcall(tdcli_function({ID ="GetChat",chat_id_=GroupID },function(arg,data)  tahadevstorm:set(DEVSTOR..'group:name'..GroupID,data.title_)  end,nil)) return tahadevstorm:get(DEVSTOR..'group:name'..GroupID)  end
-local function changeChatTitle(chat_id, title) tdcli_function ({ ID = "ChangeChatTitle", chat_id_ = chat_id, title_ = title }, dl_cb, nil) end
-function sendPhoto(chat_id, reply_to_message_id, disable_notification, from_background, reply_markup, photo,caption)   tdcli_function ({ ID = "SendMessage",   chat_id_ = chat_id,   reply_to_message_id_ = reply_to_message_id,   disable_notification_ = disable_notification,   from_background_ = from_background,   reply_markup_ = reply_markup,   input_message_content_ = {   ID = "InputMessagePhoto",   photo_ = getInputFile(photo),   added_sticker_file_ids_ = {},   width_ = 0,   height_ = 0,   caption_ = caption  },   }, dl_cb, nil)  end
-function setphoto(chat_id, photo) tdcli_function ({    ID = "ChangeChatPhoto",   chat_id_ = chat_id,  photo_ = getInputFile(photo) }, dl_cb, nil) end
-function getChatId(id) local chat = {} local id = tostring(id) if id:match('^-100') then local channel_id = id:gsub('-100', '') chat = {ID = channel_id, type = 'channel'} else local group_id = id:gsub('-', '') chat = {ID = group_id, type = 'group'} end return chat end
-local getUser = function(user_id, cb)  tdcli_function({ID = "GetUser", user_id_ = user_id}, cb, nil) end
-function adduser(chat_id, user_id, forward_limit) tdcli_function ({ ID = "AddChatMember", chat_id_ = chat_id, user_id_ = user_id, forward_limit_ = forward_limit or 50 }, dl_cb, nil) end
-function kick(msg,chat,user)  if tonumber(user) == tonumber(bot_id) then  return false  end  if storm1(chat,user) then  else  changeChatMemberStatus(chat, user, "Kicked")  tdcli_function({ID="ChangeChatMemberStatus",chat_id_=chat,user_id_=user,status_={ID="ChatMemberStatusLeft"}},function(arg,ta) end,nil) end  end
-function kicck(msg,chat,user)   if tonumber(user) == tonumber(bot_id) then   return false   else  changeChatMemberStatus(chat, user, "Kicked")   tdcli_function({ID="ChangeChatMemberStatus",chat_id_=chat,user_id_=user,status_={ID="ChatMemberStatusLeft"}},function(arg,ta) end,nil)  end   end
-function monsend(msg,chat,text,user)   
+function get_rtba(msg) 
+if is_devtaha(msg) then 
+t = 'المطور'  
+elseif is_sudo(msg) then 
+t = 'المطور'  
+elseif is_owner(msg) then 
+t = 'المنشئ'  
+elseif is_monsh(msg) then 
+t = 'المدير'  
+elseif is_mod(msg) then 
+t = 'الادمن'  
+end  
+return 
+t 
+end
+function sendaction(chat_id, action, progress) 
+tdcli_function ({ ID = "SendChatAction",  chat_id_ = chat_id, action_ = {  ID = "SendMessage" .. action .. "Action", progress_ = progress or 100} }, dl_cb, nil) 
+end
+function check_markdown(text)  
+str = text if str then if str:match('_') then output = str:gsub('_',[[_]]) elseif str:match('*') then output = str:gsub('*','\\*') elseif str:match('`') then output = str:gsub('`','\\`') else output = str end return output end 
+end
+function is_filter(msg, value)  
+local names = tahadevstorm:smembers(DEVSTOR..'filters:'..msg.chat_id_)  local var = false for i=1, #names do  if names[i] == value and not is_vipgroup(msg) then  var = true      end end return var  
+end 
+function is_muted(chat,user)
+local hash =  tahadevstorm:sismember(DEVSTOR..'mutes'..chat,user) if hash then return true else return false end 
+end
+function stormmonshn(chat_id, user_id, msg_id, text, offset, length) 
+tdcli_function ({ ID = "SendMessage", chat_id_ = chat_id, reply_to_message_id_ = msg_id, disable_notification_ = 0, from_background_ = 1, reply_markup_ = nil, input_message_content_ = { ID = "InputMessageText", text_ = text, disable_web_page_preview_ = 1, clear_draft_ = 0, entities_ = {[0]={ ID="MessageEntityMentionName", offset_=offset, length_=length, user_id_=user_id }, }, }, }, dl_cb, nil) 
+end
+function storm1(chat,user) 
+local sudoe = tahadevstorm:sismember(DEVSTOR..'sudo:bot',user) local vipss = tahadevstorm:sismember(DEVSTOR..'vip:groups',user)  local monh = tahadevstorm:sismember(DEVSTOR..'modergroup'..chat,user)  local noow = tahadevstorm:sismember(DEVSTOR..'moder'..chat,user)  local nomo = tahadevstorm:sismember(DEVSTOR..'mods:'..chat,user)  local novip2 = tahadevstorm:sismember(DEVSTOR..'vip:group'..chat,user)  if tonumber(SUDO) == tonumber(user) or sudoe or vipss or monh  or noow or nomo  or novip2 then  return true  else  return false  end  
+end 
+function storm2(chat,user) 
+local sudoe = tahadevstorm:sismember(DEVSTOR..'sudo:bot',user) local vipss = tahadevstorm:sismember(DEVSTOR..'vip:groups',user)  local noow = tahadevstorm:sismember(DEVSTOR..'moder'..chat,user)  if tonumber(SUDO) == tonumber(user) or sudoe or vipss or noow  then  return true else  return false end 
+end 
+function storm3(chat,user) 
+local sudoe = tahadevstorm:sismember(DEVSTOR..'sudo:bot',user) local noow = tahadevstorm:sismember(DEVSTOR..'moder'..chat,user)  if tonumber(SUDO) == tonumber(user) or sudoe or monh   then return true else return false end 
+end 
+function storm4(chat,user) 
+local sudoe = tahadevstorm:sismember(DEVSTOR..'sudo:bot',user) local noow = tahadevstorm:sismember(DEVSTOR..'moder'..chat,user)  local monh = tahadevstorm:sismember(DEVSTOR..'modergroup'..chat,user)     local memr = tahadevstorm:sismember(DEVSTOR..'mepar',user)    if tonumber(SUDO) == tonumber(user) or sudoe or monh or memr or noow then     return true     else     return false     end     
+end 
+function getInputFile(file) 
+local input = tostring(file) if file:match('/') then infile = {ID = "InputFileLocal", path_ = file} elseif file:match('^%d+$') then infile = {ID = "InputFileId", id_ = file} else infile = {ID = "InputFilePersistentId", persistent_id_ = file} end return infile 
+end
+function send_inlinestorm(chat_id,text,keyboard,inline,reply_id) 
+local url = 'https://api.telegram.org/bot'..chaneel if keyboard then stormtoken = url .. '/sendMessage?chat_id=' ..chat_id.. '&text='..URL.escape(text)..'&parse_mode=html&reply_markup='..URL.escape(json:encode(keyboard)) else stormtoken = url .. '/sendMessage?chat_id=' ..chat_id.. '&text=' ..URL.escape(text)..'&parse_mode=html' end https.request(stormtoken) 
+end
+local function getUserProfilePhotos(user_id, offset, limit, cb, cmd)  
+tdcli_function ({  ID = "GetUserProfilePhotos",   user_id_ = user_id,  offset_ = offset,  limit_ = limit  }, cb or dl_cb, cmd) 
+end
+local function deleteMessages(chat_id, message_ids, cb, cmd)   
+tdcli_function ({  ID = "DeleteMessages",  chat_id_ = chat_id,  message_ids_ = message_ids  }, cb or dl_cb, cmd) 
+end
+local function forwardMessages(chat_id, from_chat_id, message_ids, disable_notification, cb, cmd)  
+tdcli_function ({    ID = "ForwardMessages",    chat_id_ = chat_id,    from_chat_id_ = from_chat_id,    message_ids_ = message_ids,    disable_notification_ = disable_notification,    from_background_ = 1 }, cb or dl_cb, cmd) 
+end
+function getUser(user_id, cb) 
+tdcli_function ({   ID = "GetUser",  user_id_ = user_id }, cb, nil) 
+end
+local function getMessage(chat_id, message_id,cb) 
+tdcli_function ({ ID = "GetMessage", chat_id_ = chat_id, message_id_ = message_id }, cb, nil) 
+end 
+function OpenChat(chat_id, cb) 
+tdcli_function ({ID = "OpenChat",chat_id_ = chat_id}, cb or dl_cb, nil) 
+end
+function getChat(chat_id, dl_cb, cmd)
+tdcli_function ({ID = "GetChat",chat_id_ = chat_id}, dl_cb, cmd) 
+end
+function pin(channel_id, message_id, disable_notification)   
+tdcli_function ({  ID = "PinChannelMessage",  channel_id_ = getChatId(channel_id).ID,  message_id_ = message_id,  disable_notification_ = 1  }, dl_cb, cmd)   
+end
+local function timstoop() 
+local uptime = io.popen("uptime -p"):read("*all") minutes = uptime:match(", %d+ minutes") or uptime:match(", %d+ minute") if minutes then minutes = minutes else minutes = "" end local c_ = string.match(minutes, "%d+") if c_ then c = c_ else c = 0 end return c..' دقيقه ' 
+end
+local function getUser(user_id,cb) 
+tdcli_function ({ ID = "GetUser", user_id_ = user_id }, cb, nil) 
+end 
+local function changeChatMemberStatus(chat_id, user_id, status) 
+tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = chat_id, user_id_ = user_id, status_ = { ID = "ChatMemberStatus" .. status }, }, dl_cb, nil) 
+end 
+local function getChatHistory(chat_id, from_message_id, offset, limit,cb)
+tdcli_function ({ ID = "GetChatHistory", chat_id_ = chat_id, from_message_id_ = from_message_id, offset_ = offset, limit_ = limit }, cb, nil) 
+end 
+local function getMe(cb) 
+tdcli_function ({ID = "GetMe",}, cb, nil) 
+end
+local function unpinChannelMessage(channel_id) 
+tdcli_function ({ ID = "UnpinChannelMessage", channel_id_ = getChatId(channel_id).ID }, dl_cb, nil) 
+end 
+local function pinChannelMessage(channel_id, message_id,disable_notification) 
+tdcli_function ({ ID = "PinChannelMessage", channel_id_ = getChatId(channel_id).ID, message_id_ = message_id, disable_notification_ = disable_notification, }, dl_cb, nil) 
+end
+local function storm_sendMssg(chat_id, text, reply_to_message_id, markdown) 
+send_api = "https://api.telegram.org/bot"..chaneel local url = send_api..'/sendMessage?chat_id=' .. chat_id .. '&text=' .. URL.escape(text) if reply_to_message_id ~= 0 then url = url .. '&reply_to_message_id=' .. reply_to_message_id/2097152/0.5  end if markdown == 'md' or markdown == 'markdown' then url = url..'&parse_mode=Markdown' elseif markdown == 'html' then url = url..'&parse_mode=HTML' end return s_api(url)  
+end
+local function GetInputFile(file)  
+local file = file or ""   if file:match('/') then  infile = {ID= "InputFileLocal", path_  = file}  elseif file:match('^%d+$') then  infile = {ID= "InputFileId", id_ = file}  else  infile = {ID= "InputFilePersistentId", persistent_id_ = file}  end return infile 
+end
+local function sendAudio(chat_id,reply_id,audio,title,caption)  
+tdcli_function({ID="SendMessage",  chat_id_ = chat_id,  reply_to_message_id_ = reply_id,  disable_notification_ = 0,  from_background_ = 1,  reply_markup_ = nil,  input_message_content_ = {  ID="InputMessageAudio",  audio_ = GetInputFile(audio),  duration_ = '',  title_ = title or '',  performer_ = '',  caption_ = caption or ''  }},dl_cb,nil)
+end  
+local function sendVideo(chat_id, reply_to_message_id, disable_notification, from_background, reply_markup, video, duration, width, height, caption, cb, cmd)    
+local input_message_content = { ID = "InputMessageVideo",      video_ = getInputFile(video),      added_sticker_file_ids_ = {},      duration_ = duration or 0,      width_ = width or 0,      height_ = height or 0,      caption_ = caption    }    sendRequest('SendMessage', chat_id, reply_to_message_id, disable_notification, from_background, reply_markup, input_message_content, cb, cmd)  
+end
+local function sendChatAction(chatid,action,func) 
+pcall(tdcli_function({ID = 'SendChatAction',chat_id_ = chatid,action_ = {ID = "SendMessage"..action.."Action",progress_ = 1},}, func or dl_cb,nil)) 
+end
+local function getchat(GroupID,func) 
+pcall(tdcli_function({ID="GetChat",chat_id_ = GroupID},func or dl_cb,nil)) 
+end
+local function numrgroup(GroupID)  
+tdcli_function ({ ID = "GetChannelFull",channel_id_ = getChatId(GroupID).ID },function(arg,tah)   tahadevstorm:set(DEVSTOR.."numgrop"..GroupID,tah.member_count_) end,nil)  return tahadevstorm:get(DEVSTOR.."numgrop"..GroupID)   
+end
+local function title_name(GroupID) 
+pcall(tdcli_function({ID ="GetChat",chat_id_=GroupID },function(arg,data)  tahadevstorm:set(DEVSTOR..'group:name'..GroupID,data.title_)  end,nil)) return tahadevstorm:get(DEVSTOR..'group:name'..GroupID)  
+end
+local function changeChatTitle(chat_id, title) 
+tdcli_function ({ ID = "ChangeChatTitle", chat_id_ = chat_id, title_ = title }, dl_cb, nil) 
+end
+local function sendPhoto(chat_id, reply_to_message_id, disable_notification, from_background, reply_markup, photo,caption)   
+tdcli_function ({ ID = "SendMessage",   chat_id_ = chat_id,   reply_to_message_id_ = reply_to_message_id,   disable_notification_ = disable_notification,   from_background_ = from_background,   reply_markup_ = reply_markup,   input_message_content_ = {   ID = "InputMessagePhoto",   photo_ = getInputFile(photo),   added_sticker_file_ids_ = {},   width_ = 0,   height_ = 0,   caption_ = caption  },   }, dl_cb, nil)  
+end
+local function setphoto(chat_id, photo) 
+tdcli_function ({ ID = "ChangeChatPhoto",   chat_id_ = chat_id,  photo_ = getInputFile(photo) }, dl_cb, nil) 
+end
+local function getChatId(id) 
+local chat = {} local id = tostring(id) if id:match('^-100') then local channel_id = id:gsub('-100', '') chat = {ID = channel_id, type = 'channel'} else local group_id = id:gsub('-', '') chat = {ID = group_id, type = 'group'} end return chat 
+end
+local function getUser(user_id, cb)  
+tdcli_function({ID = "GetUser", user_id_ = user_id}, cb, nil) 
+end
+local function adduser(chat_id, user_id, forward_limit) 
+tdcli_function ({ ID = "AddChatMember", chat_id_ = chat_id, user_id_ = user_id, forward_limit_ = forward_limit or 50 }, dl_cb, nil) 
+end
+local function kick(msg,chat,user)  
+if tonumber(user) == tonumber(bot_id) then  return false  end  if storm1(chat,user) then  else  changeChatMemberStatus(chat, user, "Kicked")  tdcli_function({ID="ChangeChatMemberStatus",chat_id_=chat,user_id_=user,status_={ID="ChatMemberStatusLeft"}},function(arg,ta) end,nil) end  
+end
+local function kicck(msg,chat,user)   
+if tonumber(user) == tonumber(bot_id) then   return false   else  changeChatMemberStatus(chat, user, "Kicked")   tdcli_function({ID="ChangeChatMemberStatus",chat_id_=chat,user_id_=user,status_={ID="ChatMemberStatusLeft"}},function(arg,ta) end,nil)  end   
+end
+local function monsend(msg,chat,text,user)   
 entities = {}   
 entities[0] = {ID='MessageEntityBold', offset_=0, length_=0}   
 if text and text:match('{') and text:match('}')  then   
@@ -535,16 +680,28 @@ text = text:gsub('❜','')
 table.insert(entities,{ID="MessageEntityMentionName", offset_=offset, length_=length, user_id_=user})   
 end   
 return tdcli_function ({ID="SendMessage", chat_id_=chat, reply_to_message_id_=msg.id_, disable_notification_=0, from_background_=1, reply_markup_=nil, input_message_content_={ID="InputMessageText", text_=text, disable_web_page_preview_=1, clear_draft_=0, entities_=entities}}, dl_cb, nil)   end
-function get_id(msg,taha,text) local get_id = text local get_id = get_id:gsub('IDGET',msg.sender_user_id_) local get_id = get_id:gsub('USERGET',USERNAME_GET) local get_id = get_id:gsub('RTBGET',t) local get_id = get_id:gsub('RTGGET',rtpa) local get_id = get_id:gsub('MSGGET',tonumber(tahadevstorm:get(DEVSTOR..'user:messages:'..msg.chat_id_..':'..msg.sender_user_id_) or 1)) local get_id = get_id:gsub('TFGET',formsgg(tonumber(tahadevstorm:get(DEVSTOR..'user:messages:'..msg.chat_id_..':'..msg.sender_user_id_) or 1))) local get_id = get_id:gsub('PHOTOGET',taha.total_count_) local get_id = get_id:gsub('NKOGET',nko)
-return get_id end
-function monsendwel(msg,chat,text,user)   entities = {}   entities[0] = {ID='MessageEntityBold', offset_=0, length_=0}   if text and text:match('<storm>') and text:match('</storm>')  then   local x = utf8.len(text:match('(.*)<storm>'))   local offset = x + 1  local y = utf8.len(text:match('<storm>(.*)</storm>'))   local length = y + 1  text = text:gsub('<storm>','')   text = text:gsub('</storm>','')   table.insert(entities,{ID="MessageEntityMentionName", offset_=offset, length_=length, user_id_=user})   end   if text and text:match('❛') and text:match('❜') then   local x = utf8.len(text:match('(.*)❛'))   local offset = x   local y = utf8.len(text:match('❛(.*)❜'))   local length = y   text = text:gsub('❛','')   text = text:gsub('❜','')   table.insert(entities,{ID="MessageEntityBold", offset_=offset, length_=length})   end   return tdcli_function ({ID="SendMessage", chat_id_=chat, reply_to_message_id_=msg.id_, disable_notification_=0, from_background_=1, reply_markup_=nil, input_message_content_={ID="InputMessageText", text_=text, disable_web_page_preview_=1, clear_draft_=0, entities_=entities}}, dl_cb, nil)   end
-function addmod(chat_id)   tdcli_function ({ID = "GetChannelMembers", channel_id_ = getChatId(chat_id).ID,filter_ = {ID = "ChannelMembersAdministrators"},offset_ = 0,limit_ = 100 },function(arg,data)  local admins = data.members_ for i=0 , #admins do  if data.members_[i].status_.ID == "ChatMemberStatusCreator" then owner_id = admins[i].user_id_  tahadevstorm:sadd(DEVSTOR..'moder'..chat_id,owner_id)   tdcli_function ({ID = "GetUser",user_id_ = admins[i].user_id_ },function(arg,b)   if b.username_ == true then  tahadevstorm:set(DEVSTOR.."user:Name"..b.id_,"@"..b.username_) end end,nil)    end  if data.members_[i].bot_info_ == false and data.members_[i].status_.ID == "ChatMemberStatusEditor" then  tahadevstorm:sadd(DEVSTOR..'mods:'..chat_id,admins[i].user_id_)   tdcli_function ({ID = "GetUser",user_id_ = admins[i].user_id_ },function(arg,b)   if b.username_ == true then  tahadevstorm:set(DEVSTOR.."user:Name"..b.id_,"@"..b.username_) end end,nil)    else  tahadevstorm:srem(DEVSTOR..'mods:'..chat_id,admins[i].user_id_)   end end end,nil)     end
-function delete_msg(chatid,mid) tdcli_function ({ID="DeleteMessages", chat_id_=chatid, message_ids_=mid}, dl_cb, nil) end
-function trigger_anti_spam(msg,type)
-tdcli_function ({
-ID = "GetUser",
-user_id_ = msg.sender_user_id_
-},function(arg,data)
+local function get_id(msg,taha,text) 
+local get_id = text local get_id = get_id:gsub('IDGET',msg.sender_user_id_) local get_id = get_id:gsub('USERGET',USERNAME_GET) local get_id = get_id:gsub('RTBGET',t) local get_id = get_id:gsub('RTGGET',rtpa) local get_id = get_id:gsub('MSGGET',tonumber(tahadevstorm:get(DEVSTOR..'user:messages:'..msg.chat_id_..':'..msg.sender_user_id_) or 1)) local get_id = get_id:gsub('TFGET',formsgg(tonumber(tahadevstorm:get(DEVSTOR..'user:messages:'..msg.chat_id_..':'..msg.sender_user_id_) or 1))) local get_id = get_id:gsub('PHOTOGET',taha.total_count_) local get_id = get_id:gsub('NKOGET',nko)
+return get_id 
+end
+local function monsendwel(msg,chat,text,user)   
+entities = {}   entities[0] = {ID='MessageEntityBold', offset_=0, length_=0}   if text and text:match('<storm>') and text:match('</storm>')  then   local x = utf8.len(text:match('(.*)<storm>'))   local offset = x + 1  local y = utf8.len(text:match('<storm>(.*)</storm>'))   local length = y + 1  text = text:gsub('<storm>','')   text = text:gsub('</storm>','')   table.insert(entities,{ID="MessageEntityMentionName", offset_=offset, length_=length, user_id_=user})   end   if text and text:match('❛') and text:match('❜') then   local x = utf8.len(text:match('(.*)❛'))   local offset = x   local y = utf8.len(text:match('❛(.*)❜'))   local length = y   text = text:gsub('❛','')   text = text:gsub('❜','')   table.insert(entities,{ID="MessageEntityBold", offset_=offset, length_=length})   end   return tdcli_function ({ID="SendMessage", chat_id_=chat, reply_to_message_id_=msg.id_, disable_notification_=0, from_background_=1, reply_markup_=nil, input_message_content_={ID="InputMessageText", text_=text, disable_web_page_preview_=1, clear_draft_=0, entities_=entities}}, dl_cb, nil)   
+end
+local function addmod(chat_id)   
+tdcli_function ({ID = "GetChannelMembers", channel_id_ = getChatId(chat_id).ID,filter_ = {ID = "ChannelMembersAdministrators"},offset_ = 0,limit_ = 100 },function(arg,data)  local admins = data.members_ for i=0 , #admins do  if data.members_[i].status_.ID == "ChatMemberStatusCreator" then owner_id = admins[i].user_id_  tahadevstorm:sadd(DEVSTOR..'moder'..chat_id,owner_id)   tdcli_function ({ID = "GetUser",user_id_ = admins[i].user_id_ },function(arg,b)   if b.username_ == true then  tahadevstorm:set(DEVSTOR.."user:Name"..b.id_,"@"..b.username_) end end,nil)    end  if data.members_[i].bot_info_ == false and data.members_[i].status_.ID == "ChatMemberStatusEditor" then  tahadevstorm:sadd(DEVSTOR..'mods:'..chat_id,admins[i].user_id_)   tdcli_function ({ID = "GetUser",user_id_ = admins[i].user_id_ },function(arg,b)   if b.username_ == true then  tahadevstorm:set(DEVSTOR.."user:Name"..b.id_,"@"..b.username_) end end,nil)    else  tahadevstorm:srem(DEVSTOR..'mods:'..chat_id,admins[i].user_id_)   end end end,nil)     
+end
+local function delete_msg(chatid,mid) 
+tdcli_function ({ID="DeleteMessages", chat_id_=chatid, message_ids_=mid}, dl_cb, nil) 
+end
+local function trigger_anti_spam_mod(msg,type)
+if type == 'del' then 
+delete_msg(msg.chat_id_,{[0] = msg.id_})    
+return false  
+end 
+end
+
+local function trigger_anti_spam(msg,type)
+tdcli_function ({ID = "GetUser",user_id_ = msg.sender_user_id_},function(arg,data)
 if type == 'kick' then 
 if data.username_ then
 taha = '\n*📮¦ العضــو » ❪*[@'..data.username_..']*❫\n📬¦ قام بالتكرار هنا وتم طرده *'  
@@ -613,7 +770,6 @@ tahadevstorm:del("klish:welc"..bot_id)
 tahadevstorm:del("addreply1photo1"..bot_id)   
 storm_sendMsg(msg.chat_id_, msg.id_, 1,'*📮¦ تم مسح كليشه ترحيب عند اضافه البوت *\n', 1, 'md') 
 end
-
 if text == "متجر الملفات" or text == 'المتجر' then
 if not is_devtaha(msg) then  
 storm_sendMsg(msg.chat_id_, msg.id_, 1,'*📮¦ هاذا الامر خاص بالمطور الاساسي *\n', 1, 'md') 
@@ -672,6 +828,8 @@ local json_file, res = https.request("https://raw.githubusercontent.com/NOVAR1/N
 if res == 200 then
 os.execute("rm -fr plugins_/"..file)
 storm_sendMsg(msg.chat_id_, msg.id_, 1,t, 1, 'md') 
+ReloadPlugins()
+dofile('STORM.lua')  
 else
 storm_sendMsg(msg.chat_id_, msg.id_, 1,"*📮¦ عذرا لا يوجد هاكذا ملف في المتجر *\n", 1, 'md') 
 end
@@ -684,7 +842,6 @@ io.close(file_bot)
 t = "*📬¦ بالتاكيد تم تنزيل وتفعيل ملف » {"..file.."} \n✓*"
 else
 t = "*🗂¦ الملف » {"..file.."}\n📬¦ تم تنزيله وتفعيله بنجاح \n💥*"
-ReloadPlugins()
 end
 local json_file, res = https.request("https://raw.githubusercontent.com/NOVAR1/NOVAR1/master/plugins_/"..file)
 if res == 200 then
@@ -692,6 +849,8 @@ local chek = io.open("plugins_/"..file,'w+')
 chek:write(json_file)
 chek:close()
 storm_sendMsg(msg.chat_id_, msg.id_, 1,t, 1, 'md') 
+ReloadPlugins()
+dofile('STORM.lua')  
 else
 storm_sendMsg(msg.chat_id_, msg.id_, 1,"*📮¦ عذرا لا يوجد هاكذا ملف في المتجر *\n", 1, 'md') 
 end
@@ -744,16 +903,17 @@ if result.username_ then
 usersdd = '\n*🔸¦ المعرف » ❪* [@'..(result.username_ or '')..'] ❫'
 else
 usersdd = ''
-end local GetLin,res = https.request('https://api.telegram.org/bot'..chaneel..'/exportChatInviteLink?chat_id='..msg.chat_id_) if res ~= 200 then  return false  end local success, res = pcall(JSON.decode, GetLin) if res and res.result then
-link_gp = '['..chat.title_..']('..res.result..')'
+end 
+local GetLin,res = https.request('https://api.telegram.org/bot'..chaneel..'/exportChatInviteLink?chat_id='..msg.chat_id_) 
+if res ~= 200 then  
+return false  
+end 
+local success, res = pcall(JSON.decode, GetLin) 
+if res and res.result then
+linkgp = '\n*⚁¦ الاسم » ❪*['..chat.title_..']('..res.result..')❫'
 else
-link_gp = "`"..chat.title_.."`"
+linkgp = '\n*⚁¦ الاسم » ❪*`'..chat.title_..'`❫'
 end  
-if data.invite_link_ then 
-linkgp = '\n*⚁¦ الاسم » ❪*['..chat.title_..']('..data.invite_link_..')❫'
-else
-linkgp = '\n*⚁¦ الاسم » ❪*'..link_gp..'❫'
-end
 local text = '*📮¦ اهلا بك عزيزي المطور الاساسي '..
 '\n📬¦ تم تفعيل مجموعه جديده '..
 '\n  ٴ━━━━━━━━━━'..
@@ -805,16 +965,17 @@ if result.username_ then
 usersdd = '\n🔸¦ المعرف » ❪* [@'..(result.username_ or '')..'] *❫'
 else
 usersdd = ''
-end local GetLin,res = https.request('https://api.telegram.org/bot'..chaneel..'/exportChatInviteLink?chat_id='..msg.chat_id_) if res ~= 200 then  return false  end local success, res = pcall(JSON.decode, GetLin) if res and res.result then
-link_gp = '['..chat.title_..']('..res.result..')'
+end 
+local GetLin,res = https.request('https://api.telegram.org/bot'..chaneel..'/exportChatInviteLink?chat_id='..msg.chat_id_) 
+if res ~= 200 then  
+return false  
+end 
+local success, res = pcall(JSON.decode, GetLin) 
+if res and res.result then
+linkgp = '\n*⚁¦ الاسم » ❪*['..chat.title_..']('..res.result..')❫'
 else
-link_gp = "`"..chat.title_.."`"
+linkgp = '\n*⚁¦ الاسم » ❪*`'..chat.title_..'`❫'
 end  
-if data.invite_link_ then 
-linkgp = '\n*⚁¦ الاسم » ❪*['..chat.title_..']('..data.invite_link_..')❫'
-else
-linkgp = '\n*⚁¦ الاسم » ❪*'..link_gp..'❫'
-end
 local text = '*📮¦ اهلا بك عزيزي المطور الاساسي '..
 '\n📬¦ تم تفعيل مجموعه جديده '..
 '\n  ٴ━━━━━━━━━━'..
@@ -852,11 +1013,16 @@ usersdd = '\n🔸¦ المعرف » ❪* [@'..(result.username_ or '')..'] *❫'
 else
 usersdd = ''
 end
-if data.invite_link_ then 
-linkgp = '\n⚁¦ الاسم » ❪*['..title_name(msg.chat_id_)..']('..data.invite_link_..')❫*'
+local GetLin,res = https.request('https://api.telegram.org/bot'..chaneel..'/exportChatInviteLink?chat_id='..msg.chat_id_) 
+if res ~= 200 then  
+return false  
+end 
+local success, res = pcall(JSON.decode, GetLin) 
+if res and res.result then
+linkgp = '\n*⚁¦ الاسم » ❪*['..title_name(msg.chat_id_)..']('..res.result..')❫'
 else
-linkgp = '\n⚁¦ الاسم » ❪*`'..title_name(msg.chat_id_)..'`❫*'
-end
+linkgp = '\n*⚁¦ الاسم » ❪*`'..title_name(msg.chat_id_)..'`❫'
+end  
 local text = '*📮¦ اهلا بك عزيزي المطور الاساسي '..
 '\n📬¦ تم تعطيل مجموعه جديده '..
 '\n  ٴ━━━━━━━━━━'..
@@ -969,7 +1135,7 @@ tdcli_function({ID ="GetChat",chat_id_=msg.chat_id_},function(arg,data)   tahade
 tdcli_function ({ID = "GetUser",user_id_ = msg.sender_user_id_},function(arg,data)  if data.username_ == true then tahadevstorm:set(DEVSTOR.."user:Name"..msg.sender_user_id_,"@"..data.username) end end,nil) 
 if msg.can_be_deleted_ == true then
 tahadevstorm:sadd(DEVSTOR.."botgps", msg.chat_id_)  
-tdcli_function ({ ID = "GetChannelFull", channel_id_ = getChatId(msg.chat_id_).ID }, function(arg,tah)   tahadevstorm:set(DEVSTOR.."numgrop"..msg.chat_id_,tah.member_count_) end,nil) 
+
 end
 elseif id:match('^(%d+)') then 
 chat_type = 'user' 
@@ -982,12 +1148,9 @@ changeChatMemberStatus(msg.chat_id_, bot_id, "Left")
 end 
 end
 local text = msg.content_.text_
-if text and text:match('[qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM]') then text = text end
-if msg.content_.ID == "MessageText" then msg_type = 'text' end
 if msg.content_.ID == "MessageChatAddMembers" then 
 tahadevstorm:incr(DEVSTOR..'add:mempar'..msg.chat_id_..':'..msg.sender_user_id_) 
 end
-if msg.content_.ID == "MessagePhoto" then msg_type = 'photo' end
 if tahadevstorm:get(DEVSTOR..'viewchannel'..msg.sender_user_id_) then 
 if text and text:match("^الغاء$") then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ تم الغاء الامر *\n✓", 1, "md") 
@@ -1004,8 +1167,6 @@ if is_filter(msg,text) then
 delete_msg(msg.chat_id_,{[0] = msg.id_})        
 return false end   
 end  
-if text then if not tahadevstorm:get(DEVSTOR..'bot_id') then
-function cb(a,b,c) tahadevstorm:set(DEVSTOR..'bot_id',b.id_) end getMe(cb) end end
 if tahadevstorm:get(DEVSTOR.."get:info:gp" .. msg.chat_id_ .. "" .. msg.sender_user_id_) then 
 if text and text:match("^الغاء$") or text and text:match("^الغاء ✖$") then   
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ تم الغاء الامر *\n✓", 1, "md") 
@@ -1037,31 +1198,23 @@ changeChatMemberStatus(ch, bot_id, "Left")
 return false  end
 local nummsg = tonumber(tahadevstorm:get(DEVSTOR..'groupmsg:'..ch..':')) 
 local nummsgg = tahadevstorm:get(DEVSTOR..'groupmsg:'..ch..':') 
-if data.invite_link_ ~= false then 
-linkchd = data.invite_link_
-linkgpp = '\n*📃¦* الاسم » ❪['..title_name(ch)..']('..linkchd..')❫' 
-else
-linkgpp = '\n*📃¦* الاسم » ❪'..title_name(ch)..'❫'
-end
-if tahadevstorm:get(DEVSTOR.."link:group"..ch) then
-linkchl = tahadevstorm:get(DEVSTOR.."link:group"..ch)
-linkgp = '\n*📃¦* الاسم » ❪['..title_name(ch)..']('..linkchl..')❫' 
-else
-linkgp = '\n*📃¦* الاسم » ❪'..title_name(ch)..'❫'
-end
-local GetLin,res = https.request('https://api.telegram.org/bot'..chaneel..'/exportChatInviteLink?chat_id='..ch) if res ~= 200 then  return false  end local success, res = pcall(JSON.decode, GetLin) 
+local GetLin,res = https.request('https://api.telegram.org/bot'..chaneel..'/exportChatInviteLink?chat_id='..ch) 
+if res ~= 200 then  
+return false  
+end 
+local success, res = pcall(JSON.decode, GetLin) 
 if res and res.result then
-linkx = '\n*📃¦* الاسم » ❪['..title_name(ch)..']('..res.result..')❫'  
+linkgp = '\n*📃¦ الاسم » ❪*['..title_name(ch)..']('..res.result..')❫'
 else
-linkx = '\n*📃¦* الاسم » ❪'..title_name(ch)..'❫'
-end
+linkgp = '\n*📃¦ الاسم » ❪*`'..title_name(ch)..'`❫'
+end  
 local whogp =  '*\n👨🏻‍🎤¦ عدد الاعضاء » ❪'..data.member_count_..
 '❫\n👨🏼‍✈️¦ عدد الادمنيه » ❪'..data.administrator_count_..
 '❫\n💢¦ عدد المطرودين » ❪'..data.kicked_count_..
 '❫\n⚜¦ الايدي » ❪*`'..(ch)..
 '`❫\n*📩¦ عدد الرسائل الكروب » ❪'..nummsgg..
 '❫\n💭¦ التفاعل » ❪'..formsggroup(nummsg)..
-'❫*'..(linkgpp or linkgp or linkx)..usergp
+'❫*'..(linkgp)..usergp
 storm_sendMsg(msg.chat_id_, msg.id_, 1,whogp, 1, 'md') 
 end,nil) 
 end
@@ -1136,19 +1289,22 @@ changeChatMemberStatus(ch, bot_id, "Left")
 storm_sendMsg(ch, 0, 1, "*📮¦* البوت عضو هنا لا يستطيع نفعكم بشيئ \n*📬¦* تم مغادرة المجموعه\n💥", 1, "md")    
 return false  
 end    
+local GetLin,res = https.request('https://api.telegram.org/bot'..chaneel..'/exportChatInviteLink?chat_id='..ch) 
+if res ~= 200 then  
+return false  
+end 
+local success, res = pcall(JSON.decode, GetLin) 
 if data and data.channel_ and data.channel_.status_ and data.channel_.status_.ID == "ChatMemberStatusEditor" then
-exportChatInviteLink(ch)   
 if tahadevstorm:get(DEVSTOR..'group:name'..ch) then
-storm_sendMsg(msg.chat_id_, msg.id_, 1,'📮*¦* رابط المجموعه \n📬*¦* '..tahadevstorm:get(DEVSTOR..'group:name'..ch)..' \nـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ\n🍃*¦* ['..data.invite_link_..']', 1, 'md')    
+storm_sendMsg(msg.chat_id_, msg.id_, 1,'📮*¦* رابط المجموعه \n📬*¦* '..tahadevstorm:get(DEVSTOR..'group:name'..ch)..' \nـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ\n🍃*¦* ['..(res.result or '..')..']', 1, 'md')    
 else
-storm_sendMsg(msg.chat_id_, msg.id_, 1,'💠*¦* رابط المجموعه \nـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ\n['..(data.invite_link_)..']', 1, 'md')    
+storm_sendMsg(msg.chat_id_, msg.id_, 1,'💠*¦* رابط المجموعه \nـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ\n['..(res.result or '..')..']', 1, 'md')    
 end
 tahadevstorm:set(DEVSTOR.."numgrop"..ch,data.member_count_) 
 tdcli_function({ID ="GetChat",chat_id_=ch},function(arg,ata) tahadevstorm:set(DEVSTOR..'group:name'..ch,ata.title_) end,nil)
 end
 end    
 getChannelFull(ch, taha, {chat_id=ch,msg_id=msg.id})    
-tahadevstorm:del(DEVSTOR.."get:link:gp" .. msg.chat_id_ .. "" .. msg.sender_user_id_)  
 end 
 if tahadevstorm:get(DEVSTOR..'namebot:witting'..msg.sender_user_id_) then 
 if text and text:match("^الغاء$") or text and text:match("^الغاء ✖$") then   
@@ -1471,12 +1627,13 @@ local keyboard = {
 {'مسح قائمه العام 🚷','مسح المميزين عام 🌟','مسح المطورين 👮'},
 {'ضع رد تواصل 💻','ضع كليشه المطور 🎐','ضع كليشه ستارت 📠'},
 {'تعطيل رساله الترحيب 📱','تفعيل رساله الترحيب 🎌','ضع عدد الاعضاء 📜'},
-{"حذف كليشه المطور 🀄","حذف كليشه ستارت 🃏","حذف رد التواصل 🔧"},
+{"حذف كليشه المطور 🀄","حذف كليشه ستارت 🃏","حذف رد التواصل 📌"},
 {"جلب رد التواصل 📚","جلب كليشه ستارت 📚"},
 {'المطورين 📑','المحظورين عام 💥','المميزين عام 📑'},
 {'الغاء ✖'}}
 send_inline_key(msg.chat_id_,taha,keyboard)
 else
+if not tahadevstorm:get(DEVSTOR..'START:STOP'..msg.sender_user_id_) then
 function bot_kick(extra, result, success)  
 if result.username_ then
 username = '❪[@'..result.username_..']❫'
@@ -1503,6 +1660,8 @@ end
 end  
 getUser(msg.sender_user_id_, bot_kick)   
 end
+end
+tahadevstorm:setex(DEVSTOR..'START:STOP'..msg.sender_user_id_,300,true)
 end 
 if text and text:match('(.*)') and not text:match('/start')  and not is_devtaha(msg) or  msg.content_.ID == "MessageUnsupported" or msg.content_.ID == 'MessagePhoto' or msg.content_.ID == 'MessageDocument' or msg.content_.photo_ or msg.content_.ID == 'MessageSticker' or msg.content_.ID == 'MessageAudio' or msg.content_.audio_ or msg.content_.ID == 'MessageAnimation' or msg.content_.ID == 'MessageVideo' or msg.content_.video_  or msg.content_.ID == 'MessageContact' or msg.content_.ID == 'MessageVoice' then     
 if text  or msg.content_.ID == 'MessageVoice' or msg.content_.ID == 'MessageAudio' or msg.content_.ID == 'MessagePhoto' or msg.content_.ID == 'MessageDocument' or msg.content_.photo_ or msg.content_.ID == 'MessageSticker' or msg.content_.ID == 'MessageAudio' or msg.content_.ID == 'MessageAnimation' or msg.content_.ID == 'MessageVideo' or msg.content_.ID == 'MessageContact' or msg.content_.ID == 'MessageVoice'  then  
@@ -1706,7 +1865,7 @@ if text == 'قفل الروابط' and is_devtaha(msg) then  taha = '*📛¦* ت
 if text == 'فتح الجهات' and is_devtaha(msg) then  taha = '*🚸¦* تم فتح الجهات   ✔' storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md")  tahadevstorm:del(DEVSTOR..'lock:phon'..bot_id) end  
 if text == 'قفل الجهات' and is_devtaha(msg) then  taha = '*📛¦* تم قفل الجهات  ❌' storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md")  tahadevstorm:set(DEVSTOR..'lock:phon'..bot_id,true) end 
 if text == 'فتح الملفات' and is_devtaha(msg) then  taha = '*🚸¦* تم فتح الملفات   ✔' storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md")  tahadevstorm:del(DEVSTOR..'lock:file'..bot_id) end  
-if text == 'قفل الملفات' and is_devtaha(msg) then  taha = '*📛¦* تم قفل الملفات  ❌' storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md")  tahadevstorm:set(DEVSTOR..'lock:file'..bot_id,true) end 
+if text == 'قفل الملفات' and is_devtaha(msg) then  taha = '*??¦* تم قفل الملفات  ❌' storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md")  tahadevstorm:set(DEVSTOR..'lock:file'..bot_id,true) end 
 if text == 'فتح الملصقات' and is_devtaha(msg) then  taha = '*🚸¦* تم فتح الملصقات   ✔' storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md")  tahadevstorm:del(DEVSTOR..'lock:ste'..bot_id) end  
 if text == 'قفل الملصقات' and is_devtaha(msg) then  taha = '*📛¦* تم قفل الملصقات  ❌' storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md")  tahadevstorm:set(DEVSTOR..'lock:ste'..bot_id,true) end 
 if text == 'الاعدادات 🔏' and is_devtaha(msg) then  if tahadevstorm:get(DEVSTOR..'lock:photo'..bot_id) then    lock_photo = '* مقفل ✓ *'      else     lock_photo = '*مفتوح ✘*'    end    if tahadevstorm:get(DEVSTOR..'lock:vico'..bot_id) then    lockvic = '* مقفل ✓ *'      else     lockvic = '*مفتوح ✘*'    end    if tahadevstorm:get(DEVSTOR..'lock:ste'..bot_id) then    lockste = '* مقفل ✓ *'      else     lockste = '*مفتوح ✘*'    end    if tahadevstorm:get(DEVSTOR..'lock:file'..bot_id) then    lockfile = '* مقفل ✓ *'     else     lockfile = '*مفتوح ✘*'    end    if tahadevstorm:get(DEVSTOR..'lock:phon'..bot_id) then    lockphon = '* مقفل ✓ *'      else     lockphon = '*مفتوح ✘*'    end    if tahadevstorm:get(DEVSTOR..'lock:links'..bot_id) then    lock_link = '* مقفل ✓ *'      else     lock_link = '*مفتوح ✘*'    end    if tahadevstorm:get(DEVSTOR..'lock:ved'..bot_id) then    lock_vid = '* مقفل ✓ *'      else     lock_vid = '*مفتوح ✘*'    end    if tahadevstorm:get(DEVSTOR..'lock:fwd'..bot_id) then    lock_fwd = '* مقفل ✓ *'      else     lock_fwd = '*مفتوح ✘*'    end    if tahadevstorm:get(DEVSTOR..'lock:gif'..bot_id) then    lock_gif = '* مقفل ✓ *'      else     lock_gif = '*مفتوح ✘*'    end    if tahadevstorm:get(DEVSTOR..'lock:musec'..bot_id) then    lock_muse = '* مقفل ✓ *'      else     lock_muse = '*مفتوح ✘*'    end    local text = '*📛¦* اهلا بك في اعدادات الخاص 🍃'..'\n*ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ*\n'..    '\n*📬¦* الروابط '..lock_link..    '\n'..'*📬¦* الصور '..lock_photo..    '\n'..'*📬¦* الاغاني '..lockvic..    '\n'..'*📬¦* الملصقات '..lockste..    '\n'..'*📬¦* الملفات '..lockfile..    '\n'..'*📬¦* الجهات '..lockphon..    '\n'..'*📬¦* الفيديو '..lock_vid..    '\n'..'*📬¦* التوجيه '..lock_fwd..    '\n'..'*📬¦* المتحركه '..lock_gif..    '\n'..'*📬¦* الصوت '..lock_muse..    '\n\nـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ\n🚨*¦* اضافه الى ذالك تستطيع قفل وفتح الكل\n🚸*¦* قفل الكل \n🚸*¦* فتح الكل'    storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'md')     end     
@@ -1749,7 +1908,7 @@ if text and text:match("^ضع رد تواصل 💻$") and is_devtaha(msg) then  
 if text and text:match("^ضع كليشه المطور 🎐$") and is_devtaha(msg) then tahadevstorm:setex(DEVSTOR.."sudo:dev" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 10000, true)  storm_sendMsg(msg.chat_id_, msg.id_, 1,'📬*¦* ارسل لي النص الذي تريده ', 1, 'md') end 
 if text and text:match("^ضع كليشه ستارت 📠$") and is_devtaha(msg) then tahadevstorm:setex(DEVSTOR.."start:msgofstart" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 10000, true)  storm_sendMsg(msg.chat_id_, msg.id_, 1,'📬*¦* ارسل لي النص الذي تريده ', 1, 'md') end 
 if text == 'تفعيل رساله الترحيب 🎌' and is_devtaha(msg) then local  taha = '*📛¦*تم تفعيل رسالة ترحيب عند الاضافه  ✔' storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") tahadevstorm:del(DEVSTOR..'lock:klsh:add'..bot_id) end 
-if text == 'تعطيل رساله الترحيب 📱' and is_devtaha(msg) then taha = '*📛¦*تم تعطيل رسالة ترحيب عند الاضافه  ❌' storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") tahadevstorm:set(DEVSTOR..'lock:klsh:add'..bot_id,true) end
+if text == 'تعطيل رساله الترحيب 📱' and is_devtaha(msg) then taha = '*📮¦*تم تعطيل رسالة ترحيب عند الاضافه  ❌' storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") tahadevstorm:set(DEVSTOR..'lock:klsh:add'..bot_id,true) end
 if text == "حذف رد التواصل 🔧" and is_devtaha(msg) then  tahadevstorm:del(DEVSTOR.."pvstart") storm_sendMsg( msg.chat_id_, msg.id_, 1, '*📛¦*تم حذف رد التوصل', 1, "md") end 
 if text == "حذف كليشه ستارت 🃏" and is_devtaha(msg) then  tahadevstorm:del(DEVSTOR.."start:msgofstart1") storm_sendMsg( msg.chat_id_, msg.id_, 1, '*📛¦*تم حذف كليشه ستارت', 1, "md") end 
 if text == "حذف كليشه المطور 🀄" and is_devtaha(msg) then  tahadevstorm:del(DEVSTOR.."dev") storm_sendMsg( msg.chat_id_, msg.id_, 1, '*📛¦*تم حذف كليشه المطور', 1, "md") end 
@@ -1774,7 +1933,7 @@ storm_sendMsg(msg.chat_id_, msg.id_, 1, '🚸*¦* تم تحديث ♻ السور
 dofile('STORM.lua')  
 end
 if text == 'مسح المشتركين 💯' and is_devtaha(msg) then     local list = tahadevstorm:smembers(DEVSTOR..'usersbot')     local pv = 0  for k,v in pairs(list) do      tahadevstorm:srem(DEVSTOR..'usersbot',v)    pv = pv + 1  end     storm_sendMsg(msg.chat_id_, msg.id_, 1, '*🎲¦ تم مسح » ❪'..pv..'❫ من المشتركين *\n', 1, 'md')   end  
-if text == 'مسح المجموعات 💯' and is_devtaha(msg) then   local lgp = tahadevstorm:smembers(DEVSTOR.."bot:gpsby:id")   local lsug = tahadevstorm:smembers(DEVSTOR.."botgps")   local lgpn = tahadevstorm:scard(DEVSTOR.."bot:gpsby:id")   local lsugn = tahadevstorm:scard(DEVSTOR.."botgps") + tahadevstorm:scard(DEVSTOR.."bot:gpsby:id")   for k,v in pairs(lgp) do   rem_group(v)     changeChatMemberStatus(v, bot_id, "Left")    end   for k,v in pairs(lsug) do    rem_group(v)     changeChatMemberStatus(v, bot_id, "Left")    end   storm_sendMsg(msg.chat_id_, msg.id_, 1,"*📮¦* تم مغادره البوت من » ❪"..lsugn.."❫ مجموعات \n✓", 1, 'md')   end
+if text == 'مسح المجموعات 💯' and is_devtaha(msg) then   local lgp = tahadevstorm:smembers(DEVSTOR.."bot:gpsby:id")   local lsug = tahadevstorm:smembers(DEVSTOR.."botgps")   local lgpn = tahadevstorm:scard(DEVSTOR.."bot:gpsby:id")   local lsugn = tahadevstorm:scard(DEVSTOR.."bot:gpsby:id")   for k,v in pairs(lgp) do   rem_group(v)     changeChatMemberStatus(v, bot_id, "Left")    end   for k,v in pairs(lsug) do    rem_group(v)     changeChatMemberStatus(v, bot_id, "Left")    end   storm_sendMsg(msg.chat_id_, msg.id_, 1,"*📮¦* تم مغادره البوت من » ❪"..lsugn.."❫ مجموعات \n✓", 1, 'md')   end
 if text == 'المحظورين عام 📑' and is_devtaha(msg) then   local list = tahadevstorm:smembers(DEVSTOR..'storm:gbaned')  local t = '*📮¦ قائمه المحظورين عام *\n*ٴ━━━━━━━━━*\n'   for k, v in pairs(list) do   local taha = tahadevstorm:get(DEVSTOR.."user:Name" .. v)  if taha then  local username = taha  t = t..'*'..k.." ➺* ❲["..username.."](tg://user?id="..v..")❳\n"     else  t = t..'*'..k.." ➺* ❲["..v.."](tg://user?id="..v..")❳\n"     end  end   if #list == 0 then   t = '*📬¦* لا يوجد محظورين عام في البوت'   end   storm_sendMssg(msg.chat_id_,t,msg.id_,'md')  end  
 if text == 'المطورين 📑' and is_devtaha(msg) then   local list = tahadevstorm:smembers(DEVSTOR..'sudo:bot')  local t = '*📮¦ قائمه مطورين البوت *\n*ٴ━━━━━━━━━*\n'   for k, v in pairs(list) do   local taha = tahadevstorm:get(DEVSTOR.."user:Name" .. v)  if taha then  local username = taha  t = t..'*'..k.." ➺* ❲["..username.."](tg://user?id="..v..")❳\n"     else  t = t..'*'..k.." ➺* ❲["..v.."](tg://user?id="..v..")❳\n"     end  end   if #list == 0 then   t = '*📬¦* لا يوجد مطورين في البوت'   end   storm_sendMssg(msg.chat_id_,t,msg.id_,'md')  end  
 if text == 'المميزين عام 📑' and is_devtaha(msg) then   local list = tahadevstorm:smembers(DEVSTOR..'vip:groups')  local t = '*📮¦ قائمه المميزين عام *\n*ٴ━━━━━━━━━*\n'   for k, v in pairs(list) do   local taha = tahadevstorm:get(DEVSTOR.."user:Name" .. v)  if taha then  local username = taha  t = t..'*'..k.." ➺* ❲["..username.."](tg://user?id="..v..")❳\n"     else  t = t..'*'..k.." ➺* ❲["..v.."](tg://user?id="..v..")❳\n"     end  end   if #list == 0 then   t = '*📬¦* لا يوجد مميزين عام في البوت'   end   storm_sendMssg(msg.chat_id_,t,msg.id_,'md')  end  
@@ -1820,7 +1979,7 @@ print('\27[30;36m»» T H E C O N T A C T \27[1;37m')
 seavusername(msg.sender_user_id_) 
 end
 local user_id = msg.sender_user_id_
-floods = tahadevstorm:hget("flooding:settings:"..msg.chat_id_,"flood") or  'nil'
+floods = tahadevstorm:hget("flooding:settings:"..msg.chat_id_,"flood") or 'nil'
 NUM_MSG_MAX = tahadevstorm:hget("flooding:settings:"..msg.chat_id_,"floodmax") or 5
 TIME_CHECK = tahadevstorm:hget("flooding:settings:"..msg.chat_id_,"floodtime") or 5
 if tahadevstorm:hget("flooding:settings:"..msg.chat_id_,"flood") then 
@@ -2256,15 +2415,103 @@ end
 end
 ---------
 -->>lock by del user chat <<--
-if msg.content_.ID == "MessageChatDeletePhoto" or msg.content_.ID == "MessageChatChangePhoto" or msg.content_.ID == 'MessagePinMessage' or msg.content_.ID == "MessageChatJoinByLink" or msg.content_.ID == "MessageChatAddMembers" or msg.content_.ID == 'MessageChatChangeTitle' or msg.content_.ID == "MessageChatDeleteMember" then    if tonumber(tahadevstorm:get('numlocktgser'..msg.chat_id_..msg.sender_user_id_) or 1) >= 100 then   if not msg.can_be_deleted_ == true and not tahadevstorm:get(DEVSTOR.."data2:bot:"..msg.chat_id_) then      storm_sendMsg(msg.chat_id_, msg.id_, 1, "*🚨¦ لا استطيع حذف الاشعارات  *👇\n*🚸¦ لان ليست لدي صلاحيه الحذف او انا لست ادمن *🍃\n", 1, "md")   tahadevstorm:setex(DEVSTOR.."data2:bot:"..msg.chat_id_, 10, true)   else   delete_msg(msg.chat_id_,{[0] = msg.id_})         end      end    end  
-if msg.content_.ID == 'MessagePinMessage' then    
-if tonumber(tahadevstorm:get('numlockpinmsg'..msg.chat_id_..msg.sender_user_id_) or 1) >= 100 then    
+if msg.content_.ID == 'MessagePinMessage' then
+if tahadevstorm:sismember(DEVSTOR..'LOCK:PINMSG'..msg.chat_id_,msg.sender_user_id_) and not is_owner(msg) then 
 local PinnedMessage = tahadevstorm:get(DEVSTOR..'pinned'..msg.chat_id_)  
 if PinnedMessage then  
-pinChannelMessage(msg.chat_id_,tonumber(PinnedMessage), 0) 
+pinChannelMessage(msg.chat_id_,tonumber(PinnedMessage),0) 
 end
-end   
+else
+tahadevstorm:set(DEVSTOR..'pinned'..msg.chat_id_, msg.content_.message_id_)    
+end  
+end  
+ 
+if msg.content_.caption_ and not is_owner(msg) then 
+if msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/") or msg.content_.caption_:match("[Hh][Tt][Tt][Pp][Ss]://") or msg.content_.caption_:match("[Hh][Tt][Tt][Pp]://") or msg.content_.caption_:match("[Ww][Ww][Ww].") or msg.content_.caption_:match(".[Cc][Oo][Mm]") or msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Dd][Oo][Gg]/") or msg.content_.caption_:match(".[Pp][Ee]") or msg.content_.caption_:match("[Tt][Ll][Gg][Rr][Mm].[Mm][Ee]/") or msg.content_.caption_:match("[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]/") or msg.content_.caption_:match("[Tt].[Mm][Ee]/") then 
+if tahadevstorm:sismember(DEVSTOR..'LOCK:LINKS'..msg.chat_id_,msg.sender_user_id_) then
+tdcli_function ({ID="DeleteMessages", chat_id_=msg.chat_id_, message_ids_={[0] = msg.id_}}, dl_cb, nil) 
 end
+end
+end
+if text and text:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/") or text and text:match("[Hh][Tt][Tt][Pp][Ss]://") or text and text:match("[Hh][Tt][Tt][Pp]://") or text and text:match("[Ww][Ww][Ww].") or text and text:match(".[Cc][Oo][Mm]") or text and text:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Dd][Oo][Gg]/") or text and text:match(".[Pp][Ee]") or text and text:match("[Tt][Ll][Gg][Rr][Mm].[Mm][Ee]/") or text and text:match("[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]/") or text and text:match("[Tt].[Mm][Ee]/") and not is_vipgroup(msg) then
+if tahadevstorm:sismember(DEVSTOR..'LOCK:LINKS'..msg.chat_id_,msg.sender_user_id_) and not is_owner(msg) then 
+tdcli_function ({ID="DeleteMessages", chat_id_=msg.chat_id_, message_ids_={[0] = msg.id_}}, dl_cb, nil) 
+end
+end
+-- المعرفات
+if text and text:match("@[%a%d_]+") or text and text:match("@(.+)") and not is_owner(msg) then     
+if tahadevstorm:sismember(DEVSTOR..'LOCK:USERNAME'..msg.chat_id_,msg.sender_user_id_) then
+tdcli_function ({ID="DeleteMessages", chat_id_=msg.chat_id_, message_ids_={[0] = msg.id_}}, dl_cb, nil) 
+end
+end
+if msg.content_.caption_ and not is_owner(msg) then  
+if msg.content_.caption_:match("@[%a%d_]+") or msg.content_.caption_:match("@(.+)") then  
+if tahadevstorm:sismember(DEVSTOR..'LOCK:USERNAME'..msg.chat_id_,msg.sender_user_id_) then
+tdcli_function ({ID="DeleteMessages", chat_id_=msg.chat_id_, message_ids_={[0] = msg.id_}}, dl_cb, nil) 
+end
+end
+end
+-- الصور
+if msg.content_.ID == 'MessagePhoto' then 
+if tahadevstorm:sismember(DEVSTOR..'LOCK:PHOTO'..msg.chat_id_,msg.sender_user_id_) and not is_owner(msg) then 
+tdcli_function ({ID="DeleteMessages", chat_id_=msg.chat_id_, message_ids_={[0] = msg.id_}}, dl_cb, nil) 
+end
+end
+-- الصوت
+if msg.content_.ID == 'MessageVoice' or msg.content_.ID == 'MessageAudio' then
+if tahadevstorm:sismember(DEVSTOR..'LOCK:VICO'..msg.chat_id_,msg.sender_user_id_) and not is_owner(msg) then 
+tdcli_function ({ID="DeleteMessages", chat_id_=msg.chat_id_, message_ids_={[0] = msg.id_}}, dl_cb, nil) 
+end
+end
+
+--المتحركه
+if msg.content_.ID == 'MessageAnimation' then
+if tahadevstorm:sismember(DEVSTOR..'LOCK:GIF'..msg.chat_id_,msg.sender_user_id_) and not is_owner(msg) then 
+tdcli_function ({ID="DeleteMessages", chat_id_=msg.chat_id_, message_ids_={[0] = msg.id_}}, dl_cb, nil) 
+end
+end
+--الفيديو
+if msg.content_.ID == 'MessageVideo' then
+if tahadevstorm:sismember(DEVSTOR..'LOCK:VIDEO'..msg.chat_id_,msg.sender_user_id_) and not is_owner(msg) then 
+tdcli_function ({ID="DeleteMessages", chat_id_=msg.chat_id_, message_ids_={[0] = msg.id_}}, dl_cb, nil) 
+end
+end
+--الملصقات
+if msg.content_.ID == 'MessageSticker' then     
+print('ملصق')
+if tahadevstorm:sismember(DEVSTOR..'LOCK:STEKR'..msg.chat_id_,msg.sender_user_id_) and not is_owner(msg) then 
+tdcli_function ({ID="DeleteMessages", chat_id_=msg.chat_id_, message_ids_={[0] = msg.id_}}, dl_cb, nil) 
+end
+end
+--السيبفي
+if msg.content_.ID == "MessageUnsupported" then
+if tahadevstorm:sismember(DEVSTOR..'LOCK:SELPHY'..msg.chat_id_,msg.sender_user_id_) and not is_owner(msg) then 
+tdcli_function ({ID="DeleteMessages", chat_id_=msg.chat_id_, message_ids_={[0] = msg.id_}}, dl_cb, nil) 
+end
+end
+--الماركداون
+if msg.content_.entities_ then 
+if msg.content_.entities_[0] then 
+if msg.content_.entities_[0] and msg.content_.entities_[0].ID == "MessageEntityUrl" or msg.content_.entities_[0].ID == "MessageEntityTextUrl" then      
+if tahadevstorm:sismember(DEVSTOR..'LOCK:MARKDWN'..msg.chat_id_,msg.sender_user_id_) and not is_owner(msg) then 
+tdcli_function ({ID="DeleteMessages", chat_id_=msg.chat_id_, message_ids_={[0] = msg.id_}}, dl_cb, nil) 
+end
+end
+end
+end
+--التوجيه
+if msg.forward_info_ then
+if tahadevstorm:sismember(DEVSTOR..'LOCK:FWD'..msg.chat_id_,msg.sender_user_id_) and not is_owner(msg) then 
+tdcli_function ({ID="DeleteMessages", chat_id_=msg.chat_id_, message_ids_={[0] = msg.id_}}, dl_cb, nil) 
+end
+end
+--الاونلاين
+if msg.reply_markup_ and msg.reply_markup_.ID == 'ReplyMarkupInlineKeyboard' then     
+if tahadevstorm:sismember(DEVSTOR..'LOCK:INLIN'..msg.chat_id_,msg.sender_user_id_) and not is_owner(msg) then 
+tdcli_function ({ID="DeleteMessages", chat_id_=msg.chat_id_, message_ids_={[0] = msg.id_}}, dl_cb, nil) 
+end
+end 
+ 
 if msg.sender_user_id_ and is_muted(msg.chat_id_,msg.sender_user_id_) then 
 delete_msg(msg.chat_id_, {[0] = msg.id_})  
 return false  
@@ -2380,305 +2627,294 @@ elseif text == 'فتح الكل' and msg.reply_to_message_id_ == 0 and is_mod(ms
 rem_lockal(msg.chat_id_) 
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فـتح جميع الاوامر \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل الروابط' and is_mod(msg) then 
+if text == 'قفل الروابط' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Link"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الروابط \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الروابط بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل الروابط بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Link"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الروابط بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الروابط بالكتم' and is_mod(msg) then 
+elseif text == 'قفل الروابط بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Link"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الروابط بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الروابط بالطرد' and is_mod(msg) then 
+elseif text == 'قفل الروابط بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Link"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الروابط بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح الروابط' and is_mod(msg) then 
+elseif text == 'فتح الروابط' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:Link"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح الروابط \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل المعرفات' and is_mod(msg) then 
+if text == 'قفل المعرفات' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:user:name"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل المعرفات \n✓',msg.sender_user_id_)  
-elseif text == 'قفل المعرفات بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل المعرفات بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:user:name"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل المعرفات بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل المعرفات بالكتم' and is_mod(msg) then 
+elseif text == 'قفل المعرفات بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:user:name"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل المعرفات بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل المعرفات بالطرد' and is_mod(msg) then 
+elseif text == 'قفل المعرفات بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:user:name"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل المعرفات بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح المعرفات' and is_mod(msg) then 
+elseif text == 'فتح المعرفات' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:user:name"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح المعرفات \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل التاك' and is_mod(msg) then 
+if text == 'قفل التاك' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:hashtak"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل التاك \n✓',msg.sender_user_id_)  
-elseif text == 'قفل التاك بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل التاك بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:hashtak"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل التاك بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل التاك بالكتم' and is_mod(msg) then 
+elseif text == 'قفل التاك بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:hashtak"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل التاك بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل التاك بالطرد' and is_mod(msg) then 
+elseif text == 'قفل التاك بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:hashtak"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل التاك بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح التاك' and is_mod(msg) then 
+elseif text == 'فتح التاك' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:hashtak"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح التاك \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل الشارحه' and is_mod(msg) then 
+if text == 'قفل الشارحه' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Cmd"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الشارحه \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الشارحه بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل الشارحه بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Cmd"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الشارحه بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الشارحه بالكتم' and is_mod(msg) then 
+elseif text == 'قفل الشارحه بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Cmd"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الشارحه بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الشارحه بالطرد' and is_mod(msg) then 
+elseif text == 'قفل الشارحه بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Cmd"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الشارحه بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح الشارحه' and is_mod(msg) then 
+elseif text == 'فتح الشارحه' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:Cmd"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح الشارحه \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل الصور' and is_mod(msg) then 
+if text == 'قفل الصور' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Photo"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الصور \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الصور بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل الصور بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Photo"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الصور بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الصور بالكتم' and is_mod(msg) then 
+elseif text == 'قفل الصور بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Photo"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الصور بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الصور بالطرد' and is_mod(msg) then 
+elseif text == 'قفل الصور بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Photo"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الصور بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح الصور' and is_mod(msg) then 
+elseif text == 'فتح الصور' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:Photo"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح الصور \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل الفيديو' and is_mod(msg) then 
+if text == 'قفل الفيديو' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Video"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الفيديو \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الفيديو بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل الفيديو بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Video"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الفيديو بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الفيديو بالكتم' and is_mod(msg) then 
+elseif text == 'قفل الفيديو بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Video"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الفيديو بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الفيديو بالطرد' and is_mod(msg) then 
+elseif text == 'قفل الفيديو بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Video"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الفيديو بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح الفيديو' and is_mod(msg) then 
+elseif text == 'فتح الفيديو' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:Video"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح الفيديو \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل المتحركه' and is_mod(msg) then 
+if text == 'قفل المتحركه' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Animation"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل المتحركه \n✓',msg.sender_user_id_)  
-elseif text == 'قفل المتحركه بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل المتحركه بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Animation"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل المتحركه بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل المتحركه بالكتم' and is_mod(msg) then 
+elseif text == 'قفل المتحركه بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Animation"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل المتحركه بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل المتحركه بالطرد' and is_mod(msg) then 
+elseif text == 'قفل المتحركه بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Animation"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل المتحركه بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح المتحركه' and is_mod(msg) then 
+elseif text == 'فتح المتحركه' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:Animation"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح المتحركه \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل الالعاب' and is_mod(msg) then 
+if text == 'قفل الالعاب' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:geam"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الالعاب \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الالعاب بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل الالعاب بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:geam"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الالعاب بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الالعاب بالكتم' and is_mod(msg) then 
+elseif text == 'قفل الالعاب بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:geam"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الالعاب بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الالعاب بالطرد' and is_mod(msg) then 
+elseif text == 'قفل الالعاب بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:geam"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الالعاب بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح الالعاب' and is_mod(msg) then 
+elseif text == 'فتح الالعاب' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:geam"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح الالعاب \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل الاغاني' and is_mod(msg) then 
+if text == 'قفل الاغاني' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Audio"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الاغاني \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الاغاني بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل الاغاني بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Audio"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الاغاني بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الاغاني بالكتم' and is_mod(msg) then 
+elseif text == 'قفل الاغاني بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Audio"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الاغاني بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الاغاني بالطرد' and is_mod(msg) then 
+elseif text == 'قفل الاغاني بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Audio"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الاغاني بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح الاغاني' and is_mod(msg) then 
+elseif text == 'فتح الاغاني' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:Audio"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح الاغاني \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل الصوت' and is_mod(msg) then 
+if text == 'قفل الصوت' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:vico"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الصوت \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الصوت بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل الصوت بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:vico"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الصوت بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الصوت بالكتم' and is_mod(msg) then 
+elseif text == 'قفل الصوت بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:vico"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الصوت بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الصوت بالطرد' and is_mod(msg) then 
+elseif text == 'قفل الصوت بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:vico"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الصوت بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح الصوت' and is_mod(msg) then 
+elseif text == 'فتح الصوت' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:vico"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح الصوت \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل الكيبورد' and is_mod(msg) then 
+if text == 'قفل الكيبورد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Keyboard"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الكيبورد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الكيبورد بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل الكيبورد بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Keyboard"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الكيبورد بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الكيبورد بالكتم' and is_mod(msg) then 
+elseif text == 'قفل الكيبورد بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Keyboard"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الكيبورد بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الكيبورد بالطرد' and is_mod(msg) then 
+elseif text == 'قفل الكيبورد بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Keyboard"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الكيبورد بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح الكيبورد' and is_mod(msg) then 
+elseif text == 'فتح الكيبورد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:Keyboard"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح الكيبورد \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل الملصقات' and is_mod(msg) then 
+if text == 'قفل الملصقات' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Sticker"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الملصقات \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الملصقات بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل الملصقات بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Sticker"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الملصقات بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الملصقات بالكتم' and is_mod(msg) then 
+elseif text == 'قفل الملصقات بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Sticker"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الملصقات بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الملصقات بالطرد' and is_mod(msg) then 
+elseif text == 'قفل الملصقات بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Sticker"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الملصقات بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح الملصقات' and is_mod(msg) then 
+elseif text == 'فتح الملصقات' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:Sticker"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح الملصقات \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل التوجيه' and is_mod(msg) then 
+if text == 'قفل التوجيه' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:forward"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل التوجيه \n✓',msg.sender_user_id_)  
-elseif text == 'قفل التوجيه بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل التوجيه بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:forward"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل التوجيه بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل التوجيه بالكتم' and is_mod(msg) then 
+elseif text == 'قفل التوجيه بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:forward"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل التوجيه بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل التوجيه بالطرد' and is_mod(msg) then 
+elseif text == 'قفل التوجيه بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:forward"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل التوجيه بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح التوجيه' and is_mod(msg) then 
+elseif text == 'فتح التوجيه' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:forward"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح التوجيه \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل الملفات' and is_mod(msg) then 
+if text == 'قفل الملفات' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Document"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الملفات \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الملفات بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل الملفات بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Document"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الملفات بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الملفات بالكتم' and is_mod(msg) then 
+elseif text == 'قفل الملفات بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Document"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الملفات بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الملفات بالطرد' and is_mod(msg) then 
+elseif text == 'قفل الملفات بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Document"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الملفات بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح الملفات' and is_mod(msg) then 
+elseif text == 'فتح الملفات' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:Document"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح الملفات \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل السيلفي' and is_mod(msg) then 
+if text == 'قفل السيلفي' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Unsupported"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل السيلفي \n✓',msg.sender_user_id_)  
-elseif text == 'قفل السيلفي بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل السيلفي بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Unsupported"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل السيلفي بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل السيلفي بالكتم' and is_mod(msg) then 
+elseif text == 'قفل السيلفي بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Unsupported"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل السيلفي بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل السيلفي بالطرد' and is_mod(msg) then 
+elseif text == 'قفل السيلفي بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Unsupported"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل السيلفي بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح السيلفي' and is_mod(msg) then 
+elseif text == 'فتح السيلفي' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:Unsupported"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح السيلفي \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل الماركداون' and is_mod(msg) then 
+if text == 'قفل الماركداون' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Markdaun"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الماركداون \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الماركداون بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل الماركداون بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Markdaun"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الماركداون بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الماركداون بالكتم' and is_mod(msg) then 
+elseif text == 'قفل الماركداون بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Markdaun"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الماركداون بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الماركداون بالطرد' and is_mod(msg) then 
+elseif text == 'قفل الماركداون بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Markdaun"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الماركداون بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح الماركداون' and is_mod(msg) then 
+elseif text == 'فتح الماركداون' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:Markdaun"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح الماركداون \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل الجهات' and is_mod(msg) then 
+if text == 'قفل الجهات' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Contact"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الجهات \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الجهات بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل الجهات بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Contact"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الجهات بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الجهات بالكتم' and is_mod(msg) then 
+elseif text == 'قفل الجهات بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Contact"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الجهات بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الجهات بالطرد' and is_mod(msg) then 
+elseif text == 'قفل الجهات بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Contact"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الجهات بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح الجهات' and is_mod(msg) then 
+elseif text == 'فتح الجهات' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:Contact"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح الجهات \n✓',msg.sender_user_id_)  
 end
-if text == 'قفل الكلايش' and is_mod(msg) then 
+if text == 'قفل الكلايش' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Spam"..msg.chat_id_,'del')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الكلايش \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الكلايش بالتقييد' and is_mod(msg) then 
+elseif text == 'قفل الكلايش بالتقييد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Spam"..msg.chat_id_,'ked')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الكلايش بالتقييد \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الكلايش بالكتم' and is_mod(msg) then 
+elseif text == 'قفل الكلايش بالكتم' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Spam"..msg.chat_id_,'ktm')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الكلايش بالكتم \n✓',msg.sender_user_id_)  
-elseif text == 'قفل الكلايش بالطرد' and is_mod(msg) then 
+elseif text == 'قفل الكلايش بالطرد' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:set(DEVSTOR.."lock:Spam"..msg.chat_id_,'kick')  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل الكلايش بالطرد \n✓',msg.sender_user_id_)  
-elseif text == 'فتح الكلايش' and is_mod(msg) then 
+elseif text == 'فتح الكلايش' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 tahadevstorm:del(DEVSTOR.."lock:Spam"..msg.chat_id_)  
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح الكلايش \n✓',msg.sender_user_id_)  
 end
-if text and text:match("^(جلب صوره) (%d+) (رقم) (%d+)")  then  
-local matches = {text:match("^(جلب صوره) (%d+) (رقم) (%d+)")}  
-local function getpro(arg,data) 
-if data.photos_[0] then 
-sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, data.photos_[0].sizes_[1].photo_.persistent_id_,'📬¦ تم جلب صورة » ('..matches[2]..')\n📮¦ رقم » '..matches[4]..'') 
-else 
-storm_sendMsg(msg.chat_id_, msg.id_,1, '*📮¦ العضــو » ('..matches[2]..')\n📬¦ لا توجد صوره رقم » ('..matches[4]..') في حسابه *\n',1,'md') 
-end 
-end 
-tdcli_function ({ID ="GetUserProfilePhotos", user_id_ = matches[2], offset_ = matches[4] -1, limit_ = 100 }, getpro, nil)   
-end 
 if text == "حذف الصوره" and is_mod(msg) then 
 deleteChatPhoto(msg.chat_id_) 
 storm_sendMsg(msg.chat_id_, msg.id_,1, '*📬¦* تم حذف صورة المجموعه \n',1,'md') 
@@ -2731,8 +2967,6 @@ end
 tahadevstorm:del("addreply2:"..msg.sender_user_id_..bot_id)   
 return false   end   
 end
-
-
 --======================
 --ردود المجموعه بالرد
 if text == "مسح الردود بالرد" and is_monsh(msg) then  
@@ -3722,8 +3956,6 @@ end,nil)
 end
 return false
 end
-
-
 if text == "وضع اسم البوت" and is_devtaha(msg) then tahadevstorm:setex(DEVSTOR..'namebot:witting'..msg.sender_user_id_,300,true) storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📛¦* ارسل لي الاسم 📯\n",1, 'md')  end
 if text == 'مسح البوتات' and is_monsh(msg) then   
 tdcli_function ({ 
@@ -3768,7 +4000,7 @@ storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ لا توجد بوتات هنا
 return false end
 if #admins == i then 
 local a = '\nٴ━━━━━━━━━━\n*📮¦ عدد البوتات التي هنا » ❪'..n..'❫* بوت\n'
-local f = '*📬¦ عدد البوتات التي هي ادمن » ❪'..t..'❫*\n*⚠¦ ملاحضه علامة ال (✯) تعني ان البوت ادمن *\n💥'
+local f = '*📮¦ عدد البوتات التي هي ادمن » ❪'..t..'❫*\n*⚠¦ ملاحضه علامة ال (✯) تعني ان البوت ادمن *\n💥'
 storm_sendMsg(msg.chat_id_, msg.id_, 1, text..a..f, 1, 'md')
 end
 end,nil)
@@ -3804,8 +4036,6 @@ local iduserr = tahadevstorm:get(DEVSTOR..'id:gp'..msg.chat_id_)
 storm_sendMsg((iduserr), 0, 1, numadded, 1, "html")   
 storm_sendMsg(msg.chat_id_, msg.id_,  1, "📬*¦* تم ارسال رسالتك الى  *{ "..iduserr..' }* ', 1, 'md')  
 end
-
-
 if text and text:match("^اذاعه (-%d+)$") and is_devtaha(msg) then  
 taha = text:match("^اذاعه (-%d+)$")
 tahadevstorm:set(DEVSTOR..'id:gp'..msg.chat_id_,taha)  
@@ -3813,7 +4043,6 @@ tahadevstorm:setex(DEVSTOR.."bc:gp" .. msg.chat_id_ .. "" .. msg.sender_user_id_
 local t = '*📊¦ ارسل لي النص الذي تريده*'  
 storm_sendMsg(msg.chat_id_, msg.id_, 1,t, 1, 'md') 
 end
-
 if text then 
 if is_mod(msg) then
 if text == 'ارسال نسخه' and is_devtaha(msg) then  sendDocument(SUDO, 0, 0, 1, nil, './STORM.lua', '🚸¦اسم الملف ( STORM.lua )\n♻¦عدد المشتركين ( '..(tahadevstorm:scard(DEVSTOR.."usersbot") or 0)..' )\n📮¦عدد المجموعات ( '..(tahadevstorm:scard(DEVSTOR.."botgps") or 0)..' )',dl_cb, nil)  end
@@ -3851,7 +4080,6 @@ storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'md')
 end 
 getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),cb) 
 end
-
 if text == 'اذاعه' and tonumber(msg.reply_to_message_id_) > 0 and is_devtaha(msg) then 
 function cb(a,b,c) 
 if b.content_.text_ then
@@ -3886,7 +4114,6 @@ storm_sendMsg(msg.chat_id_, msg.id_, 1, text, 1, 'md')
 end 
 getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),cb) 
 end
-
 if text == 'اذاعه عام' and tonumber(msg.reply_to_message_id_) > 0 and is_devtaha(msg) then 
 function cb(a,b,c) 
 if b.content_.text_ then
@@ -3951,7 +4178,6 @@ end
 getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),cb) 
 end 
 end
-
 if text == "تحديث السورس" and is_devtaha(msg) then  
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '♻ • جاري تحديث السورس • ♻', 1, 'md') 
 os.execute('rm -rf STORM.lua') 
@@ -4010,10 +4236,7 @@ end
 end
 if text and text:match('^كشف @(.*)') then 
 local username = text:match('^كشف @(.*)') 
-tdcli_function ({    
-ID = "SearchPublicChat",    
-username_ = username  
-},function(extra, kk, success) 
+tdcli_function ({ID = "SearchPublicChat",username_ = username},function(extra, kk, success) 
 if kk and kk.message_ and kk.message_ == "USERNAME_NOT_OCCUPIED" then 
 local taha = '*📬¦ المعرف لا يوجد فيه حساب *'
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md')
@@ -4053,16 +4276,8 @@ else
 t = 'مجرد عضو'
 end
 tdcli_function ({ID = "GetChatMember",chat_id_ = msg.chat_id_,user_id_ = kk.id_},function(arg,da) 
-tdcli_function ({
-ID = "GetUserProfilePhotos",
-user_id_ = kk.id_,
-offset_ = 0,
-limit_ = 100
-},function(arg,pho) 
-tdcli_function ({
-ID = "GetUser",
-user_id_ = kk.id_
-},function(arg,data) 
+tdcli_function ({ID = "GetUserProfilePhotos",user_id_ = kk.id_,offset_ = 0,limit_ = 100},function(arg,pho) 
+tdcli_function ({ID = "GetUser",user_id_ = kk.id_},function(arg,data) 
 if pho.total_count_ == 0 then
 photouser1 = ''
 else
@@ -4121,7 +4336,6 @@ end
 end,nil)
 return false 
 end
-
 if text and text:match('كشف (%d+)') then 
 local iduser = text:match('كشف (%d+)')  
 local msgss = tonumber(tahadevstorm:get(DEVSTOR..'user:messages:'..msg.chat_id_..':'..iduser) or 0)  
@@ -4147,16 +4361,8 @@ else
 t = 'مجرد عضو'
 end
 tdcli_function ({ID = "GetChatMember",chat_id_ = msg.chat_id_,user_id_ = iduser},function(arg,da) 
-tdcli_function ({
-ID = "GetUserProfilePhotos",
-user_id_ = iduser,
-offset_ = 0,
-limit_ = 100
-},function(arg,pho) 
-tdcli_function ({
-ID = "GetUser",
-user_id_ = iduser
-},function(arg,data) 
+tdcli_function ({ID = "GetUserProfilePhotos",user_id_ = iduser,offset_ = 0,limit_ = 100},function(arg,pho) 
+tdcli_function ({ID = "GetUser",user_id_ = iduser},function(arg,data) 
 if data.message_ == "User not found" then
 storm_sendMsg(msg.chat_id_, msg.id_, 1,'*📬¦ لا استطيع استخراج معلوماته ✨ *\n', 1, 'md')
 return false  end
@@ -4168,7 +4374,7 @@ end
 if pho.total_count_ == 0 then
 photouser1 = ''
 else
-photouser1 = '\n🎆¦ عدد صوره » ❪ '..pho.total_count_..' ❫'
+photouser1 = '\n🌄¦ عدد صوره » ❪ '..pho.total_count_..' ❫'
 end
 if tahadevstorm:sismember(DEVSTOR..'storm:gbaned',iduser) then
 kkeed = 'محظور عام'
@@ -4260,16 +4466,8 @@ else
 t = 'مجرد عضو'
 end
 tdcli_function ({ID = "GetChatMember",chat_id_ = msg.chat_id_,user_id_ = result.sender_user_id_},function(arg,da) 
-tdcli_function ({
-ID = "GetUserProfilePhotos",
-user_id_ = result.sender_user_id_,
-offset_ = 0,
-limit_ = 100
-},function(arg,pho) 
-tdcli_function ({
-ID = "GetUser",
-user_id_ = result.sender_user_id_
-},function(arg,data) 
+tdcli_function ({ID = "GetUserProfilePhotos",user_id_ = result.sender_user_id_,offset_ = 0,limit_ = 100},function(arg,pho) 
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
 if pho.total_count_ == 0 then
 photouser = ''
 else
@@ -4471,7 +4669,7 @@ if text == 'مسح المجموعات' and is_devtaha(msg) then
 local lgp = tahadevstorm:smembers(DEVSTOR.."bot:gpsby:id") 
 local lsug = tahadevstorm:smembers(DEVSTOR.."botgps") 
 local lgpn = tahadevstorm:scard(DEVSTOR.."bot:gpsby:id") 
-local lsugn = tahadevstorm:scard(DEVSTOR.."botgps") + tahadevstorm:scard(DEVSTOR.."bot:gpsby:id") 
+local lsugn = tahadevstorm:scard(DEVSTOR.."bot:gpsby:id") 
 for k,v in pairs(lgp) do 
 rem_group(v)   
 changeChatMemberStatus(v, bot_id, "Left")  
@@ -4511,6 +4709,29 @@ if num2 == 0 then
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📛¦ لا توجد ادمنية ليتم رفعهم*\n✓', 1, 'md') 
 else
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📛¦ تمت ترقية •⊱ '..num2..' ⊰• من ادمنية المجموعه*\n✓', 1, 'md') 
+end
+end,nil)   
+end
+if text ==('المنشئ') then
+tdcli_function ({
+ID = "GetChannelMembers",
+channel_id_ = getChatId(msg.chat_id_).ID,
+filter_ = {ID = "ChannelMembersAdministrators"},offset_ = 0,limit_ = 100
+},function(arg,data) 
+local admins = data.members_
+for i=0 , #admins do
+if data.members_[i].status_.ID == "ChatMemberStatusCreator" then
+owner_id = admins[i].user_id_
+tdcli_function ({ID = "GetUser",user_id_ = owner_id
+},function(arg,b) 
+if b.first_name_ == false then
+storm_sendMsg(msg.chat_id_, msg.id_, 1,'*📬¦ حساب المنشئ محذوف *\n', 1, 'md')
+tahadevstorm:srem(DEVSTOR..'moder'..msg.chat_id_,owner_id) 
+return false  end
+local textm = '📮¦ منشئ المجموعه » ( {'..(b.first_name_)..'} ) \n👮'
+sendMention(msg,msg.chat_id_,textm,owner_id)   
+end,nil)   
+end
 end
 end,nil)   
 end
@@ -4735,7 +4956,7 @@ storm_sendMsg(msg.chat_id_, msg.id_, 1,'💥*¦*  تم مسح ترحيب الم�
 end
 if text and text:match("^ضع صوره") and is_mod(msg) and msg.reply_to_message_id_ == 0 then  
 tahadevstorm:set(DEVSTOR..'setphoto'..msg.chat_id_..':'..msg.sender_user_id_,true) 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '🎆*¦* ارسل لي الصوره الان ', 1, 'md') 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '📷*¦* ارسل لي الصوره الان ', 1, 'md') 
 end           
 if text ==('المجموعات') and is_devtaha(msg) then
 local list = tahadevstorm:smembers(DEVSTOR..'bot:gpsby:id')  
@@ -5130,7 +5351,6 @@ taha = "*📮¦ لا يوجد قناة في الاشتراك الاجباري *\
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 end
-
 if text and text:match('^ضع تكرار (%d+)$') and is_mod(msg) then tahadevstorm:hset("flooding:settings:"..msg.chat_id_ ,"floodmax" ,text:match('ضع تكرار (.*)')) storm_sendMsg(msg.chat_id_, msg.id_, 1,'💥*¦*  تم وضع عدد التكرار في المجموعه ( '..text:match('ضع تكرار (.*)')..' )', 1, 'md') end if text and text:match('^ضع زمن التكرار (%d+)$') and is_mod(msg) then tahadevstorm:hset("flooding:settings:"..msg.chat_id_ ,"floodtime" ,text:match('ضع زمن التكرار (.*)')) storm_sendMsg(msg.chat_id_, msg.id_, 1,'💥*¦*  تم وضع زمن التكرار في المجموعه ( '..text:match('ضع زمن التكرار (.*)')..' )', 1, 'md') end
 if text == 'الترحيب' then 
 local getwelcom = tahadevstorm:get(DEVSTOR..'welcome:'..msg.chat_id_)  
@@ -5140,163 +5360,7 @@ else
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📛¦* عذرا لم يتم وضع الترحيب \n', 1, 'md') 
 end 
 end
-if text ==('طرد') and is_mod(msg) then
-function prom_reply(extra, result, success) 
-if tonumber(result.sender_user_id_) == tonumber(bot_id) then  
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لأ أستطيع طرد نفسي * \n', 1, 'md')  
-return false  end 
-if storm1(msg.chat_id_,result.sender_user_id_) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لآ أستطيع طرد » ❪ '..get_mokforkick(msg.chat_id_,result.sender_user_id_)..' ❫ *\n', 1, 'md') 
-return false  end 
-tdcli_function ({ID = "GetChatMember",chat_id_ = msg.chat_id_,user_id_ = result.sender_user_id_},function(arg,da) 
-tdcli_function ({
-ID = "GetUser",
-user_id_ = result.sender_user_id_
-},function(arg,data) 
-tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = result.sender_user_id_, status_ = { ID = "ChatMemberStatusKicked" }, 
-},function(arg,ban) 
-if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "USER_ADMIN_INVALID" then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا استطيع طرد ادمنية المجموعه *\n💥', 1, 'md') 
-return false  end
-if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "CHAT_ADMIN_REQUIRED" then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ ليس لدي صلاحية حظر المستخدمين *\n💥', 1, 'md') 
-return false  end
-if ban and ban.code_ and ban.code_ == 3 then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ انا لست ادمن في المجموعه *\n', 1, 'md') 
-return false  end
-if da.status_.ID == "ChatMemberStatusLeft" then
-if data.username_ == false then
-zo = '📮¦ العضــو » ❪ '..CatchName(data.first_name_,15)..' ❫\n📬¦ بالتاكيد تـم طرده من الكروب\n🍃'   
-stormmonshn(msg.chat_id_, result.sender_user_id_, msg.id_, zo, 16, utf8.len(CatchName(data.first_name_,15)))   
-tahadevstorm:sadd(DEVSTOR..'storm:kick'..msg.chat_id_,result.sender_user_id_)   
-else
-zo = '*📮¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..result.sender_user_id_..'` ❫\n*🚸¦* بالتاكيد تـم طرده من الكروب\n🍃'   
-seavusername(result.sender_user_id_) 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
-end
-kick(msg,msg.chat_id_,result.sender_user_id_)
-else
-if data.username_ == false then
-zo = '📮¦ العضــو » ❪ '..CatchName(data.first_name_,15)..' ❫\n📬¦ تـم طرده من الكروب\n🍃'   
-stormmonshn(msg.chat_id_, result.sender_user_id_, msg.id_, zo, 16, utf8.len(CatchName(data.first_name_,15)))   
-tahadevstorm:sadd(DEVSTOR..'storm:kick'..msg.chat_id_,result.sender_user_id_)   
-else
-zo = '*📮¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..result.sender_user_id_..'` ❫\n*🚸¦* تـم طرده من الكروب\n🍃'   
-seavusername(result.sender_user_id_) 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
-end
-kick(msg,msg.chat_id_,result.sender_user_id_)
-end
-end,nil)   
-end,nil)   
-end,nil)   
-end 
-if tonumber(msg.reply_to_message_id_) == 0 then 
-else 
-getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),prom_reply)   
-end 
-end
-if text and text:match('^طرد @(.*)') and is_mod(msg) then
-local username = text:match('^طرد @(.*)') 
-function promreply(extra,result,success) 
-if result and result.message_ and result.message_ == "USERNAME_NOT_OCCUPIED" then 
-local taha = '*📮¦ المعرف لا يوجد فيه حساب *'
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md')
-return false  end
-if result and result.code_ and result.code_ == 400 and result.message_ == "USERNAME_NOT_OCCUPIED" then  
-zo = '*📬¦* المعرف غلط او لا يوجد هاكذا حساب في التلكرام'
-storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
-return false  end
-if result and result.type_ and result.type_.channel_ and result.type_.channel_.ID == "Channel" then
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا تستطيع طرد القناة *\n💥', 1, 'md') 
-return false  end
-if tonumber(result.id_) == tonumber(bot_id) then  
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لأ أستطيع طرد نفسي * \n', 1, 'md')  
-return false  end 
-tdcli_function ({ID = "GetChatMember",chat_id_ = msg.chat_id_,user_id_ = result.id_},function(arg,da) 
-if da.status_.ID == "ChatMemberStatusLeft" then
-zo = '*📮¦* العضــو » ❪ [@'..username..'] ❫\n*📬¦ الايـدي » ❪* `'..result.id_..'` ❫\n*🚸¦* بالتاكيد تـم طرده من الكروب\n🍃'     
-tahadevstorm:set(DEVSTOR.."user:Name"..result.id_,"@"..username)
-storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
-return false  end
-if storm1(msg.chat_id_,result.id_) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لآ أستطيع طرد » ❪ '..get_mokforkick(msg.chat_id_,result.id_)..' ❫ *\n', 1, 'md') 
-return false  end 
-tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = result.id_, status_ = { ID = "ChatMemberStatusKicked" }, 
-},function(arg,ban) 
-if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "USER_ADMIN_INVALID" then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا استطيع طرد ادمنية المجموعه *\n💥', 1, 'md') 
-return false  end
-if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "CHAT_ADMIN_REQUIRED" then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ ليس لدي صلاحية حظر المستخدمين *\n💥', 1, 'md') 
-return false  end
-if ban and ban.code_ and ban.code_ == 3 then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ انا لست ادمن في المجموعه *\n💥', 1, 'md') 
-return false  end
-zo = '*📮¦* العضــو » ❪ [@'..username..'] ❫\n*📬¦ الايـدي » ❪* `'..result.id_..'` ❫\n*🚸¦* تـم طرده من الكروب\n🍃'     
-tahadevstorm:set(DEVSTOR.."user:Name"..result.id_,"@"..username)
-changeChatMemberStatus(msg.chat_id_, result.id_, "Left") 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
-end,nil)   
-end,nil)   
-end   
-saddbyusername(username,promreply) 
-end
-if text and text:match('^طرد (%d+)') and is_mod(msg) then
-local user = text:match('طرد (%d+)')
-if tonumber(user) == tonumber(bot_id) then  
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لأ أستطيع طرد نفسي * \n', 1, 'md')  
-return false  end 
-if storm1(msg.chat_id_,user) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لآ أستطيع طرد » ❪ '..get_mokforkick(msg.chat_id_,user)..' ❫ *\n', 1, 'md') 
-return false  end 
-tdcli_function ({ID = "GetChatMember",chat_id_ = msg.chat_id_,user_id_ = user},function(arg,da) 
-tdcli_function ({
-ID = "GetUser",
-user_id_ = user
-},function(arg,data) 
-tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = user, status_ = { ID = "ChatMemberStatusKicked" }, 
-},function(arg,ban) 
-if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "USER_ADMIN_INVALID" then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا استطيع طرد ادمنية المجموعه *\n💥', 1, 'md') 
-return false  end
-if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "CHAT_ADMIN_REQUIRED" then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ ليس لدي صلاحية حظر المستخدمين *\n💥', 1, 'md') 
-return false  end
-if ban and ban.code_ and ban.code_ == 3 then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ انا لست ادمن في المجموعه *\n💥', 1, 'md') 
-return false  end
-if data and data.code_ and data.code_ == 6 then
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا استطيع استخراج معلوماته*\n💥', 1, 'md') 
-return false  end
-if da.status_.ID == "ChatMemberStatusLeft" then
-if data.username_ == false then
-zo = '📮¦ العضــو » ❪ '..CatchName(data.first_name_,15)..' ❫\n📬¦ بالتاكيد تـم طرده من الكروب\n🍃'     
-stormmonshn(msg.chat_id_, user, msg.id_, zo, 16, utf8.len(CatchName(data.first_name_,15)))  
-else
-zo = '*📮¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..user..'` ❫\n*🚸¦* بالتاكيد تـم طرده من الكروب\n🍃'     
-seavusername(user) 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
-end
-kick(msg,msg.chat_id_,user)
-else
-if data.username_ == false then
-zo = '📮¦ العضــو » ❪ '..CatchName(data.first_name_,15)..' ❫\n📬¦ تـم طرده من الكروب\n🍃'     
-stormmonshn(msg.chat_id_, user, msg.id_, zo, 16, utf8.len(CatchName(data.first_name_,15)))  
-tahadevstorm:sadd(DEVSTOR..'storm:kick'..msg.chat_id_,user)   
-else
-zo = '*📮¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..user..'` ❫\n*🚸¦* تـم طرده من الكروب\n🍃'     
-tahadevstorm:sadd(DEVSTOR..'storm:kick'..msg.chat_id_,user)   
-seavusername(user) 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
-end
-kick(msg,msg.chat_id_,user)
-end
-end,nil)   
-end,nil)   
-end,nil) 
-return false 
-end
+
 if text ==('رفع مميز') and is_mod(msg) then
 function prom_reply(extra, result, success) 
 tdcli_function ({
@@ -6775,158 +6839,7 @@ end,nil)
 end  
 saddbyusername(username,unbanusername) 
 end 
-if text ==('حظر') and is_mod(msg) then 
-function prom_reply(extra, result, success) 
-if tonumber(result.sender_user_id_) == tonumber(bot_id) then  
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لأ أستطيع حظر نفسي * ', 1, 'md')  
-return false  end 
-if storm1(msg.chat_id_,result.sender_user_id_) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لآ أستطيع حظر » ❪ '..get_mokforkick(msg.chat_id_,result.sender_user_id_)..' ❫ *\n', 1, 'md') 
-return false  end 
-tdcli_function ({
-ID = "GetUser",
-user_id_ = result.sender_user_id_
-},function(arg,data) 
-tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = result.sender_user_id_, status_ = { ID = "ChatMemberStatusKicked" }, 
-},function(arg,ban) 
-if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "USER_ADMIN_INVALID" then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا استطيع حظر ادمنية المجموعه *\n💥', 1, 'md') 
-return false  end
-if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "CHAT_ADMIN_REQUIRED" then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ ليس لدي صلاحية حظر المستخدمين *\n💥', 1, 'md') 
-return false  end
-if ban and ban.code_ and ban.code_ == 3 then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ انا لست ادمن في المجموعه *\n💥', 1, 'md') 
-return false  end
-if not tahadevstorm:sismember(DEVSTOR..'storm:baned'..msg.chat_id_,result.sender_user_id_) then
-if data.username_ == false then
-zo = '📮¦ العضــو » ❪ '..CatchName(data.first_name_,15)..' ❫\n📬¦ تـم حظره من الكروب\n🍃'   
-stormmonshn(msg.chat_id_, result.sender_user_id_, msg.id_, zo, 16, utf8.len(CatchName(data.first_name_,15)))   
-tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,result.sender_user_id_)   
-else
-zo = '*📮¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..result.sender_user_id_..'` ❫\n*🚸¦* تـم حظره من الكروب\n🍃'   
-tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,result.sender_user_id_)   
-seavusername(result.sender_user_id_) 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
-end
-else
-if data.username_ == false then
-zo = '📮¦ العضــو » ❪ '..CatchName(data.first_name_,15)..' ❫\n📬¦ بالتاكيد تـم حظره من الكروب\n🍃'   
-stormmonshn(msg.chat_id_, result.sender_user_id_, msg.id_, zo, 16, utf8.len(CatchName(data.first_name_,15)))   
-tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,result.sender_user_id_)   
-else
-zo = '*📮¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..result.sender_user_id_..'` ❫\n*🚸¦* بالتاكيد تـم حظره من الكروب\n🍃'   
-tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,result.sender_user_id_)   
-seavusername(result.sender_user_id_) 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
-end
-end
-end,nil)   
-end,nil)   
-end 
-if tonumber(msg.reply_to_message_id_) == 0 then 
-else 
-getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),prom_reply)   
-end 
-end
-if text and text:match('^حظر @(.*)') and is_mod(msg) then 
-local username = text:match('^حظر @(.*)') 
-function promreply(extra,result,success) 
-if result and result.message_ and result.message_ == "USERNAME_NOT_OCCUPIED" then 
-local taha = '*📮¦ المعرف لا يوجد فيه حساب *'
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md')
-return false  end
-if result and result.type_ and result.type_.channel_ and result.type_.channel_.ID == "Channel" then
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا تستطيع حظر القناة *\n💥', 1, 'md') 
-return false  end
-if tonumber(result.id_) == tonumber(bot_id) then  
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لأ أستطيع حظر نفسي * ', 1, 'md')  
-return false  end 
-if storm1(msg.chat_id_,result.id_) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لآ أستطيع حظر » ❪ '..get_mokforkick(msg.chat_id_,result.id_)..' ❫ *\n', 1, 'md') 
-return false  end 
-tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = result.id_, status_ = { ID = "ChatMemberStatusKicked" }, 
-},function(arg,ban) 
-if result.id_ then  
-if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "USER_ADMIN_INVALID" then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا استطيع حظر ادمنية المجموعه *\n💥', 1, 'md') 
-return false  end
-if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "CHAT_ADMIN_REQUIRED" then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ ليس لدي صلاحية حظر المستخدمين *\n💥', 1, 'md') 
-return false  end
-if ban and ban.code_ and ban.code_ == 3 then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ انا لست ادمن في المجموعه *\n💥', 1, 'md') 
-return false  end
-if not tahadevstorm:sismember(DEVSTOR..'storm:baned'..msg.chat_id_,result.id_) then
-zo = '*📮¦* العضــو » ❪ [@'..username..'] ❫\n*📬¦ الايـدي » ❪* `'..result.id_..'` ❫\n*🚸¦* تـم حظره من الكروب\n🍃'   
-tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,result.id_)   
-tahadevstorm:set(DEVSTOR.."user:Name"..result.id_,"@"..username)
-else
-zo = '*📮¦* العضــو » ❪ [@'..username..'] ❫\n*📬¦ الايـدي » ❪* `'..result.id_..'` ❫\n*🚸¦* بالتاكيد تـم حظره من الكروب\n🍃'     
-tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,result.id_)   
-tahadevstorm:set(DEVSTOR.."user:Name"..result.id_,"@"..username)
-end
-else  
-zo = ''   
-end 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
-end,nil)   
-end   
-saddbyusername(username,promreply) 
-end
-if text and text:match('^حظر (%d+)') and is_mod(msg) then 
-local user = text:match('حظر (%d+)')
-if tonumber(user) == tonumber(bot_id) then  
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لأ أستطيع حظر نفسي * ', 1, 'md')  
-return false  end 
-if storm1(msg.chat_id_,user) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لآ أستطيع حظر » ❪ '..get_mokforkick(msg.chat_id_,user)..' ❫ *\n', 1, 'md') 
-return false  end 
-tdcli_function ({
-ID = "GetUser",
-user_id_ = user
-},function(arg,data) 
-tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = user, status_ = { ID = "ChatMemberStatusKicked" }, 
-},function(arg,ban) 
-if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "USER_ADMIN_INVALID" then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا استطيع حظر ادمنية المجموعه *\n💥', 1, 'md') 
-return false  end
-if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "CHAT_ADMIN_REQUIRED" then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ ليس لدي صلاحية حظر المستخدمين *\n💥', 1, 'md') 
-return false  end
-if ban and ban.code_ and ban.code_ == 3 then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ انا لست ادمن في المجموعه *\n💥', 1, 'md') 
-return false  end
-if data and data.code_ and data.code_ == 6 then
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا استطيع استخراج معلوماته*\n💥', 1, 'md') 
-return false  end
-if not tahadevstorm:sismember(DEVSTOR..'storm:baned'..msg.chat_id_,user) then
-if data.username_ == false then
-zo = '📮¦ العضــو » ❪ '..CatchName(data.first_name_,15)..' ❫\n📬¦ تـم حظره من الكروب\n🍃'   
-stormmonshn(msg.chat_id_, user, msg.id_, zo, 16, utf8.len(CatchName(data.first_name_,15)))  
-tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,user)   
-else
-zo = '*📮¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..user..'` ❫\n*🚸¦* تـم حظره من الكروب\n🍃'   
-tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,user)   
-seavusername(user) 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
-end
-else
-if data.username_ == false then
-zo = '📮¦ العضــو » ❪ '..CatchName(data.first_name_,15)..' ❫\n📬¦ بالتاكيد تـم حظره من الكروب\n🍃'     
-stormmonshn(msg.chat_id_, user, msg.id_, zo, 16, utf8.len(CatchName(data.first_name_,15)))  
-tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,user)   
-else
-zo = '*📮¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..user..'` ❫\n*🚸¦* بالتاكيد تـم حظره من الكروب\n🍃'     
-tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,user)   
-seavusername(user) 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
-end
-end
-end,nil)   
-end,nil)   
-return false 
-end
+
 if text == 'الغاء الحظر' and tonumber(msg.reply_to_message_id_) > 0 and is_mod(msg) then 
 function unbanreply(extra, result, success) 
 if tonumber(result.sender_user_id_) == tonumber(bot_id) then  
@@ -7713,6 +7626,380 @@ end
 saddbyusername(username,unbanusername) 
 end 
 end
+
+if text ==('حظر') then 
+if is_mod(msg) or is_canban(msg) then
+if not is_owner(msg) and not is_canban(msg) and tahadevstorm:get(DEVSTOR..'LOCK:BAN:KICK'..msg.chat_id_) then 
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع الحظر لقد تم تعطيل { الحظر - الطرد } \n👨🏻‍✈️*")   
+return false  end 
+if tahadevstorm:sismember(DEVSTOR..'LOCK:BAN'..msg.chat_id_,msg.sender_user_id_) then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ تم وضع القيود عليك لا تستطيع { طرد او حظر } المستخدمين \n👨🏻‍✈️*")   
+return false  end 
+function prom_reply(extra, result, success) 
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then  
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لأ أستطيع حظر نفسي * ', 1, 'md')  
+return false  end 
+if storm1(msg.chat_id_,result.sender_user_id_) then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لآ أستطيع حظر » ❪ '..get_mokforkick(msg.chat_id_,result.sender_user_id_)..' ❫ *\n', 1, 'md') 
+return false  end 
+tdcli_function ({
+ID = "GetUser",
+user_id_ = result.sender_user_id_
+},function(arg,data) 
+tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = result.sender_user_id_, status_ = { ID = "ChatMemberStatusKicked" }, 
+},function(arg,ban) 
+if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "USER_ADMIN_INVALID" then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا استطيع حظر ادمنية المجموعه *\n💥', 1, 'md') 
+return false  end
+if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "CHAT_ADMIN_REQUIRED" then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ ليس لدي صلاحية حظر المستخدمين *\n💥', 1, 'md') 
+return false  end
+if ban and ban.code_ and ban.code_ == 3 then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ انا لست ادمن في المجموعه *\n💥', 1, 'md') 
+return false  end
+if not tahadevstorm:sismember(DEVSTOR..'storm:baned'..msg.chat_id_,result.sender_user_id_) then
+if data.username_ == false then
+zo = '📮¦ العضــو » ❪ '..CatchName(data.first_name_,15)..' ❫\n📬¦ تـم حظره من الكروب\n🍃'   
+stormmonshn(msg.chat_id_, result.sender_user_id_, msg.id_, zo, 16, utf8.len(CatchName(data.first_name_,15)))   
+tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,result.sender_user_id_)   
+else
+zo = '*📮¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..result.sender_user_id_..'` ❫\n*🚸¦* تـم حظره من الكروب\n🍃'   
+tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,result.sender_user_id_)   
+seavusername(result.sender_user_id_) 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
+end
+else
+if data.username_ == false then
+zo = '📮¦ العضــو » ❪ '..CatchName(data.first_name_,15)..' ❫\n📬¦ بالتاكيد تـم حظره من الكروب\n🍃'   
+stormmonshn(msg.chat_id_, result.sender_user_id_, msg.id_, zo, 16, utf8.len(CatchName(data.first_name_,15)))   
+tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,result.sender_user_id_)   
+else
+zo = '*📮¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..result.sender_user_id_..'` ❫\n*🚸¦* بالتاكيد تـم حظره من الكروب\n🍃'   
+tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,result.sender_user_id_)   
+seavusername(result.sender_user_id_) 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
+end
+end
+end,nil)   
+end,nil)   
+end 
+if tonumber(msg.reply_to_message_id_) == 0 then 
+else 
+getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),prom_reply)   
+end 
+else
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انت لست ادمن \n👨🏻‍✈️*")   
+end
+end
+if text and text:match('^حظر @(.*)') then 
+local username = text:match('^حظر @(.*)') 
+if is_mod(msg) or is_canban(msg) then
+if not is_owner(msg) and not is_canban(msg) and tahadevstorm:get(DEVSTOR..'LOCK:BAN:KICK'..msg.chat_id_) then 
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع الحظر لقد تم تعطيل { الحظر - الطرد } \n👨🏻‍✈️*")   
+return false  end 
+if tahadevstorm:sismember(DEVSTOR..'LOCK:BAN'..msg.chat_id_,msg.sender_user_id_) then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ تم وضع القيود عليك لا تستطيع { طرد او حظر } المستخدمين \n👨🏻‍✈️*")   
+return false  end 
+function promreply(extra,result,success) 
+if result and result.message_ and result.message_ == "USERNAME_NOT_OCCUPIED" then 
+local taha = '*📮¦ المعرف لا يوجد فيه حساب *'
+storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md')
+return false  end
+if result and result.type_ and result.type_.channel_ and result.type_.channel_.ID == "Channel" then
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا تستطيع حظر القناة *\n💥', 1, 'md') 
+return false  end
+if tonumber(result.id_) == tonumber(bot_id) then  
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لأ أستطيع حظر نفسي * ', 1, 'md')  
+return false  end 
+if storm1(msg.chat_id_,result.id_) then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لآ أستطيع حظر » ❪ '..get_mokforkick(msg.chat_id_,result.id_)..' ❫ *\n', 1, 'md') 
+return false  end 
+tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = result.id_, status_ = { ID = "ChatMemberStatusKicked" }, 
+},function(arg,ban) 
+if result.id_ then  
+if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "USER_ADMIN_INVALID" then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا استطيع حظر ادمنية المجموعه *\n💥', 1, 'md') 
+return false  end
+if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "CHAT_ADMIN_REQUIRED" then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ ليس لدي صلاحية حظر المستخدمين *\n💥', 1, 'md') 
+return false  end
+if ban and ban.code_ and ban.code_ == 3 then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ انا لست ادمن في المجموعه *\n💥', 1, 'md') 
+return false  end
+if not tahadevstorm:sismember(DEVSTOR..'storm:baned'..msg.chat_id_,result.id_) then
+zo = '*📮¦* العضــو » ❪ [@'..username..'] ❫\n*📬¦ الايـدي » ❪* `'..result.id_..'` ❫\n*🚸¦* تـم حظره من الكروب\n🍃'   
+tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,result.id_)   
+tahadevstorm:set(DEVSTOR.."user:Name"..result.id_,"@"..username)
+else
+zo = '*📮¦* العضــو » ❪ [@'..username..'] ❫\n*📬¦ الايـدي » ❪* `'..result.id_..'` ❫\n*🚸¦* بالتاكيد تـم حظره من الكروب\n🍃'     
+tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,result.id_)   
+tahadevstorm:set(DEVSTOR.."user:Name"..result.id_,"@"..username)
+end
+else  
+zo = ''   
+end 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
+end,nil)   
+end   
+saddbyusername(username,promreply) 
+else
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انت لست ادمن \n👨🏻‍✈️*")   
+end
+end
+
+if text and text:match('^حظر (%d+)') then 
+local user = text:match('حظر (%d+)')
+if is_mod(msg) or is_canban(msg) then
+if not is_owner(msg) and not is_canban(msg) and tahadevstorm:get(DEVSTOR..'LOCK:BAN:KICK'..msg.chat_id_) then 
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع الحظر لقد تم تعطيل { الحظر - الطرد } \n👨🏻‍✈️*")   
+return false  end 
+if tahadevstorm:sismember(DEVSTOR..'LOCK:BAN'..msg.chat_id_,msg.sender_user_id_) then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ تم وضع القيود عليك لا تستطيع { طرد او حظر } المستخدمين \n👨🏻‍✈️*")   
+return false  end 
+if tonumber(user) == tonumber(bot_id) then  
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لأ أستطيع حظر نفسي * ', 1, 'md')  
+return false  end 
+if storm1(msg.chat_id_,user) then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لآ أستطيع حظر » ❪ '..get_mokforkick(msg.chat_id_,user)..' ❫ *\n', 1, 'md') 
+return false  end 
+tdcli_function ({
+ID = "GetUser",
+user_id_ = user
+},function(arg,data) 
+tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = user, status_ = { ID = "ChatMemberStatusKicked" }, 
+},function(arg,ban) 
+if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "USER_ADMIN_INVALID" then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا استطيع حظر ادمنية المجموعه *\n💥', 1, 'md') 
+return false  end
+if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "CHAT_ADMIN_REQUIRED" then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ ليس لدي صلاحية حظر المستخدمين *\n💥', 1, 'md') 
+return false  end
+if ban and ban.code_ and ban.code_ == 3 then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ انا لست ادمن في المجموعه *\n💥', 1, 'md') 
+return false  end
+if data and data.code_ and data.code_ == 6 then
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا استطيع استخراج معلوماته*\n💥', 1, 'md') 
+return false  end
+if not tahadevstorm:sismember(DEVSTOR..'storm:baned'..msg.chat_id_,user) then
+if data.username_ == false then
+zo = '📮¦ العضــو » ❪ '..CatchName(data.first_name_,15)..' ❫\n📬¦ تـم حظره من الكروب\n🍃'   
+stormmonshn(msg.chat_id_, user, msg.id_, zo, 16, utf8.len(CatchName(data.first_name_,15)))  
+tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,user)   
+else
+zo = '*📮¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..user..'` ❫\n*🚸¦* تـم حظره من الكروب\n🍃'   
+tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,user)   
+seavusername(user) 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
+end
+else
+if data.username_ == false then
+zo = '📮¦ العضــو » ❪ '..CatchName(data.first_name_,15)..' ❫\n📬¦ بالتاكيد تـم حظره من الكروب\n🍃'     
+stormmonshn(msg.chat_id_, user, msg.id_, zo, 16, utf8.len(CatchName(data.first_name_,15)))  
+tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,user)   
+else
+zo = '*📮¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..user..'` ❫\n*🚸¦* بالتاكيد تـم حظره من الكروب\n🍃'     
+tahadevstorm:sadd(DEVSTOR..'storm:baned'..msg.chat_id_,user)   
+seavusername(user) 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
+end
+end
+end,nil)   
+end,nil)   
+else
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انت لست ادمن \n👨🏻‍✈️*")   
+end
+return false 
+end
+if text and text:match('^طرد @(.*)') then
+local username = text:match('^طرد @(.*)') 
+if is_mod(msg) or is_canban(msg) then
+if not is_owner(msg) and not is_canban(msg) and tahadevstorm:get(DEVSTOR..'LOCK:BAN:KICK'..msg.chat_id_) then 
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع الحظر لقد تم تعطيل { الحظر - الطرد } \n👨🏻‍✈️*")   
+return false  end 
+if tahadevstorm:sismember(DEVSTOR..'LOCK:BAN'..msg.chat_id_,msg.sender_user_id_) then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ تم وضع القيود عليك لا تستطيع { طرد او حظر } المستخدمين \n👨🏻‍✈️*")   
+return false  end 
+function promreply(extra,result,success) 
+if result and result.message_ and result.message_ == "USERNAME_NOT_OCCUPIED" then 
+local taha = '*📮¦ المعرف لا يوجد فيه حساب *'
+storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md')
+return false  end
+if result and result.code_ and result.code_ == 400 and result.message_ == "USERNAME_NOT_OCCUPIED" then  
+zo = '*📬¦* المعرف غلط او لا يوجد هاكذا حساب في التلكرام'
+storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
+return false  end
+if result and result.type_ and result.type_.channel_ and result.type_.channel_.ID == "Channel" then
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا تستطيع طرد القناة *\n💥', 1, 'md') 
+return false  end
+if tonumber(result.id_) == tonumber(bot_id) then  
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لأ أستطيع طرد نفسي * \n', 1, 'md')  
+return false  end 
+tdcli_function ({ID = "GetChatMember",chat_id_ = msg.chat_id_,user_id_ = result.id_},function(arg,da) 
+if da.status_.ID == "ChatMemberStatusLeft" then
+zo = '*📮¦* العضــو » ❪ [@'..username..'] ❫\n*📬¦ الايـدي » ❪* `'..result.id_..'` ❫\n*🚸¦* بالتاكيد تـم طرده من الكروب\n🍃'     
+tahadevstorm:set(DEVSTOR.."user:Name"..result.id_,"@"..username)
+storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
+return false  end
+if storm1(msg.chat_id_,result.id_) then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لآ أستطيع طرد » ❪ '..get_mokforkick(msg.chat_id_,result.id_)..' ❫ *\n', 1, 'md') 
+return false  end 
+tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = result.id_, status_ = { ID = "ChatMemberStatusKicked" }, 
+},function(arg,ban) 
+if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "USER_ADMIN_INVALID" then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا استطيع طرد ادمنية المجموعه *\n💥', 1, 'md') 
+return false  end
+if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "CHAT_ADMIN_REQUIRED" then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ ليس لدي صلاحية حظر المستخدمين *\n💥', 1, 'md') 
+return false  end
+if ban and ban.code_ and ban.code_ == 3 then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ انا لست ادمن في المجموعه *\n💥', 1, 'md') 
+return false  end
+zo = '*📮¦* العضــو » ❪ [@'..username..'] ❫\n*📬¦ الايـدي » ❪* `'..result.id_..'` ❫\n*🚸¦* تـم طرده من الكروب\n🍃'     
+tahadevstorm:set(DEVSTOR.."user:Name"..result.id_,"@"..username)
+changeChatMemberStatus(msg.chat_id_, result.id_, "Left") 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
+end,nil)   
+end,nil)   
+end   
+saddbyusername(username,promreply) 
+else
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انت لست ادمن \n👨🏻‍✈️*")   
+end
+end
+
+if text ==('طرد') then
+if is_mod(msg) or is_canban(msg) then
+if not is_owner(msg) and not is_canban(msg) and tahadevstorm:get(DEVSTOR..'LOCK:BAN:KICK'..msg.chat_id_) then 
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع الحظر لقد تم تعطيل { الحظر - الطرد } \n👨🏻‍✈️*")   
+return false  end 
+if tahadevstorm:sismember(DEVSTOR..'LOCK:BAN'..msg.chat_id_,msg.sender_user_id_) then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ تم وضع القيود عليك لا تستطيع { طرد او حظر } المستخدمين \n👨🏻‍✈️*")   
+return false  end 
+function prom_reply(extra, result, success) 
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then  
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لأ أستطيع طرد نفسي * \n', 1, 'md')  
+return false  end 
+if storm1(msg.chat_id_,result.sender_user_id_) then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لآ أستطيع طرد » ❪ '..get_mokforkick(msg.chat_id_,result.sender_user_id_)..' ❫ *\n', 1, 'md') 
+return false  end 
+tdcli_function ({ID = "GetChatMember",chat_id_ = msg.chat_id_,user_id_ = result.sender_user_id_},function(arg,da) 
+tdcli_function ({
+ID = "GetUser",
+user_id_ = result.sender_user_id_
+},function(arg,data) 
+tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = result.sender_user_id_, status_ = { ID = "ChatMemberStatusKicked" }, 
+},function(arg,ban) 
+if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "USER_ADMIN_INVALID" then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا استطيع طرد ادمنية المجموعه *\n💥', 1, 'md') 
+return false  end
+if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "CHAT_ADMIN_REQUIRED" then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ ليس لدي صلاحية حظر المستخدمين *\n💥', 1, 'md') 
+return false  end
+if ban and ban.code_ and ban.code_ == 3 then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ انا لست ادمن في المجموعه *\n', 1, 'md') 
+return false  end
+if da.status_.ID == "ChatMemberStatusLeft" then
+if data.username_ == false then
+zo = '📮¦ العضــو » ❪ '..CatchName(data.first_name_,15)..' ❫\n📬¦ بالتاكيد تـم طرده من الكروب\n🍃'   
+stormmonshn(msg.chat_id_, result.sender_user_id_, msg.id_, zo, 16, utf8.len(CatchName(data.first_name_,15)))   
+tahadevstorm:sadd(DEVSTOR..'storm:kick'..msg.chat_id_,result.sender_user_id_)   
+else
+zo = '*📮¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..result.sender_user_id_..'` ❫\n*🚸¦* بالتاكيد تـم طرده من الكروب\n🍃'   
+seavusername(result.sender_user_id_) 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
+end
+kick(msg,msg.chat_id_,result.sender_user_id_)
+else
+if data.username_ == false then
+zo = '📮¦ العضــو » ❪ '..CatchName(data.first_name_,15)..' ❫\n📬¦ تـم طرده من الكروب\n🍃'   
+stormmonshn(msg.chat_id_, result.sender_user_id_, msg.id_, zo, 16, utf8.len(CatchName(data.first_name_,15)))   
+tahadevstorm:sadd(DEVSTOR..'storm:kick'..msg.chat_id_,result.sender_user_id_)   
+else
+zo = '*📮¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..result.sender_user_id_..'` ❫\n*🚸¦* تـم طرده من الكروب\n🍃'   
+seavusername(result.sender_user_id_) 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
+end
+kick(msg,msg.chat_id_,result.sender_user_id_)
+end
+end,nil)   
+end,nil)   
+end,nil)   
+end 
+if tonumber(msg.reply_to_message_id_) == 0 then 
+else 
+getMessage(msg.chat_id_, tonumber(msg.reply_to_message_id_),prom_reply)   
+end 
+else
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انت لست ادمن \n👨🏻‍✈️*")   
+end
+end
+
+if text and text:match('^طرد (%d+)') then
+local user = text:match('طرد (%d+)')
+if is_mod(msg) or is_canban(msg) then
+if not is_owner(msg) and not is_canban(msg) and tahadevstorm:get(DEVSTOR..'LOCK:BAN:KICK'..msg.chat_id_) then 
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع الحظر لقد تم تعطيل { الحظر - الطرد } \n👨🏻‍✈️*")   
+return false  end 
+if tahadevstorm:sismember(DEVSTOR..'LOCK:BAN'..msg.chat_id_,msg.sender_user_id_) then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ تم وضع القيود عليك لا تستطيع { طرد او حظر } المستخدمين \n👨🏻‍✈️*")   
+return false  end 
+if tonumber(user) == tonumber(bot_id) then  
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لأ أستطيع طرد نفسي * \n', 1, 'md')  
+return false  end 
+if storm1(msg.chat_id_,user) then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ عذرآ لآ أستطيع طرد » ❪ '..get_mokforkick(msg.chat_id_,user)..' ❫ *\n', 1, 'md') 
+return false  end 
+tdcli_function ({ID = "GetChatMember",chat_id_ = msg.chat_id_,user_id_ = user},function(arg,da) 
+tdcli_function ({
+ID = "GetUser",
+user_id_ = user
+},function(arg,data) 
+tdcli_function ({ ID = "ChangeChatMemberStatus", chat_id_ = msg.chat_id_, user_id_ = user, status_ = { ID = "ChatMemberStatusKicked" }, 
+},function(arg,ban) 
+if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "USER_ADMIN_INVALID" then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا استطيع طرد ادمنية المجموعه *\n💥', 1, 'md') 
+return false  end
+if ban and ban.code_ and ban.code_ == 400 and ban.message_ == "CHAT_ADMIN_REQUIRED" then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ ليس لدي صلاحية حظر المستخدمين *\n💥', 1, 'md') 
+return false  end
+if ban and ban.code_ and ban.code_ == 3 then 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ انا لست ادمن في المجموعه *\n💥', 1, 'md') 
+return false  end
+if data and data.code_ and data.code_ == 6 then
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا استطيع استخراج معلوماته*\n💥', 1, 'md') 
+return false  end
+if da.status_.ID == "ChatMemberStatusLeft" then
+if data.username_ == false then
+zo = '📮¦ العضــو » ❪ '..CatchName(data.first_name_,15)..' ❫\n📬¦ بالتاكيد تـم طرده من الكروب\n🍃'     
+stormmonshn(msg.chat_id_, user, msg.id_, zo, 16, utf8.len(CatchName(data.first_name_,15)))  
+else
+zo = '*📮¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..user..'` ❫\n*🚸¦* بالتاكيد تـم طرده من الكروب\n🍃'     
+seavusername(user) 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
+end
+kick(msg,msg.chat_id_,user)
+else
+if data.username_ == false then
+zo = '📮¦ العضــو » ❪ '..CatchName(data.first_name_,15)..' ❫\n📬¦ تـم طرده من الكروب\n🍃'     
+stormmonshn(msg.chat_id_, user, msg.id_, zo, 16, utf8.len(CatchName(data.first_name_,15)))  
+tahadevstorm:sadd(DEVSTOR..'storm:kick'..msg.chat_id_,user)   
+else
+zo = '*📮¦* العضــو » ❪ [@'..data.username_..'] ❫\n*📬¦ الايـدي » ❪* `'..user..'` ❫\n*🚸¦* تـم طرده من الكروب\n🍃'     
+tahadevstorm:sadd(DEVSTOR..'storm:kick'..msg.chat_id_,user)   
+seavusername(user) 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, zo, 1, 'md') 
+end
+kick(msg,msg.chat_id_,user)
+end
+end,nil)   
+end,nil)   
+end,nil) 
+else
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انت لست ادمن \n👨🏻‍✈️*")   
+end
+return false 
+end
+
 if text ==('تقييد') and is_mod(msg) then 
 if msg.can_be_deleted_ == false then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*🚨¦* انا لست ادمن يرجى رفعي والمحاوله مره اخره\n", 1, "md") 
@@ -8011,8 +8298,8 @@ if text ==('تثبيت') and msg.reply_to_message_id_ ~= 0 and is_mod(msg) then
 if tahadevstorm:sismember(DEVSTOR..'lock:pin',msg.chat_id_) and not is_monsh(msg) then
 storm_sendMsg(msg.chat_id_,msg.id_, 1, "*📮¦* التثبيت مقفل في المجموعه \n🍃", 1, 'md')  
 return false  end
-if tahadevstorm:sismember(DEVSTOR..'lockpinmsg:ban'..msg.chat_id_,msg.sender_user_id_) then
-storm_sendMsg(msg.chat_id_,msg.id_, 1, "*📮¦* تم منعك من التثبيت هنا لا تستطبع التثبيت \n🍃", 1, 'md')  
+if tahadevstorm:sismember(DEVSTOR..'LOCK:PINMSG'..msg.chat_id_,msg.sender_user_id_) then
+storm_sendMsg(msg.chat_id_,msg.id_, 1, "*📮¦* تم منعك من التثبيت هنا لا تستطيع التثبيت \n🍃", 1, 'md')  
 return false  end
 local id = msg.id_ 
 local msgs = {[0] = id}  
@@ -8436,6 +8723,26 @@ taha = '*📮¦ بالتاكيد تم تعطيل البوت التواصل  *\n�
 storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
 end
 end
+if text == 'تفعيل الحظر' and is_monsh(msg) then   
+if tahadevstorm:get(DEVSTOR..'LOCK:BAN:KICK'..msg.chat_id_)  then
+taha = '*📮¦ تم تفعيل { الحظر - الطرد } *\n✓' 
+storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
+tahadevstorm:del(DEVSTOR..'LOCK:BAN:KICK'..msg.chat_id_) 
+else
+taha = '*📮¦ بالتاكيد تم تفعيل { الحظر - الطرد } *\n✓' 
+storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
+end
+end
+if text == 'تعطيل الحظر' and is_monsh(msg) then  
+if not tahadevstorm:get(DEVSTOR..'LOCK:BAN:KICK'..msg.chat_id_)  then
+taha = '*📮¦ تم تعطيل { الحظر - الطرد } *\n✓' 
+storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
+tahadevstorm:set(DEVSTOR..'LOCK:BAN:KICK'..msg.chat_id_,true) 
+else
+taha = '*📮¦ بالتاكيد تم تعطيل { الحظر - الطرد } *\n✓' 
+storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
+end
+end
 if text and text:match("^صورتي (%d+)") and not tahadevstorm:get(DEVSTOR.."lock:get:photo"..msg.chat_id_)  then 
 local pro = tonumber(text and text:match("^صورتي (%d+)")) 
 local function myprofile(extra, result, success) 
@@ -8779,20 +9086,20 @@ end
 if not tahadevstorm:get(DEVSTOR..'lock:id'..msg.chat_id_) then      
 local get_id_text = tahadevstorm:get(DEVSTOR.."KLISH:ID")
 if get_id_text then
-if taha.photos_[0] then   
+if result.status_.ID == "UserStatusRecently" and result.profile_photo_ ~= false then   
 sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, taha.photos_[0].sizes_[1].photo_.persistent_id_,get_id(msg,taha,get_id_text))       
 else 
-if ta.code_ == 400 or ta.code_ == 5 or taha.total_count_ ~= 0 then
+if result.status_.ID == "UserStatusEmpty" and result.profile_photo_ == false then
 storm_sendMsg(msg.chat_id_, msg.id_, 1,get_id(msg,taha,get_id_text)..'\n• لا يمكنني عرض صورتك لانك قمت بحظر البوت\n', 1, 'html')   
 else
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '\n• ليس لديك صور في حسابك 🍃\n'..get_id(msg,taha,get_id_text),1, 'html')      
 end 
 end
 else
-if taha.photos_[0] then   
+if result.status_.ID == "UserStatusRecently" and result.profile_photo_ ~= false then
 sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, taha.photos_[0].sizes_[1].photo_.persistent_id_,'\n⚜¦ ايديك ⇜ ❪ '..msg.sender_user_id_..' ❫'..username..'\n⚔¦ رتبة البوت ⇜ ❪ '..get_rtpa(msg.chat_id_,msg.sender_user_id_)..' ❫\n🏆¦ رتبة الكروب ⇜ ❪ '..rtpa..' ❫\n📈¦ تفاعلك ⇜ ❪ '..formsgg(msguser)..' ❫\n📨¦ رسائلك ⇜ ❪ '..(msguser)..' ❫\n🌁¦ صورك ⇜ ❪ '..taha.total_count_..' ❫\n')       
 else 
-if ta.code_ == 400 or ta.code_ == 5 or taha.total_count_ ~= 0 then
+if result.status_.ID == "UserStatusEmpty" and result.profile_photo_ == false then
 storm_sendMsg(msg.chat_id_, msg.id_, 1,'*\n⚜¦ ايديك » ❪ '..msg.sender_user_id_..' ❫*'..usernamee..'\n*⚔¦ رتبة البوت » ❪ '..get_rtpa(msg.chat_id_,msg.sender_user_id_)..' ❫\n🏆¦ رتبة الكروب » ❪ '..rtpa..' ❫\n📈¦ تفاعلك » ❪ '..formsgg(msguser)..' ❫\n📨¦ رسائلك » ❪ '..(msguser)..' ❫\n'..'\n🌇¦ لا يمكنني عرض صورتك لانك قمت بحظر البوت*', 1, 'md')   
 else
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '\n*📷¦ ليس لديك صور في حسابك 🍃'..'\n⚜¦ ايديك » ❪ '..msg.sender_user_id_..' ❫*'..usernamee..'\n*⚔¦ رتبة البوت » ❪ '..get_rtpa(msg.chat_id_,msg.sender_user_id_)..' ❫\n🏆¦ رتبة الكروب » ❪ '..rtpa..' ❫\n📈¦ تفاعلك » ❪ '..formsgg(msguser)..' ❫\n📨¦ رسائلك » ❪ '..(msguser)..' ❫*\n',1, 'md')      
@@ -8814,6 +9121,1128 @@ end,nil)
 end,nil)
 end,nil)
 end
+
+if text == 'قفل التثبيت' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+tdcli_function ({ ID = "GetChannelFull",  channel_id_ = getChatId(msg.chat_id_).ID }, function(arg,data)  tahadevstorm:set(DEVSTOR..'pinned'..msg.chat_id_,data.pinned_message_id_)  end,nil)
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال التثبيت \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.sender_user_id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tdcli_function ({ID = "GetChatMember",chat_id_ = msg.chat_id_,user_id_ = result.sender_user_id_},function(arg,da) 
+if da and da.status_.ID == "ChatMemberStatusEditor" or da and da.status_.ID == "ChatMemberStatusCreator" then
+tahadevstorm:sadd(DEVSTOR..'LOCK:PINMSG'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertp(data.first_name_)..'}'..'\n📬¦ تم منعه من التثبيت هنا\n',result.sender_user_id_)   
+else
+if tahadevstorm:sismember(DEVSTOR..'modergroup'..msg.chat_id_,result.sender_user_id_) then
+tt = 'مدير'
+elseif tahadevstorm:sismember(DEVSTOR..'mods:'..msg.chat_id_,result.sender_user_id_) then
+tt = 'ادمن'
+else
+tt = 'عضو'
+end
+if tt ~= 'عضو' then 
+tahadevstorm:sadd(DEVSTOR..'LOCK:PINMSG'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertp(data.first_name_)..'}'..'\n📬¦ تم منعه من التثبيت هنا\n',result.sender_user_id_)   
+else
+storm_send(msg.chat_id_,msg.id_,"*📮¦ هذا مجرد عضو هنا\n👨🏻‍✈️*")   
+end
+end
+end,nil)   
+end,nil)
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^قفل التثبيت @(.*)') and is_owner(msg) then   
+local user = text:match('قفل التثبيت @(.*)')    
+tdcli_function ({ ID = "GetChannelFull",  channel_id_ = getChatId(msg.chat_id_).ID }, function(arg,data)  tahadevstorm:set(DEVSTOR..'pinned'..msg.chat_id_,data.pinned_message_id_)  end,nil)
+function py_username(extra, result, success)   
+tdcli_function ({ID = "GetChatMember",chat_id_ = msg.chat_id_,user_id_ = result.id_},function(arg,da) 
+if da and da.status_.ID == "ChatMemberStatusEditor" or da and da.status_.ID == "ChatMemberStatusCreator" then
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا استطيع منع القنواة\n👨🏻‍✈️*")   
+return false 
+end      
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال التثبيت \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+tahadevstorm:sadd(DEVSTOR..'LOCK:PINMSG'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من التثبيت هنا\n',result.id_)   
+else
+if tahadevstorm:sismember(DEVSTOR..'modergroup'..msg.chat_id_,result.id_) then
+tt = 'مدير'
+elseif tahadevstorm:sismember(DEVSTOR..'mods:'..msg.chat_id_,result.id_) then
+tt = 'ادمن'
+else
+tt = 'عضو'
+end
+if tt ~= 'عضو' then
+tahadevstorm:sadd(DEVSTOR..'LOCK:PINMSG'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من التثبيت هنا\n',result.id_)   
+else
+storm_send(msg.chat_id_,msg.id_,"*📮¦ هذا مجرد عضو \n👨🏻‍✈️*")   
+end
+end
+end,nil)
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = user},py_username,nil) 
+end 
+----------------------------------------------
+if text == 'فتح التثبيت' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:srem(DEVSTOR..'LOCK:PINMSG'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertp(data.first_name_)..'}'..'\n📬¦ تم الغاء منع التثبيت عنه \n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^فتح التثبيت @(.*)') and is_owner(msg) then   
+local username = text:match('فتح التثبيت @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+tahadevstorm:srem(DEVSTOR..'LOCK:PINMSG'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منع التثبيت عنه \n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+
+if text == 'قفل الملصقات' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال الملصقات \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.sender_user_id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:sadd(DEVSTOR..'LOCK:STEKR'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منعه من ارسال الملصقات هنا\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^قفل الملصقات @(.*)') and is_owner(msg) then   
+local user = text:match('قفل الملصقات @(.*)')    
+function py_username(extra, result, success)   
+
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا استطيع منع القنواة\n👨🏻‍✈️*")   
+return false 
+end      
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال الملصقات \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+tahadevstorm:sadd(DEVSTOR..'LOCK:STEKR'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من ارسال الملصقات هنا\n',result.id_)   
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = user},py_username,nil) 
+end 
+----------------------------------------------
+if text == 'فتح الملصقات' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:srem(DEVSTOR..'LOCK:STEKR'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم الغاء منع الملصقات عنه\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^فتح الملصقات @(.*)') and is_owner(msg) then   
+local username = text:match('فتح الملصقات @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+tahadevstorm:srem(DEVSTOR..'LOCK:STEKR'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منع الملصقات عنه\n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+-------------------------
+if text == 'قفل الصور' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال الصور \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.sender_user_id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:sadd(DEVSTOR..'LOCK:PHOTO'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منعه من ارسال الصور هنا\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^قفل الصور @(.*)') and is_owner(msg) then   
+local user = text:match('قفل الصور @(.*)')    
+function py_username(extra, result, success)   
+
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا استطيع منع القنواة\n👨🏻‍✈️*")   
+return false 
+end      
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال الصور \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+tahadevstorm:sadd(DEVSTOR..'LOCK:PHOTO'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من ارسال الصور هنا\n',result.id_)   
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = user},py_username,nil) 
+end 
+----------------------------------------------
+if text == 'فتح الصور' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:srem(DEVSTOR..'LOCK:PHOTO'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم الغاء منع الصور عنه\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^فتح الصور @(.*)') and is_owner(msg) then   
+local username = text:match('فتح الصور @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+tahadevstorm:srem(DEVSTOR..'LOCK:PHOTO'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منع الصور عنه\n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text == 'قفل الاونلاين' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال الاونلاين \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.sender_user_id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:sadd(DEVSTOR..'LOCK:INLIN'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منعه من ارسال الاونلاين هنا\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^قفل الاونلاين @(.*)') and is_owner(msg) then   
+local user = text:match('قفل الاونلاين @(.*)')    
+function py_username(extra, result, success)   
+
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا استطيع منع القنواة\n👨🏻‍✈️*")   
+return false 
+end      
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال الاونلاين \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+tahadevstorm:sadd(DEVSTOR..'LOCK:INLIN'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من ارسال الاونلاين هنا\n',result.id_)   
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = user},py_username,nil) 
+end 
+----------------------------------------------
+if text == 'فتح الاونلاين' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:srem(DEVSTOR..'LOCK:INLIN'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم الغاء منع الاونلاين عنه \n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^فتح الاونلاين @(.*)') and is_owner(msg) then   
+local username = text:match('فتح الاونلاين @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+tahadevstorm:srem(DEVSTOR..'LOCK:INLIN'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منع الاونلاين عنه \n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text == 'قفل التوجيه' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال التوجيه \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.sender_user_id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:sadd(DEVSTOR..'LOCK:FWD'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منعه من ارسال التوجيه هنا\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^قفل التوجيه @(.*)') and is_owner(msg) then   
+local user = text:match('قفل التوجيه @(.*)')    
+function py_username(extra, result, success)   
+
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا استطيع منع القنواة\n👨🏻‍✈️*")   
+return false 
+end      
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال التوجيه \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+tahadevstorm:sadd(DEVSTOR..'LOCK:FWD'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من ارسال التوجيه هنا\n',result.id_)   
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = user},py_username,nil) 
+end 
+----------------------------------------------
+if text == 'فتح التوجيه' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:srem(DEVSTOR..'LOCK:FWD'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم الغاء منع التوجيه عنه \n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^فتح التوجيه @(.*)') and is_owner(msg) then   
+local username = text:match('فتح التوجيه @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+tahadevstorm:srem(DEVSTOR..'LOCK:FWD'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منع التوجيه عنه \n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text == 'قفل الروابط' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال الروابط \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.sender_user_id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:sadd(DEVSTOR..'LOCK:LINKS'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منعه من ارسال الروابط هنا\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^قفل الروابط @(.*)') and is_owner(msg) then   
+local user = text:match('قفل الروابط @(.*)')    
+function py_username(extra, result, success)   
+
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا استطيع منع القنواة\n👨🏻‍✈️*")   
+return false 
+end      
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال الروابط \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+tahadevstorm:sadd(DEVSTOR..'LOCK:LINKS'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من ارسال الروابط هنا\n',result.id_)   
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = user},py_username,nil) 
+end 
+----------------------------------------------
+if text == 'فتح الروابط' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:srem(DEVSTOR..'LOCK:LINKS'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم الغاء منع الروابط عنه \n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^فتح الروابط @(.*)') and is_owner(msg) then   
+local username = text:match('فتح الروابط @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+tahadevstorm:srem(DEVSTOR..'LOCK:LINKS'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منع الروابط عنه \n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text == 'قفل السيلفي' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال السيلفي \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.sender_user_id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:sadd(DEVSTOR..'LOCK:SELPHY'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منعه من ارسال السيلفي هنا\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^قفل السيلفي @(.*)') and is_owner(msg) then   
+local user = text:match('قفل السيلفي @(.*)')    
+function py_username(extra, result, success)   
+
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا استطيع منع القنواة\n👨🏻‍✈️*")   
+return false 
+end      
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال السيلفي \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+tahadevstorm:sadd(DEVSTOR..'LOCK:SELPHY'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من ارسال السيلفي هنا\n',result.id_)   
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = user},py_username,nil) 
+end 
+----------------------------------------------
+if text == 'فتح السيلفي' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:srem(DEVSTOR..'LOCK:SELPHY'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم الغاء منع السيلفي عنه \n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^فتح السيلفي @(.*)') and is_owner(msg) then   
+local username = text:match('فتح السيلفي @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+tahadevstorm:srem(DEVSTOR..'LOCK:SELPHY'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منع السيلفي عنه \n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text == 'قفل الصوت' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال الصوت \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.sender_user_id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:sadd(DEVSTOR..'LOCK:VICO'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منعه من ارسال الصوت هنا\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^قفل الصوت @(.*)') and is_owner(msg) then   
+local user = text:match('قفل الصوت @(.*)')    
+function py_username(extra, result, success)   
+
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا استطيع منع القنواة\n👨🏻‍✈️*")   
+return false 
+end      
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال الصوت \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+tahadevstorm:sadd(DEVSTOR..'LOCK:VICO'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من ارسال الصوت هنا\n',result.id_)   
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = user},py_username,nil) 
+end 
+----------------------------------------------
+if text == 'فتح الصوت' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:srem(DEVSTOR..'LOCK:VICO'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم الغاء منع الصوت عنه \n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^فتح الصوت @(.*)') and is_owner(msg) then   
+local username = text:match('فتح الصوت @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+tahadevstorm:srem(DEVSTOR..'LOCK:VICO'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منع الصوت عنه \n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text == 'قفل الفيديو' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال الفيديو \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.sender_user_id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:sadd(DEVSTOR..'LOCK:VIDEO'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منعه من ارسال الفيديو هنا\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^قفل الفيديو @(.*)') and is_owner(msg) then   
+local user = text:match('قفل الفيديو @(.*)')    
+function py_username(extra, result, success)   
+
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا استطيع منع القنواة\n👨🏻‍✈️*")   
+return false 
+end      
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال الفيديو \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+tahadevstorm:sadd(DEVSTOR..'LOCK:VIDEO'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من ارسال الفيديو هنا\n',result.id_)   
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = user},py_username,nil) 
+end 
+----------------------------------------------
+if text == 'فتح الفيديو' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:srem(DEVSTOR..'LOCK:VIDEO'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم الغاء منع الفيديو عنه \n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^فتح الفيديو @(.*)') and is_owner(msg) then   
+local username = text:match('فتح الفيديو @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+tahadevstorm:srem(DEVSTOR..'LOCK:VIDEO'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منع الفيديو عنه \n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text == 'قفل الماركداون' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال الماركداون \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.sender_user_id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:sadd(DEVSTOR..'LOCK:MARKDWN'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منعه من ارسال الماركداون هنا\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^قفل الماركداون @(.*)') and is_owner(msg) then   
+local user = text:match('قفل الماركداون @(.*)')    
+function py_username(extra, result, success)   
+
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا استطيع منع القنواة\n👨🏻‍✈️*")   
+return false 
+end      
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال الماركداون \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+tahadevstorm:sadd(DEVSTOR..'LOCK:MARKDWN'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من ارسال الماركداون هنا\n',result.id_)   
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = user},py_username,nil) 
+end 
+----------------------------------------------
+if text == 'فتح الماركداون' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:srem(DEVSTOR..'LOCK:MARKDWN'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم الغاء منع الماركداون عنه \n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^فتح الماركداون @(.*)') and is_owner(msg) then   
+local username = text:match('فتح الماركداون @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+tahadevstorm:srem(DEVSTOR..'LOCK:MARKDWN'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منع الماركداون عنه \n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text == 'قفل المتحركه' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال المتحركه \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.sender_user_id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:sadd(DEVSTOR..'LOCK:GIF'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منعه من ارسال المتحركه هنا\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^قفل المتحركه @(.*)') and is_owner(msg) then   
+local user = text:match('قفل المتحركه @(.*)')    
+function py_username(extra, result, success)   
+
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا استطيع منع القنواة\n👨🏻‍✈️*")   
+return false 
+end      
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال المتحركه \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+tahadevstorm:sadd(DEVSTOR..'LOCK:GIF'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من ارسال المتحركه هنا\n',result.id_)   
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = user},py_username,nil) 
+end 
+----------------------------------------------
+if text == 'فتح المتحركه' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:srem(DEVSTOR..'LOCK:GIF'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم الغاء منع المتحركه عنه \n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^فتح المتحركه @(.*)') and is_owner(msg) then   
+local username = text:match('فتح المتحركه @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+tahadevstorm:srem(DEVSTOR..'LOCK:GIF'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منع المتحركه عنه \n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text == 'قفل المعرفات' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال المعرفات \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.sender_user_id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:sadd(DEVSTOR..'LOCK:USERNAME'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منعه من ارسال المعرفات هنا\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^قفل المعرفات @(.*)') and is_owner(msg) then   
+local user = text:match('قفل المعرفات @(.*)')    
+function py_username(extra, result, success)   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا استطيع منع القنواة\n👨🏻‍✈️*")   
+return false 
+end      
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال المعرفات \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+tahadevstorm:sadd(DEVSTOR..'LOCK:USERNAME'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من ارسال المعرفات هنا\n',result.id_)   
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = user},py_username,nil) 
+end 
+----------------------------------------------
+if text == 'فتح المعرفات' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:srem(DEVSTOR..'LOCK:USERNAME'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم الغاء منع المعرفات عنه \n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^فتح المعرفات @(.*)') and is_owner(msg) then   
+local username = text:match('فتح المعرفات @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+tahadevstorm:srem(DEVSTOR..'LOCK:USERNAME'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منع المعرفات عنه \n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text == 'قفل الحظر' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من { طرد - حظر } المستخدمين \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.sender_user_id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:sadd(DEVSTOR..'LOCK:BAN'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منعه من » ( طرد - حظر ) المستخدمين\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^قفل الحظر @(.*)') and is_owner(msg) then   
+local user = text:match('قفل الحظر @(.*)')    
+function py_username(extra, result, success)   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا استطيع منع القنواة\n👨🏻‍✈️*")   
+return false 
+end      
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من { طرد - حظر } المستخدمين \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.id_) then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+tahadevstorm:sadd(DEVSTOR..'LOCK:BAN'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من » ( طرد - حظر ) المستخدمين\n',result.id_)   
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = user},py_username,nil) 
+end 
+----------------------------------------------
+if text == 'فتح الحظر' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:srem(DEVSTOR..'LOCK:BAN'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ 📬¦ تم الغاء منعه من ( طرد - حظر ) المستخدمين \n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^فتح الحظر @(.*)') and is_owner(msg) then   
+local username = text:match('فتح الحظر @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+tahadevstorm:srem(DEVSTOR..'LOCK:BAN'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منعه من ( طرد - حظر ) المستخدمين \n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text == 'منح الحظر' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا بوت استطيع طرد - حظر المستخدمين \n👨🏻‍✈️*")   
+return false  
+end   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:sadd(DEVSTOR..'SET:BAN'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منحه صلاحية ( طرد - حظر ) المستخدمين \n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text == 'الغاء منح الحظر' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+storm_send(msg.chat_id_,msg.id_,"*📮¦ انا بوت لا تستطيع منعي من الحظر - الطرد \n👨🏻‍✈️*")   
+return false  
+end   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+tahadevstorm:srem(DEVSTOR..'SET:BAN'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم الغاء منحه صلاحية ( طرد - حظر ) المستخدمين\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^منح الحظر @(.*)') and is_owner(msg) then   
+local username = text:match('منح الحظر @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+tahadevstorm:sadd(DEVSTOR..'SET:BAN'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منحه صلاحية ( طرد - حظر ) المستخدمين \n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text and text:match('^الغاء منح الحظر @(.*)') and is_owner(msg) then   
+local username = text:match('الغاء منح الحظر @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+storm_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+tahadevstorm:srem(DEVSTOR..'SET:BAN'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منحه صلاحية ( طرد - حظر ) المستخدمين\n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text ==('مسح صلاحيات الحظر') and is_owner(msg) then 
+local list = tahadevstorm:smembers(DEVSTOR..'SET:BAN'..msg.chat_id_) 
+if #list == 0 then
+storm_sendMsg(msg.chat_id_, msg.id_, 1,'*📮¦* لا يوجد اعضاء لديهم صلاحياة الحظر ليتم مسحهم\n', 1, 'md') 
+return false  end
+local num = 0
+for k,v in pairs(list) do  
+tahadevstorm:srem(DEVSTOR..'SET:BAN'..msg.chat_id_,v) 
+num = num + 1
+end 
+storm_sendMsg(msg.chat_id_, msg.id_, 1,'*📬¦ تم مسح {'..num..'} من الذين لديهم صلاحيات الحظر *\n', 1, 'md') 
+end
+if text == 'صلاحيات الحظر' and is_owner(msg) then 
+local list = tahadevstorm:smembers(DEVSTOR..'SET:BAN'..msg.chat_id_)
+local t = '*📮¦ قائمه اصحاب صلاحية الحظر *\n*ٴ━━━━━━━━━*\n' 
+for k, v in pairs(list) do 
+local taha = tahadevstorm:get(DEVSTOR.."user:Name" .. v)
+if taha then
+local username = taha
+t = t..'*'..k.." ➺* ❲["..username.."](tg://user?id="..v..")❳\n"   
+else
+t = t..'*'..k.." ➺* ❲["..v.."](tg://user?id="..v..")❳\n"   
+end
+end 
+if #list == 0 then 
+t = '*📬¦* لا يوجد اعضاء لديهم صلاحيات الحظر في هاذه المجموعه' 
+end 
+storm_sendMssg(msg.chat_id_,t,msg.id_,'md')
+end  
+
 end
 end
 function tdcli_update_callback(data)  
@@ -8859,9 +10288,15 @@ if data.ID == "UpdateNewMessage" then
 local msg = data.message_
 text = msg.content_.text_
 if msg.is_post_ ~= false then
+tahadevstorm:srem(DEVSTOR.."bot:gpsby:id:add",msg.chat_id_)  
+tahadevstorm:srem(DEVSTOR..'bot:gpsby:id',msg.chat_id_)   
 return false
 end
 if not msg.forward_info_ and msg.is_channel_post_ then
+return false
+end
+if msg.date_ and msg.date_ < tonumber(os.time() - 30) then
+print('OLD MESSAGE')
 return false
 end
 if msg.content_.ID == "MessageChatAddMembers" then  
