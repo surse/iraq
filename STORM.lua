@@ -986,6 +986,7 @@ dofile('STORM.lua')
 else
 storm_sendMsg(msg.chat_id_, msg.id_, 1,"*📮¦ عذرا لا يوجد هاكذا ملف في المتجر *\n", 1, 'md') 
 end
+return false
 end
 if text and text:match('تفعيل ملف (.*)') and is_devtaha(msg) then  
 local file = text:match('تفعيل ملف (.*)')
@@ -1007,6 +1008,7 @@ dofile('STORM.lua')
 else
 storm_sendMsg(msg.chat_id_, msg.id_, 1,"*📮¦ عذرا لا يوجد هاكذا ملف في المتجر *\n", 1, 'md') 
 end
+return false
 end
 if text == 'تحديث' and is_devtaha(msg) then  
 dofile('STORM.lua')  
