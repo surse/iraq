@@ -1,4 +1,4 @@
-local function tahaq(msg)
+local function GET_TEXT(msg)
 if chat_type == 'super' then 
 if not tahadevstorm:get(DEVSTOR..'lock:reoly:bot'..msg.chat_id_) then
 if text == "هلو" or text == "هلاو" or text == "هلوو" or text == "هاي" then 
@@ -6,11 +6,12 @@ local taha = {'هلاوات 😻 مشعشع 💫','اهلا وسهلا 💔','�
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha[math.random(#taha)], 1, 'html')  
 end 
 if text == 'بوت' then
-local taha = {'   نجب لك صارت قديمه صيحلي باسمي 😒💛','ها احجي شتريد 😏 صيحلي باسمي بعد لدكول بوت😢   ','  لۧاٲ   مو بوت اقرا اسمي✨ ',' نْجٍبْ لُگ عنْدِيَ آسم ۆصٍيَحٍـنْيَ بْيَة 😟😤ّ'} storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') end 
-
+local taha = {'   نجب لك صارت قديمه صيحلي باسمي 😒💛','ها احجي شتريد 😏 صيحلي باسمي بعد لدكول بوت😢   ','  لۧاٲ   مو بوت اقرا اسمي✨ ',' نْجٍبْ لُگ عنْدِيَ آسم ۆصٍيَحٍـنْيَ بْيَة 😟😤ّ'} 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') 
+end 
 if text == "شلونك" or text == "شلونكم"then 
 local taha = {'😹اني بلنسبه الي دايح 👻 شوف بقية الاعضاء😴','😕الحمد •للّـ🙏ّـرب وانته/ي 🤔','😡كل شويه واحد يكلي شلونك😪 وشلونكم عمي كلنه بخير كمل🤐','زين واسيا واثير 😹 ادري قديمه انجب 😷'}
- storm_sendMsg(msg.chat_id_, msg.id_, 1,taha[math.random(#taha)], 1, 'html')  
+storm_sendMsg(msg.chat_id_, msg.id_, 1,taha[math.random(#taha)], 1, 'html')  
 end 
 if text == "تحبني" then 
 local taha1 = {'😱شلون ما احبك/ج💔 كفشة روحي 😠','احّ ـّـٌٍ❣ـٍّبّكَ و تحبني واثنينه مغلسين 😔',' 😕ما احبك 😹 طن بلكصة 😅','✋🏽عذرا مكبل💔 لتزحف/ين'} 
@@ -51,7 +52,13 @@ local taha10 = {'😘فدِآكـ آلكؤن🙈ؤمَآي آَلَعيـونْ�
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha10[math.random(#taha10)], 1, 'html') 
 end
 end
-if text == 'تفعيل ردود البوت' and is_monsh(msg) then   
+
+
+end
+end
+local function help_rep(msg, MSG_TEXT)
+if chat_type == 'super' then 
+if MSG_TEXT[1] == 'تفعيل ردود البوت' and is_monsh(msg) then   
 if tahadevstorm:get(DEVSTOR..'lock:reoly:bot'..msg.chat_id_) then
 taha = '*📮¦ تم تفعيل ردود البوت *\n✓' 
 storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
@@ -61,7 +68,7 @@ taha = '*📮¦ بالتاكيد تم تفعيل ردود البوت *\n✓'
 storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
 end
 end
-if text == 'تعطيل ردود البوت' and is_monsh(msg) then   
+if MSG_TEXT[1] == 'تعطيل ردود البوت' and is_monsh(msg) then   
 if not tahadevstorm:get(DEVSTOR..'lock:reoly:bot'..msg.chat_id_) then
 taha = '*📮¦ تم تعطيل ردود البوت *\n✓' 
 storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
@@ -71,7 +78,7 @@ taha = '*📮¦ بالتاكيد تم تعطيل ردود البوت *\n✓'
 storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
 end
 end
-if text == 'رابط الحذف' or text == 'رابط حدف' or text == 'راح احذف' or text == 'اريد احذف' then
+if MSG_TEXT[1] == 'رابط الحذف' or MSG_TEXT[1] == 'رابط حذف' or MSG_TEXT[1] == 'راح احذف' or MSG_TEXT[1] == 'اريد احذف' then
 local delac = [[*
 ♨️¦ رابط حذف حـساب التلجرام
 ♻️¦ احذف ورتاح ولا تتندم ...
@@ -81,7 +88,7 @@ local delac = [[*
 storm_sendMsg(msg.chat_id_, msg.id_, 1,delac, 1, 'md')
  end
 
-if text == 'الاوامر' then
+if MSG_TEXT[1] == 'الاوامر' then
 if not is_mod(msg) then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
@@ -103,7 +110,7 @@ taha = [[
 ]]
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
-if text == 'م1' then
+if MSG_TEXT[1] == 'م1' then
 if not is_mod(msg) then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
@@ -134,7 +141,7 @@ taha = [[
 ]]
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
-if text == 'م2' then
+if MSG_TEXT[1] == 'م2' then
 taha = [[
 *🙋🏻‍♂¦ مرحبا بك عزيزي، 🍃
 📮¦ في اوامــر الآعضاء
@@ -164,7 +171,7 @@ taha = [[
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
-if text == 'م3' then
+if MSG_TEXT[1] == 'م3' then
 if not is_mod(msg) then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
@@ -187,7 +194,7 @@ taha = [[
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
-if text == 'م4' then
+if MSG_TEXT[1] == 'م4' then
 if not is_mod(msg) then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
@@ -241,7 +248,7 @@ taha = [[
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
-if text == 'م5' then
+if MSG_TEXT[1] == 'م5' then
 if not is_monsh(msg) then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن المدراء 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
@@ -288,7 +295,7 @@ taha = [[
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
-if text == 'م6' then
+if MSG_TEXT[1] == 'م6' then
 if not is_owner(msg) then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن المنشئين 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
@@ -311,7 +318,7 @@ taha = [[
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
-if text == 'م7' then
+if MSG_TEXT[1] == 'م7' then
 if not is_sudo(msg) then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن المطورين 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
@@ -330,7 +337,7 @@ taha = [[
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
-if text == 'م8' then
+if MSG_TEXT[1] == 'م8' then
 if not is_devtaha(msg) then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست المطور الاساسي 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
@@ -414,7 +421,7 @@ taha = [[
 ]]
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
-if text == 'اوامر التقيد' then
+if MSG_TEXT[1] == 'اوامر التقيد' then
 if not is_mod(msg) then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
@@ -437,7 +444,7 @@ taha = [[
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
-if text == 'اوامر الطرد' then
+if MSG_TEXT[1] == 'اوامر الطرد' then
 if not is_mod(msg) then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
@@ -460,7 +467,7 @@ taha = [[
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
-if text == 'اوامر الكتم' then
+if MSG_TEXT[1] == 'اوامر الكتم' then
 if not is_mod(msg) then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
@@ -482,7 +489,7 @@ taha = [[
 ]]
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
-if text == 'اوامر الصلاحيات' then
+if MSG_TEXT[1] == 'اوامر الصلاحيات' then
 if not is_owner(msg) then 
 storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن المنشئين 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
@@ -516,4 +523,30 @@ end
 
 end
 end
-return {THESTORM=tahaq,}
+return {
+CMDS = {
+"^(الاوامر)$",
+"^(م1)$",
+"^(م2)$",
+"^(م3)$",
+"^(م4)$",
+"^(م5)$",
+"^(م6)$",
+"^(م7)$",
+"^(م8)$",
+"^(اوامر التقييد)$",
+"^(اوامر الطرد)$",
+"^(اوامر الكتم)$",
+"^(تفعيل ردود البوت)$",
+"^(تعطيل ردود البوت)$",
+"^(اوامر الصلاحيات)$",
+"^(رابط الحذف)$",
+"^(رابط حذف)$",
+"^(راح احذف)$",
+"^(اريد احذف)$",
+},
+STORM = help_rep,
+STORM_TEXT = GET_TEXT
+}
+
+
