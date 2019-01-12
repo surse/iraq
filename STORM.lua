@@ -967,21 +967,6 @@ storm_sendMsg(msg.chat_id_, msg.id_, 1,"📮¦ لا يوجد اتصال من ا�
 end
 return false
 end
-if text == 'الملفات' and is_devtaha(msg) then  
-local tt = "📂¦ قائمة ملفات البوت \n____________________\n"
-local Num = 0
-local allfiles = io.popen('ls plugins_'):lines()
-for Files in allfiles do
-if Files:match(".lua$") then
-Num = Num +1
-y = t..'- * '..Files..' * \n' 
-end
-end 
-if Num == 0 then
-t = "📛¦ لا توجد ملفات"
-end 
-storm_sendMsg(msg.chat_id_, msg.id_, 1,y, 1, 'md')
-end
 
 if text and text:match('تعطيل ملف (.*)') and is_devtaha(msg) then  
 local file = text:match('تعطيل ملف (.*)')
@@ -5665,7 +5650,7 @@ if result and result.type_ and result.type_.channel_ and result.type_.channel_.I
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا تستطيع تنزيل القناة في البوت *\n💥', 1, 'md') 
 return false  end
 if result and result.type_ and result.type_.user_ and result.type_.user_.type_ and result.type_.user_.type_.ID == "UserTypeBot" then
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا تستطيع رفع وتنزيل البوتات *\n💥', 1, 'md') 
+storm_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ لا تستطيع رفع وتنزيل البوتات *\n??', 1, 'md') 
 return false  end
 if result.id_ then  
 if tahadevstorm:sismember(DEVSTOR..'vip:group'..msg.chat_id_,result.id_) then
