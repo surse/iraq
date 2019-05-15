@@ -1,4 +1,4 @@
-
+redis = require('redis') 
 utf8 = require ('lua-utf8') 
 URL = require('socket.url')  
 HTTPS = require ("ssl.https")  
@@ -10026,4 +10026,542 @@ IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسا
 return false  
 end   
 if getrtp(msg.chat_id_,result.id_) then   
-IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا 
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+IRAQBOT:sadd(IRAQ_ID..'LOCK:GIF'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من ارسال المتحركه هنا\n',result.id_)   
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = user},py_username,nil) 
+end 
+----------------------------------------------
+if text == 'فتح المتحركه' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+IRAQBOT:srem(IRAQ_ID..'LOCK:GIF'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم الغاء منع المتحركه عنه \n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^فتح المتحركه @(.*)') and is_owner(msg) then   
+local username = text:match('فتح المتحركه @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+IRAQBOT:srem(IRAQ_ID..'LOCK:GIF'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منع المتحركه عنه \n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text == 'قفل المعرفات' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال المعرفات \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.sender_user_id_) then   
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+IRAQBOT:sadd(IRAQ_ID..'LOCK:USERNAME'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منعه من ارسال المعرفات هنا\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^قفل المعرفات @(.*)') and is_owner(msg) then   
+local user = text:match('قفل المعرفات @(.*)')    
+function py_username(extra, result, success)   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ لا استطيع منع القنواة\n👨🏻‍✈️*")   
+return false 
+end      
+if not msg.can_be_deleted_ == true then   
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.id_) == tonumber(bot_id) then    
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسال المعرفات \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.id_) then   
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+IRAQBOT:sadd(IRAQ_ID..'LOCK:USERNAME'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من ارسال المعرفات هنا\n',result.id_)   
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = user},py_username,nil) 
+end 
+----------------------------------------------
+if text == 'فتح المعرفات' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+IRAQBOT:srem(IRAQ_ID..'LOCK:USERNAME'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم الغاء منع المعرفات عنه \n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^فتح المعرفات @(.*)') and is_owner(msg) then   
+local username = text:match('فتح المعرفات @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+IRAQBOT:srem(IRAQ_ID..'LOCK:USERNAME'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منع المعرفات عنه \n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text == 'قفل الحظر' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من { طرد - حظر } المستخدمين \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.sender_user_id_) then   
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+IRAQBOT:sadd(IRAQ_ID..'LOCK:BAN'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منعه من » ( طرد - حظر ) المستخدمين\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^قفل الحظر @(.*)') and is_owner(msg) then   
+local user = text:match('قفل الحظر @(.*)')    
+function py_username(extra, result, success)   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ لا استطيع منع القنواة\n👨🏻‍✈️*")   
+return false 
+end      
+if not msg.can_be_deleted_ == true then   
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.id_) == tonumber(bot_id) then    
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من { طرد - حظر } المستخدمين \n👨🏻‍✈️*")   
+return false  
+end   
+if getrtp(msg.chat_id_,result.id_) then   
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+return false  
+end    
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+IRAQBOT:sadd(IRAQ_ID..'LOCK:BAN'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من » ( طرد - حظر ) المستخدمين\n',result.id_)   
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = user},py_username,nil) 
+end 
+----------------------------------------------
+if text == 'فتح الحظر' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+IRAQBOT:srem(IRAQ_ID..'LOCK:BAN'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ 📬¦ تم الغاء منعه من ( طرد - حظر ) المستخدمين \n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^فتح الحظر @(.*)') and is_owner(msg) then   
+local username = text:match('فتح الحظر @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+IRAQBOT:srem(IRAQ_ID..'LOCK:BAN'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منعه من ( طرد - حظر ) المستخدمين \n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text == 'منح الحظر' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ انا بوت استطيع طرد - حظر المستخدمين \n👨🏻‍✈️*")   
+return false  
+end   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+IRAQBOT:sadd(IRAQ_ID..'SET:BAN'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منحه صلاحية ( طرد - حظر ) المستخدمين \n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text == 'الغاء منح الحظر' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
+function by_reply(extra, result, success)   
+if not msg.can_be_deleted_ == true then   
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ انا لست ادمن هنا يرجى ترقيتي \n👨🏻‍✈️*")   
+return false 
+end      
+if tonumber(result.sender_user_id_) == tonumber(bot_id) then    
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ انا بوت لا تستطيع منعي من الحظر - الطرد \n👨🏻‍✈️*")   
+return false  
+end   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+IRAQBOT:srem(IRAQ_ID..'SET:BAN'..msg.chat_id_,result.sender_user_id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم الغاء منحه صلاحية ( طرد - حظر ) المستخدمين\n',result.sender_user_id_)   
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^منح الحظر @(.*)') and is_owner(msg) then   
+local username = text:match('منح الحظر @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+IRAQBOT:sadd(IRAQ_ID..'SET:BAN'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منحه صلاحية ( طرد - حظر ) المستخدمين \n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text and text:match('^الغاء منح الحظر @(.*)') and is_owner(msg) then   
+local username = text:match('الغاء منح الحظر @(.*)')   
+function py_username(extra,result,success)   
+if result and result.code_ == 400 or result and result.message_ == "USERNAME_NOT_OCCUPIED" then
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻‍✈️*")   
+return false  
+end   
+if (result and result.type_ and result.type_.ID == "ChannelChatInfo") then
+IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍✈️*")   
+return false 
+end      
+IRAQBOT:srem(IRAQ_ID..'SET:BAN'..msg.chat_id_,result.id_)     
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منحه صلاحية ( طرد - حظر ) المستخدمين\n',result.id_)   
+end    
+tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
+end
+if text ==('مسح صلاحيات الحظر') and is_owner(msg) then 
+local list = IRAQBOT:smembers(IRAQ_ID..'SET:BAN'..msg.chat_id_) 
+if #list == 0 then
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,'*📮¦* لا يوجد اعضاء لديهم صلاحياة الحظر ليتم مسحهم\n', 1, 'md') 
+return false  end
+local num = 0
+for k,v in pairs(list) do  
+IRAQBOT:srem(IRAQ_ID..'SET:BAN'..msg.chat_id_,v) 
+num = num + 1
+end 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,'*📬¦ تم مسح {'..num..'} من الذين لديهم صلاحيات الحظر *\n', 1, 'md') 
+end
+if text == 'صلاحيات الحظر' and is_owner(msg) then 
+local list = IRAQBOT:smembers(IRAQ_ID..'SET:BAN'..msg.chat_id_)
+local t = '*📮¦ قائمه اصحاب صلاحية الحظر *\n*ٴ━━━━━━━━━*\n' 
+for k, v in pairs(list) do 
+local taha = IRAQBOT:get(IRAQ_ID.."user:Name" .. v)
+if taha then
+local username = taha
+t = t..'*'..k.." ➺* ❲["..username.."](tg://user?id="..v..")❳\n"   
+else
+t = t..'*'..k.." ➺* ❲["..v.."](tg://user?id="..v..")❳\n"   
+end
+end 
+if #list == 0 then 
+t = '*📬¦* لا يوجد اعضاء لديهم صلاحيات الحظر في هاذه المجموعه' 
+end 
+IRAQ_sendMssg(msg.chat_id_,t,msg.id_,'md')
+end  
+SEND_FILES(msg)
+end
+end
+function tdcli_update_callback(data)  
+if data.ID == "UpdateChannel" then 
+if data.channel_.status_.ID == "ChatMemberStatusKicked" then 
+print('\27[30;32m»» THE BOT IS KICKED GROUP ↓\n-100'..data.channel_.id_..' \n\27[1;37m')
+rem_group('-100'..data.channel_.id_)   
+local idch = '-100'..data.channel_.id_
+IRAQBOT:srem(IRAQ_ID..'bot:gpsby:id',idch) 
+IRAQBOT:srem(IRAQ_ID.."bot:gpsby:id:add",idch) 
+IRAQBOT:srem(IRAQ_ID.."bot:gps:id", idch) 
+tdcli_function({ID="GetChat",chat_id_ = '-100'..data.channel_.id_},function(arg,data)  linkgp = IRAQBOT:get(IRAQ_ID.."link:group"..idch)  
+if linkgp then  link = '['..data.title_..']('..linkgp..')'  else  link = '`'..(data.title_ or '...')..'`' end
+taha = '\n*🍃¦ اهلا عزيزي المطور *\nٴ━━━━━━━━━━━━'..
+'\n*📮¦ لقد تم طردي من مجموعه جديده *'..
+'\n*🔖¦* معلومات المجموعه '..
+'\n*📬¦* الايدي » ❪`'..data.id_..'`❫'..
+'\n*⚜¦* الاسم » ❪'..link..'❫'..
+'\n*💠¦* تم مسح بيانات المجموعه وتم ازالتها من المجموعات\n💥' 
+IRAQ_sendMsg(SUDO,0, 1,taha, 1, "md")  end,nil)
+elseif data.channel_.status_.ID == "ChatMemberStatusMember" then   
+print('\27[30;32m»» THE BOT IS NOT ADMIEN ↓\n»» '..'-100'..data.channel_.id_..'\n\27[1;37m')
+rem_group('-100'..data.channel_.id_)   
+IRAQBOT:sadd(IRAQ_ID..'botgps','-100'..data.channel_.id_) 
+elseif data.channel_.status_.ID == "ChatMemberStatusEditor" then   
+local tahach = '-100'..data.channel_.id_
+if IRAQBOT:sismember(IRAQ_ID..'bot:gpsby:id:add','-100'..data.channel_.id_)  then  
+print('\27[30;33m»» THE GROUP IS HAS BEEN ADD ↓\n»» '..'-100'..data.channel_.id_..'\n\27[1;37m')
+else 
+print('\27[30;35m»» THE BOT IS ADMIEN AND ADD GROUP ↓\n»» '..'-100'..data.channel_.id_..'\n\27[1;37m')
+add_group('-100'..data.channel_.id_)   
+IRAQBOT:sadd(IRAQ_ID..'bot:gpsby:id','-100'..data.channel_.id_)   
+IRAQBOT:sadd(IRAQ_ID.."botgps",'-100'..data.channel_.id_)  
+IRAQBOT:sadd(IRAQ_ID.."bot:gpsby:id:add",'-100'..data.channel_.id_)  
+IRAQBOT:set(IRAQ_ID.."test:group"..'-100'..data.channel_.id_,'IRAQ')    
+IRAQBOT:set(IRAQ_ID.."add:bot:group"..'-100'..data.channel_.id_, true)   
+end
+return false 
+end  
+end
+if data.ID == "UpdateNewMessage" then  
+local msg = data.message_
+text = msg.content_.text_
+if msg.is_post_ ~= false then
+IRAQBOT:srem(IRAQ_ID.."bot:gpsby:id:add",msg.chat_id_)  
+IRAQBOT:srem(IRAQ_ID.."botgps",msg.chat_id_)  
+IRAQBOT:srem(IRAQ_ID..'bot:gpsby:id',msg.chat_id_)   
+return false
+end
+if not msg.forward_info_ and msg.is_channel_post_ then
+return false
+end
+if msg.date_ and msg.date_ < tonumber(os.time() - 15) then
+print('OLD MESSAGE')
+return false
+end
+if msg.sender_user_id_ and is_muted(msg.chat_id_,msg.sender_user_id_) then 
+delete_msg(msg.chat_id_, {[0] = msg.id_})  
+return false  
+end
+if msg.sender_user_id_ and is_banned(msg.chat_id_,msg.sender_user_id_) then 
+kick(msg,msg.chat_id_,msg.sender_user_id_) 
+delete_msg(msg.chat_id_, {[0] = msg.id_}) 
+return false  
+end
+if msg.content_ and msg.content_.members_ and msg.content_.members_[0] and msg.content_.members_[0].id_ and is_banned(msg.chat_id_,msg.content_.members_[0].id_) then 
+kick(msg,msg.chat_id_,msg.content_.members_[0].id_) 
+delete_msg(msg.chat_id_, {[0] = msg.id_}) 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, '',1, 'md')  
+end
+if msg.sender_user_id_ and is_gban(msg.chat_id_,msg.sender_user_id_) then 
+kick(msg,msg.chat_id_,msg.sender_user_id_) 
+delete_msg(msg.chat_id_, {[0] = msg.id_}) 
+local list = IRAQBOT:smembers(IRAQ_ID..'bot:gpsby:id')  for k,v in pairs(list) do  kick(msg,v,msg.sender_user_id_) end
+return false 
+end
+if msg.content_ and msg.content_.members_ and msg.content_.members_[0] and msg.content_.members_[0].id_ and is_gban(msg.chat_id_,msg.content_.members_[0].id_) then 
+kick(msg,msg.chat_id_,msg.content_.members_[0].id_) 
+delete_msg(msg.chat_id_, {[0] = msg.id_})  
+local list = IRAQBOT:smembers(IRAQ_ID..'bot:gpsby:id')  for k,v in pairs(list) do  kick(msg,v,msg.content_.members_[0].id_) end
+end 
+if msg.content_.ID == "MessageChatAddMembers" then  
+local mem_id = msg.content_.members_  
+for i=0,#mem_id do  
+if msg.content_.members_[i].type_.ID == "UserTypeBot" and IRAQBOT:get(IRAQ_ID.."lock:Bot:kick"..msg.chat_id_) == 'del'  and not is_vipgroup(msg) then  
+kick(msg,msg.chat_id_,mem_id[i].id_)
+end  
+if IRAQBOT:get(IRAQ_ID..'lock:tagservrbot'..msg.chat_id_) then
+delete_msg(msg.chat_id_,{[0] = msg.id_}) 
+end
+end  
+end
+if msg.content_.ID == "MessageChatDeleteMember" and IRAQBOT:get(IRAQ_ID..'lock:tagservrbot'..msg.chat_id_) then
+delete_msg(msg.chat_id_,{[0] = msg.id_}) 
+end 
+if msg.content_.ID == "MessageChatAddMembers" then  
+local mem_id = msg.content_.members_  
+for i=0,#mem_id do  
+if msg.content_.members_[i].type_.ID == "UserTypeBot" and IRAQBOT:get(IRAQ_ID.."lock:Bot:kick"..msg.chat_id_) == 'ked' and not is_vipgroup(msg) then  
+kick(msg,msg.chat_id_,mem_id[i].id_)
+HTTPS.request("https://api.telegram.org/bot" .. chaneel .. "/restrictChatMember?chat_id=" ..msg.chat_id_.. "&user_id=" ..msg.sender_user_id_.."") 
+IRAQBOT:sadd(IRAQ_ID..'tedmembars'..msg.chat_id_,msg.sender_user_id_)
+end  
+if IRAQBOT:get(IRAQ_ID..'lock:tagservrbot'..msg.chat_id_) then
+delete_msg(msg.chat_id_,{[0] = msg.id_}) 
+end
+end  
+end
+if msg.content_.ID == "MessageChatAddMembers" then  
+local mem_id = msg.content_.members_  
+for i=0,#mem_id do  
+if msg.content_.members_[i].type_.ID == "UserTypeBot" and IRAQBOT:get(IRAQ_ID.."lock:Bot:kick"..msg.chat_id_) == 'kick' and not is_vipgroup(msg) then  
+kick(msg,msg.chat_id_,mem_id[i].id_)
+changeChatMemberStatus(msg.chat_id_, msg.sender_user_id_, "Kicked")
+end  
+if IRAQBOT:get(IRAQ_ID..'lock:tagservrbot'..msg.chat_id_) then
+delete_msg(msg.chat_id_,{[0] = msg.id_}) 
+end
+end  
+end
+IRAQadd(data.message_,data)   
+IRAQ(data.message_,data)   
+
+elseif data.ID == 'UpdateMessageEdited' then  
+local msg = data
+if tonumber(msg.sender_user_id_) == tonumber(bot_id) then
+return false end
+local function edited_cb(extra,ta,success)    
+local text = ta.content_.text_
+if text:find('ايدي') then
+return false end
+IRAQadd(ta,data)   
+IRAQ(ta,data)   
+if not text and not is_monsh(ta) then
+if IRAQBOT:get(IRAQ_ID..'lock:edit:media'..data.chat_id_) then 
+delete_msg(data.chat_id_,{[0] = data.message_id_}) 
+end    
+end
+local txxt = ta.content_.text_
+if txxt and not is_vipgroup(ta) then  
+if is_filter(ta,txxt) then    
+delete_msg(data.chat_id_,{[0] = data.message_id_}) 
+end
+if txxt:find("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Dd][Oo][Gg]/") and IRAQBOT:get(IRAQ_ID.."lock:Link"..msg.chat_id_) == "del" then 
+if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
+delete_msg(data.chat_id_,{[0] = data.message_id_}) 
+end    
+end    
+if txxt:find(".[Pp][Ee]") and IRAQBOT:get(IRAQ_ID..'lock:links'..msg.chat_id_) then 
+if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
+delete_msg(data.chat_id_,{[0] = data.message_id_}) 
+end    
+end    
+if txxt:find("[Tt][Ll][Gg][Rr][Mm].[Mm][Ee]/") and IRAQBOT:get(IRAQ_ID.."lock:Link"..msg.chat_id_) == "del" then 
+if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
+delete_msg(data.chat_id_,{[0] = data.message_id_}) 
+end    
+end    
+if txxt:find("[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]/") and IRAQBOT:get(IRAQ_ID.."lock:Link"..msg.chat_id_) == "del" then 
+if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
+delete_msg(data.chat_id_,{[0] = data.message_id_}) 
+end    
+end    
+if txxt:find("[Tt].[Mm][Ee]/") and IRAQBOT:get(IRAQ_ID.."lock:Link"..msg.chat_id_) == "del" then 
+if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
+delete_msg(data.chat_id_,{[0] = data.message_id_}) 
+end    
+end    
+if txxt:find("[Ww][Ww][Ww].") and IRAQBOT:get(IRAQ_ID.."lock:Link"..msg.chat_id_) == "del" then 
+if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
+delete_msg(data.chat_id_,{[0] = data.message_id_}) 
+end    
+end    
+if txxt:find(".[Cc][Oo][Mm]") then
+if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) and IRAQBOT:get(IRAQ_ID.."lock:Link"..msg.chat_id_) == "del" then 
+delete_msg(data.chat_id_,{[0] = data.message_id_}) 
+end    
+end    
+if txxt:find('@[%a%d_]+') and IRAQBOT:get(IRAQ_ID.."lock:user:name"..msg.chat_id_) == "del" then
+if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
+delete_msg(data.chat_id_,{[0] = data.message_id_}) 
+end    
+end
+if txxt:find('@(.+)') and IRAQBOT:get(IRAQ_ID.."lock:user:name"..msg.chat_id_) == "del" then
+if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
+delete_msg(data.chat_id_,{[0] = data.message_id_}) 
+end    
+end
+if txxt:find('#[%a%d_]+') and IRAQBOT:get(IRAQ_ID.."lock:hashtak"..msg.chat_id_) == "del" then
+if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
+delete_msg(data.chat_id_,{[0] = data.message_id_}) 
+end    
+end
+if txxt:find('#(.+)') and IRAQBOT:get(IRAQ_ID.."lock:hashtak"..msg.chat_id_) == "del" then
+if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
+delete_msg(data.chat_id_,{[0] = data.message_id_}) 
+end    
+end
+end
+end   
+tdcli_function ({   ID = "GetMessage", chat_id_ = data.chat_id_,   message_id_ = data.message_id_    }, edited_cb, nil)  
+elseif (data.ID == "UpdateOption" and data.name_ == "my_id") then  
+local filess = io.open("plugins_/help_rep.lua","r")
+if not filess then
+os.execute('cd plugins_ ;wget https://raw.githubusercontent.com/surse/IRAQ/master/plugins_/help_rep.lua')
+end
+local filess = io.open("requfiles/JSON.lua","r")
+if not filess then
+os.execute('cd requfiles ;wget https://raw.githubusercontent.com/surse/IRAQQ/master/requfiles/JSON.lua') 
+dofile('IRAQ.lua')  
+end
+local filess = io.open("requfiles/dkjson.lua","r")
+if not filess then
+os.execute('cd requfiles ;wget https://raw.githubusercontent.com/surse/IRAQQ/master/requfiles/dkjson.lua') 
+dofile('IRAQ.lua')  
+end
+local filess = io.open("requfiles/serpent.lua","r")
+if not filess then
+os.execute('cd requfiles ;wget https://raw.githubusercontent.com/surse/IRAQQ/master/requfiles/serpent.lua') 
+dofile('IRAQ.lua')  
+end
+local list = IRAQBOT:smembers(IRAQ_ID.."usersbot")
+for k,v in pairs(list) do
+getchat(v,function(arg,data)
+end)
+end
+local list = IRAQBOT:smembers(IRAQ_ID.."botgps")
+for k,v in pairs(list) do 
+getchat(v,function(arg,data)
+if data and data.type_ and data.type_.channel_ and data.type_.channel_.status_ and data.type_.channel_.status_.ID == "ChatMemberStatusMember" then
+print('\27[30;32m»» البوت عضو في المجموعه\nتم مغادرة المجموعه \n\27[1;37m')
+IRAQBOT:srem(IRAQ_ID..'botgps',v) 
+changeChatMemberStatus(v, bot_id, "Left")
+rem_group(v)   
+end
+if data and data.type_ and data.type_.channel_ and data.type_.channel_.status_ and data.type_.channel_.status_.ID == "ChatMemberStatusLeft" then
+IRAQBOT:srem(IRAQ_ID..'botgps',v) 
+rem_group(v)   
+end
+if data and data.type_ and data.type_.channel_ and data.type_.channel_.status_ and data.type_.channel_.status_.ID == "ChatMemberStatusKicked" then
+print('\27[30;32m»» البوت مطرود في المجموعه\nتم مسح بيانات المجموعه \n\27[1;37m')
+IRAQBOT:srem(IRAQ_ID..'botgps',v) 
+rem_group(v)   
+end
+if data and data.code_ and data.code_ == 400 then
+IRAQBOT:srem(IRAQ_ID..'botgps',v) 
+rem_group(v)   
+end
+if data and data.type_ and data.type_.channel_ and data.type_.channel_.status_ and data.type_.channel_.status_.ID == "ChatMemberStatusEditor" then
+IRAQBOT:set(IRAQ_ID..'group:name'..v,data.title_)
+print('\27[30;32m»» البوت ادمن في المجموعه \n\27[1;37m')
+add_group(v)   
+end end) end
+end 
+end
