@@ -1775,14 +1775,14 @@ local keyboard = {
 {'مسح المحظورين 📢','الاعدادات 🔏','الاوامر 📑'},
 {"اذاعه بالتوجيه 📬","اذاعه عام بالتوجيه 💾","اذاعه خاص بالتوجيه 🔖"},
 {"اذاعه 📡","اذاعه للكل 📡","اذاعه خاص 📡"},
-{"تحديث السورس 🔱",'مسح المشتركين 💯','مسح المجموعات 💯'},
+{"تحديث السورس 🔱"},
 {"وضع اسم البوت ⚡",'استخراج الرابط 🔦',"كشف 🔍"},
 {'مسح قائمه العام 🚷','مسح المميزين عام 🌟','مسح المطورين 👮'},
 {'ضع رد تواصل 💻','ضع كليشه المطور 🎐','ضع كليشه ستارت 📠'},
 {'تعطيل رساله الترحيب 📱','تفعيل رساله الترحيب 🎌','ضع عدد الاعضاء 📜'},
 {"حذف كليشه المطور 🀄","حذف كليشه ستارت 🃏","حذف رد التواصل 📌"},
 {"جلب رد التواصل 📚","جلب كليشه ستارت 📚"},
-{'المطورين 📑','المحظورين عام 💥','المميزين عام 📑'},
+{'المطورين 📑','المحظورين عام 📑','المميزين عام 📑'},
 {'الغاء ✖'}}
 send_inline_key(msg.chat_id_,taha,keyboard)
 else
@@ -2085,8 +2085,7 @@ sleep(0.5)
 storm_sendMsg(msg.chat_id_, msg.id_, 1, '🚸*¦* تم تحديث ♻ السورس ✔ ', 1, 'md') 
 dofile('STORM.lua')  
 end
-if text == 'مسح المشتركين 💯' and is_devtaha(msg) then     local list = tahadevstorm:smembers(DEVSTOR..'usersbot')     local pv = 0  for k,v in pairs(list) do      tahadevstorm:srem(DEVSTOR..'usersbot',v)    pv = pv + 1  end     storm_sendMsg(msg.chat_id_, msg.id_, 1, '*🎲¦ تم مسح » ❪'..pv..'❫ من المشتركين *\n', 1, 'md')   end  
-if text == 'مسح المجموعات 💯' and is_devtaha(msg) then   local lgp = tahadevstorm:smembers(DEVSTOR.."bot:gpsby:id")   local lsug = tahadevstorm:smembers(DEVSTOR.."botgps")   local lgpn = tahadevstorm:scard(DEVSTOR.."bot:gpsby:id")   local lsugn = tahadevstorm:scard(DEVSTOR.."bot:gpsby:id")   for k,v in pairs(lgp) do   rem_group(v)     changeChatMemberStatus(v, bot_id, "Left")    end   for k,v in pairs(lsug) do    rem_group(v)     changeChatMemberStatus(v, bot_id, "Left")    end   storm_sendMsg(msg.chat_id_, msg.id_, 1,"*📮¦* تم مغادره البوت من » ❪"..lsugn.."❫ مجموعات \n✓", 1, 'md')   end
+
 if text == 'المحظورين عام 📑' and is_devtaha(msg) then   local list = tahadevstorm:smembers(DEVSTOR..'storm:gbaned')  local t = '*📮¦ قائمه المحظورين عام *\n*ٴ━━━━━━━━━*\n'   for k, v in pairs(list) do   local taha = tahadevstorm:get(DEVSTOR.."user:Name" .. v)  if taha then  local username = taha  t = t..'*'..k.." ➺* ❲["..username.."](tg://user?id="..v..")❳\n"     else  t = t..'*'..k.." ➺* ❲["..v.."](tg://user?id="..v..")❳\n"     end  end   if #list == 0 then   t = '*📬¦* لا يوجد محظورين عام في البوت'   end   storm_sendMssg(msg.chat_id_,t,msg.id_,'md')  end  
 if text == 'المطورين 📑' and is_devtaha(msg) then   local list = tahadevstorm:smembers(DEVSTOR..'sudo:bot')  local t = '*📮¦ قائمه مطورين البوت *\n*ٴ━━━━━━━━━*\n'   for k, v in pairs(list) do   local taha = tahadevstorm:get(DEVSTOR.."user:Name" .. v)  if taha then  local username = taha  t = t..'*'..k.." ➺* ❲["..username.."](tg://user?id="..v..")❳\n"     else  t = t..'*'..k.." ➺* ❲["..v.."](tg://user?id="..v..")❳\n"     end  end   if #list == 0 then   t = '*📬¦* لا يوجد مطورين في البوت'   end   storm_sendMssg(msg.chat_id_,t,msg.id_,'md')  end  
 if text == 'المميزين عام 📑' and is_devtaha(msg) then   local list = tahadevstorm:smembers(DEVSTOR..'vip:groups')  local t = '*📮¦ قائمه المميزين عام *\n*ٴ━━━━━━━━━*\n'   for k, v in pairs(list) do   local taha = tahadevstorm:get(DEVSTOR.."user:Name" .. v)  if taha then  local username = taha  t = t..'*'..k.." ➺* ❲["..username.."](tg://user?id="..v..")❳\n"     else  t = t..'*'..k.." ➺* ❲["..v.."](tg://user?id="..v..")❳\n"     end  end   if #list == 0 then   t = '*📬¦* لا يوجد مميزين عام في البوت'   end   storm_sendMssg(msg.chat_id_,t,msg.id_,'md')  end  
@@ -4325,15 +4324,7 @@ local gradd = tahadevstorm:scard(DEVSTOR..'bot:gpsby:id') or 0
 local uspv = tahadevstorm:scard(DEVSTOR.."usersbot") or 0  
 storm_sendMsg(msg.chat_id_, msg.id_, 1,'*\n📬¦ عدد المجموعات المفعله ↫ ❪'..gradd..'❫\n💥¦ عدد المشتركين ↫ ❪'..uspv..'❫*\n✓', 1, 'md') 
 end
-if text == 'مسح المشتركين' and is_devtaha(msg) then   
-local list = tahadevstorm:smembers(DEVSTOR..'usersbot')   
-local pv = 0
-for k,v in pairs(list) do    
-tahadevstorm:srem(DEVSTOR..'usersbot',v)  
-pv = pv + 1
-end   
-storm_sendMsg(msg.chat_id_, msg.id_, 1, '*🎲¦ تم مسح » ❪'..pv..'❫ من المشتركين *\n', 1, 'md') 
-end  
+
 if text ==  ""..NAMEBOT..' غادر' and is_owner(msg) then 
 tahadevstorm:srem(DEVSTOR.."addgrop", msg.chat_id_) 
 tahadevstorm:del(DEVSTOR.."add:bot:group"..msg.chat_id_, true) 
@@ -4796,21 +4787,6 @@ tahadevstorm:setex(DEVSTOR.."numadd:bot" .. msg.chat_id_ .. "" .. msg.sender_use
 local t = '*📊¦ ارسل لي العدد الان*'  
 storm_sendMsg(msg.chat_id_, msg.id_, 1,t, 1, 'md') 
 end
-if text == 'مسح المجموعات' and is_devtaha(msg) then 
-local lgp = tahadevstorm:smembers(DEVSTOR.."bot:gpsby:id") 
-local lsug = tahadevstorm:smembers(DEVSTOR.."botgps") 
-local lgpn = tahadevstorm:scard(DEVSTOR.."bot:gpsby:id") 
-local lsugn = tahadevstorm:scard(DEVSTOR.."bot:gpsby:id") 
-for k,v in pairs(lgp) do 
-rem_group(v)   
-changeChatMemberStatus(v, bot_id, "Left")  
-end 
-for k,v in pairs(lsug) do  
-rem_group(v)   
-changeChatMemberStatus(v, bot_id, "Left")  
-end 
-storm_sendMsg(msg.chat_id_, msg.id_, 1,"*📮¦* تم مغادره البوت من » ❪"..lsugn.."❫ مجموعات \n✓", 1, 'md') 
-end
 if text ==('رفع الادمنيه') and is_monsh(msg) then
 tdcli_function ({
 ID = "GetChannelMembers",
@@ -4970,30 +4946,17 @@ end
 end
 if text == 'السورس' or text =='سورس' or text=='يا سورس' then
 local text = [[
-📮¦ اهلا بك في سورس ستورم 🍃
-ٴ━━━━━━━━━━
-🗃¦ لتنصيب السورس ↓↑
-ٴ━━━━━━━━━━
-⚜¦ افتح ترمنال جديد 
-⚜¦ انسخ رابط كيثاب السورس  ↡
-`git clone https://github.com/NOVAR1/STORM.git; cd STORM;chmod +x tg;chmod +x STORM.sh;chmod +x SM;./STORM.sh`
-ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
-⚜¦ راح يطلب معلومات منك الاتيه ↓
-ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
-📬¦ بعد كل امر اضغط انتر 
-⓵ ¦ يطلب » توكن البوت 
-⓶ ¦ يطلب » ايدي المطور الاساسي
-⓷ ¦ يطلب » معرف المطور الاساسي
-ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
-📌¦ راح تلقائيا يشتغل بسكرين 
-💭¦ كود رن السورس
-`cd STORM;./SM`
-💭¦ كود حذف السورس 
-`rm -rf STORM`
-ٴ━━━━━━━━━━
-⚜¦ للمزيد من المعلومات راسلنا
-💥¦ مطور السورس » @TAHAJ20
-📯¦ قناة السورس » @STORMCLI
+🎫┇اهلا بك في سورس عراق 🇮🇶┇
+
+🇮🇶┇[IRAQ TEAM](t.me/BECIQ) 
+
+☑️┇[قناه السورس](t.me/BECIQ)
+
+🔘┇[قناه شروحات سورس📍](t.me/BE_CIQ) 
+
+🔖┇ [لـ تنصيب سورس عراق☑️](t.me/BECIQ) 
+
+📮┇[لـ تواصل📩](t.me/Bec7bot)
 ]] 
 storm_sendMsg(msg.chat_id_, msg.id_, 1,text, 1, 'md')   
 end
