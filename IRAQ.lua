@@ -9125,12 +9125,12 @@ elseif da.status_.ID == "ChatMemberStatusMember" then
 rtpa = 'عضو'
  end
 if result.username_ then 
-username = '\n💠¦ معرفك ⇜ ❪ @'..result.username_..' ❫' 
+username = '\n🎫¦ مـعرفك • @'..result.username_..'' 
 else 
 username = '' 
 end
 if result.username_ then 
-usernamee = '\n*💠¦ معرفك » ❪* [@'..result.username_..']* ❫*' 
+usernamee = '\n🎫¦ مـعرفك •  [@'..result.username_..']' 
 else usernamee = '' 
 end
 if result.username_ then 
@@ -9161,12 +9161,12 @@ end
 end
 else
 if result.status_.ID == "UserStatusRecently" and result.profile_photo_ ~= false then
-sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, taha.photos_[0].sizes_[1].photo_.persistent_id_,'\n⚜¦ ايديك ⇜ ❪ '..msg.sender_user_id_..' ❫'..username..'\n⚔¦ رتبة البوت ⇜ ❪ '..get_rtpa(msg.chat_id_,msg.sender_user_id_)..' ❫\n🏆¦ رتبة الكروب ⇜ ❪ '..rtpa..' ❫\n📈¦ تفاعلك ⇜ ❪ '..formsgg(msguser)..' ❫\n📨¦ رسائلك ⇜ ❪ '..(msguser)..' ❫\n🌁¦ صورك ⇜ ❪ '..taha.total_count_..' ❫\n')       
+sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, taha.photos_[0].sizes_[1].photo_.persistent_id_,'\n🔹¦ ايديــك • '..msg.sender_user_id_..''..username..'\n🎖¦ موقعـك • '..get_rtpa(msg.chat_id_,msg.sender_user_id_)..'\n📮¦ موقع الكروب • '..rtpa..'\n🎲¦ تفاعـلك • '..formsgg(msguser)..'\n📧¦ رسائلك • '..(msguser)..'\n🌁¦ صورك • '..taha.total_count_..'\n')       
 else 
 if result.status_.ID == "UserStatusEmpty" and result.profile_photo_ == false then
-IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,'*\n⚜¦ ايديك » ❪ '..msg.sender_user_id_..' ❫*'..usernamee..'\n*⚔¦ رتبة البوت » ❪ '..get_rtpa(msg.chat_id_,msg.sender_user_id_)..' ❫\n🏆¦ رتبة الكروب » ❪ '..rtpa..' ❫\n📈¦ تفاعلك » ❪ '..formsgg(msguser)..' ❫\n📨¦ رسائلك » ❪ '..(msguser)..' ❫\n'..'\n🌇¦ لا يمكنني عرض صورتك لانك قمت بحظر البوت*', 1, 'md')   
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,'\n🔹¦ ايديــك • '..msg.sender_user_id_..''..usernamee..'\n🎖¦ موقعـك • '..get_rtpa(msg.chat_id_,msg.sender_user_id_)..'\n📮¦ موقع الكروب • '..rtpa..'\n🎲¦ تفاعـلك • '..formsgg(msguser)..'\n📧¦ رسائلك • '..(msguser)..'\n'..'\n🌇¦ لا يمكنني عرض صورتك لانك قمت بحظر البوت', 1, 'md')   
 else
-IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, '\n*📷¦ ليس لديك صور في حسابك 🍃'..'\n⚜¦ ايديك » ❪ '..msg.sender_user_id_..' ❫*'..usernamee..'\n*⚔¦ رتبة البوت » ❪ '..get_rtpa(msg.chat_id_,msg.sender_user_id_)..' ❫\n🏆¦ رتبة الكروب » ❪ '..rtpa..' ❫\n📈¦ تفاعلك » ❪ '..formsgg(msguser)..' ❫\n📨¦ رسائلك » ❪ '..(msguser)..' ❫*\n',1, 'md')      
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, '\n📷¦ ليس لديك صور في حسابك 🍃'..'\n🔹¦ ايديــك • '..msg.sender_user_id_..''..usernamee..'\n🎖¦ موقعـك • '..get_rtpa(msg.chat_id_,msg.sender_user_id_)..'\n📮¦ موقع الكروب • '..rtpa..'\n🎲¦ تفاعـلك • '..formsgg(msguser)..'\n📧¦ رسائلك • '..(msguser)..'\n',1, 'md')      
 end 
 end
 end
@@ -9176,7 +9176,7 @@ local get_id_text = IRAQBOT:get(IRAQ_ID.."KLISH:ID")
 if get_id_text then
 IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,get_id(msg,taha,get_id_text), 1, 'html')   
 else
-IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,'*\n⚜¦ ايديك » ❪ '..msg.sender_user_id_..' ❫*'..usernamee..'\n*⚔¦ رتبة البوت » ❪ '..get_rtpa(msg.chat_id_,msg.sender_user_id_)..' ❫\n🏆¦ رتبة الكروب » ❪ '..rtpa..' ❫\n📈¦ تفاعلك » ❪ '..formsgg(msguser)..' ❫\n📨¦ رسائلك » ❪ '..(msguser)..' ❫\n📱¦ جهاتك » ❪ '..(addmempar)..' ❫*', 1, 'md')   
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,'🔹¦ ايديــك • '..msg.sender_user_id_..''..usernamee..'\n🎖¦ موقعـك • '..get_rtpa(msg.chat_id_,msg.sender_user_id_)..'\n📮¦ موقع الكروب • '..rtpa..'\n🎲¦ تفاعـلك • '..formsgg(msguser)..'\n📧¦ رسائلك • '..(msguser)..'\n📱¦ جهاتك • '..(addmempar)..'', 1, 'md')   
 end
 end
 end
