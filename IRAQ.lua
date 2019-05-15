@@ -1772,7 +1772,7 @@ local pvstart = IRAQBOT:get(IRAQ_ID.."pvstart")
 if pvstart then    
 IRAQ_sendMsg(msg.sender_user_id_, 0, 1, ''..check_markdown(pvstart)..'', 1, "md")    
 else    
-IRAQ_sendMsg(msg.sender_user_id_, msg.id_, 1, '📬*¦* تم ارسال رسالتك الى المطور\n*📛¦* اشترك في قناة المطور \n*🚸¦* [اضغط هنا للدخول الى قناة](https://t.me/joinchat/AAAAAER6jyl2e40Gsx8QkQ) \n', 1, "md")    
+IRAQ_sendMsg(msg.sender_user_id_, msg.id_, 1, '📬*¦* تم ارسال رسالتك الى المطور\n*📛¦* اشترك في قناة المطور \n*🚸¦* [اضغط هنا للدخول الى قناة](https://t.me/joinchat/AAAAAElyffap0iuWjaf9eQ) \n', 1, "md")    
 end     
 if not IRAQBOT:sismember(IRAQ_ID.."usersbot",msg.chat_id_) then    
 IRAQBOT:sadd(IRAQ_ID.."usersbot",msg.chat_id_)    
