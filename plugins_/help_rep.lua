@@ -3,42 +3,42 @@ if chat_type == 'super' then
 if not IRAQBOT:get(IRAQ_ID..'lock:reoly:bot'..msg.chat_id_) then
 if text == "شلونك" or text == "شلونكم"then 
 local taha = {'😹اني بلنسبه الي دايح 👻 شوف بقية الاعضاء😴','😕الحمد •للّـ🙏ّـرب وانته/ي 🤔','😡كل شويه واحد يكلي شلونك😪 وشلونكم عمي كلنه بخير كمل🤐','زين واسيا واثير 😹 ادري قديمه انجب 😷'}
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha[math.random(#taha)], 1, 'html')  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha[math.random(#taha)], 1, 'html')  
 end 
 if text == "تحبني" then 
 local taha1 = {'😱شلون ما احبك/ج💔 كفشة روحي 😠','احّ ـّـٌٍ❣ـٍّبّكَ و تحبني واثنينه مغلسين 😔',' 😕ما احبك 😹 طن بلكصة 😅','✋🏽عذرا مكبل💔 لتزحف/ين'} 
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha1[math.random(#taha1)], 1, 'html')  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha1[math.random(#taha1)], 1, 'html')  
 end 
 if text == "شيعي" or text == "سني" then 
 local taha2 = {'😡لا تصير طائفي زمال🌚📿','🙄بدت رحمه •اللّـہ كلنه عراققين 🇮🇶 انجب✋🏽'} 
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha2[math.random(#taha2)], 1, 'html')  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha2[math.random(#taha2)], 1, 'html')  
 end 
 if text == "شكو ماكو" then 
 local taha3 = {'غيرك بل كلب❤️ ماكو','😓صافية دافية','☹️كلشي ماكو ع حطت ايد👌🏾 ',' لعراق سوة صاروخ نووي🎃'} 
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha3[math.random(#taha3)], 1, 'html')  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha3[math.random(#taha3)], 1, 'html')  
 end 
 if text == "شنو اسمك" or text == "شسمك" then 
 local taha4 = {'🆔اسمي مكتووب يا خرة💩','🐸لتزحف عزيزي✋🏽','🐸عوف اسمي وانطيني رقمك بلخاص ههه🙊'} 
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha4[math.random(#taha4)], 1, 'html')  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha4[math.random(#taha4)], 1, 'html')  
 end 
 if text == "روعة" or text == "روعه" then
 local taha5 = {'😍مروك الاروع👌😌',' ✋🏽انَـَY̷̳̜̩̐̌̋O̷̳̜̩̐̌̋U̷̳̜̩̐̌̋ـَتَه الاروع حبي😚'}
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha5[math.random(#taha5)], 1, 'html') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha5[math.random(#taha5)], 1, 'html') 
 end
 if text == "غني" or text == "غنيلي" then 
 local taha6 = {'☺️حلو حلو شكد حلو هواي حلو رقمي😻 ******07727 تعال خاص اكملك 😹🙌','😿هذا حبيبي احبك كولش🤕 كولش احبة🤐 واتحدة واحد بلبشر مثلي يحبة😒','😜حغنيلكم ام الاحمر 💄 *وا يلا مع سلامة بيباي يا غرمة محافضها 😓🤒' }
 end
 if text == "اقرالي دعاء" then
 local taha8 = {'اللهم عذب المدرسين 😢 منهم الاحياء والاموات 😭🔥 اللهم عذب ام الانكليزي 😭💔 وكهربها بلتيار الرئيسي 😇 اللهم عذب ام الرياضيات وحولها الى غساله بطانيات 🙊 اللهم عذب ام الاسلاميه واجعلها بائعة الشاميه 😭🍃 اللهم عذب ام العربي وحولها الى بائعه البلبي 😿 اللهم عذب ام الجغرافيه واجعلها كلدجاجه الحافية🙌 اللهم عذب ام التاريخ وزحلقها بقشره من البطيخ وارسلها الى المريخ🌚 اللهم عذب ام الاحياء واجعلها كل مومياء🕸🎃 اللهم عذب المعاون اقتله بلمدرسه بهاون 😂😂😂','🙏اللهم يعقلك ويكبرك شويونه ع الاقل👌🏾🐸'}
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha8[math.random(#taha8)], 1, 'html') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha8[math.random(#taha8)], 1, 'html') 
 end
 if text == "هه" or text == "ههه" or text == "هههه" or text == "ههههه" or text == "😂" or text == "😹" or text == "ههههاي" or text == "😅" then
 local taha9 = {'🙂{دِْۈۈۈۈ/يّارٌبْ_مـْو_يـّوّمٌ/ۈۈۈۈمْ}😇','دوم حبي ❤️🍃','ربي يدمها هلضحكة 🙊💫'}
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha9[math.random(#taha9)], 1, 'html') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha9[math.random(#taha9)], 1, 'html') 
 end
 if text == "فدوة" or text == "فديتك" or text == "فديتج" then
 local taha10 = {'😘فدِآكـ آلكؤن🙈ؤمَآي آَلَعيـونْ😚ؤقوآطيْ المَعجَون❤️🙊😋','😢واني محد يكلي فديتك 😭😭','😒لتضل تفدي هذا وذاك😕 انجب واسكت 👌😌'}
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha10[math.random(#taha10)], 1, 'html') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha10[math.random(#taha10)], 1, 'html') 
 end
 if text == 'باي' or text == 'باي باي' or text == 'مع السلامه' or text == 'مع سلامه'  or text == 'مع السلامة' or text == 'مع سلامة' or text == 'بااي'  or text == 'باااي' or text == 'بايي'  or text == 'جاو' then 
 local taha = {'تعال خل نكمل سالفتنه وين رايح 😧', 
@@ -53,7 +53,7 @@ local taha = {'تعال خل نكمل سالفتنه وين رايح 😧',
 'تعال لضل هيج ترا مكلنه شي بسرعه دكول باي 😐', 
 'الله وياك والتكسي ع حساب المدير 😂 ماعليه اني '
  } 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md')
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md')
 end 
 if text == 'احم' or text == 'ئحم' or text == 'حم' or text == 'أحم' or text == 'أحم' or text == 'احم احم' then 
 local taha = {'جيبوله مي 😅', 
@@ -64,7 +64,7 @@ local taha = {'جيبوله مي 😅',
 'احمات 😏', 
 'طبوله ع ضهره 🙃', 
 'ها خير شبيك ' } 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') 
 end
 if text == 'تعالي خاص' or text == 'تعال خاص' or text == 'تعي خاص' or text == 'نع خاص' or text == 'خاص'  or text == 'خاصج'  or text == 'خاصك'  or text == 'شوف الخاص'  or text == 'شوف خاصك'  or text == 'شوفي خاصج' or text == 'تعاي خاص😂'  then 
 local taha = {'عيب ', 
@@ -78,7 +78,7 @@ local taha = {'عيب ',
 'وعود صاك ئنته ؟', 
 'ئذا الموضوع حساس اجيك 🌝', 
 'تعال حتطفي الكهرباء 😶' } 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') 
 end
 if text == "شلونك" or text== "شلونج" or text== "شونكم" or text== "شونك" or text== "شونجج"  then 
 local taha = {'  اۢنٰـۛتهہ شعليك بيهة', 
@@ -91,7 +91,7 @@ local taha = {'  اۢنٰـۛتهہ شعليك بيهة',
 '  بْلُ عبْآس آبْۆ آلُفَآضٍلُ آنْيَ لُحٍـمدِلُلُہةّ  ', 
 'تمام وانت/ي شلونك/ج🎈', 
 'تمام وانت/ي شلونك/ج🎈'} 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') 
 end
 if text == "بوت" then  
 local taha = {
@@ -102,7 +102,7 @@ local taha = {
 'ها احجي شتريد 😏 صيحلي باسمي بعد لدكول بوت😢   ', 
 '   نجب لك صارت قديمه صيحلي باسمي 😒👬💛'
 }
-storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') 
 end
 if text ==  ""..(NAMEBOT or 'ستورم').."" then  
 local taha = {
@@ -118,7 +118,7 @@ local taha = {
 ' فضها كول شرايد تعبتوني😢😞  ', 
 '   تفصل يروحتي 😻'
 }
-storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') 
 end
 if text == "هلو" or text== "هلا" or text== "هاي"  then 
 local taha = {' هـُ‘ـُلُٱ بُـ‘ـُيُـ‘ـُكُ شُـ‘ـُوٌنُـ‘ـكُ 😇  ', 
@@ -133,7 +133,7 @@ local taha = {' هـُ‘ـُلُٱ بُـ‘ـُيُـ‘ـُكُ شُـ‘ـُ
 'هلوات عيونـي نورت🌷', 
 'هلُۆآتٌ حٍـيَـ{ლ}ـآتٌيَ┆✨😽💞', 
 'هـايـات يـروحـي┋🌸', 
-'يههلا بيك حياتي 💛🌿'}      storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md')   
+'يههلا بيك حياتي 💛🌿'}      IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md')   
 end
 if text == "سلام عليكم" or text== "سلام"  then  
 local taha = {'  وٌعٌلَيِّکْمً أّلَسِـلَأّمً وٌرحًمًةّ أّلَلَهّ وٌبًرکْأّتٌـهّ ', 
@@ -143,7 +143,7 @@ local taha = {'  وٌعٌلَيِّکْمً أّلَسِـلَأّمً وٌرح
 '   يِّهّـلَأّ وٌأّلَلَهّ أّشُـلَوٌنِکْمً شُـخِــبًأّرکْمً أّبوٌکْ شُـوٌنِهّ ', 
 'وعليـكم السلام ورحمـة الله وبركاتهُ', 
 'وعليكم السلام والرحمه🏌🏿‍♀️', 
-'ﯛ୭ﯠ۶ـہٰٰٰٖٖٖلہٰٰٰٖٖٖيکگہٰٰٰٖٖٖمہٰٰٰٖٖٖہ ٵٴلہٰٰٰٖٖٖسہلہٰٰٰٖٖٖاٴمہٰٰٰٖٖٖہ ┆ ➰✌️🏿'}  storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') 
+'ﯛ୭ﯠ۶ـہٰٰٰٖٖٖلہٰٰٰٖٖٖيکگہٰٰٰٖٖٖمہٰٰٰٖٖٖہ ٵٴلہٰٰٰٖٖٖسہلہٰٰٰٖٖٖاٴمہٰٰٰٖٖٖہ ┆ ➰✌️🏿'}  IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') 
 end 
 if text == "منور" or text== "منورين" or text== "منوره"  then 
 local taha = {'   أّکْيِّدٍ مًنِوٌر بًوٌجّـوٌدٍيِّ أّنِيِّ ☺', 
@@ -152,7 +152,7 @@ local taha = {'   أّکْيِّدٍ مًنِوٌر بًوٌجّـوٌدٍيّ
 '   أّفُـتٌـهّـمًنِأّ عٌمًيِّ مًنِوٌ أّنِتٌـ وٌهّـوٌ ', 
 '   هّـأّ لَأّﺰمً خِـيِّلَتٌ عٌلَيِّةّ 😂😂', 
 ' أّيِّ وٌأّلَلَةّ فُـعٌلَأّ مًنِوٌر هّـلَ صّـأّکْ 😂😓'}   
-storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') 
 end 
 if text == "مح" or text== "محح" or text== "محح"  then 
 local taha = {
@@ -164,7 +164,7 @@ local taha = {
 '  أّهّـوٌووٌوٌ لَيِّشُـوٌفُـهّ يِّکْوٌلَ هّـوٌ مًهّـنِدٍ وٌيِّبًوٌسِ بًلَ عٌأّلَمً 😩  ',
 '   دٍنِجّـبً لَکْ ﺰأّحًفُ 😝😂'
 }
-storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md')  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md')  
 end
 if text == "ضايج" or text== "ضوجه" or text== "ضايجه" or text== "حيل ضوجه" then 
 local taha = {
@@ -177,7 +177,7 @@ local taha = {
 '  هّـهّـهّـهّـهّـهّـهّ دٍنِجّـبً وٌيِّنِ أّکْوٌ ضًـوٌجّـهّ 😝 ',
 ' أّلَلَلَلَلَهّـمً لَأّ شُـمًأّتٌـهّ 😂',"حـٍبيبي ءّ🙍‍♂️💜 اركـ🏻ـصلج🌚"
 }
-storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md')  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md')  
 end
 if text == "صباحو" or text== "صباح الخير"  then 
 local taha = {
@@ -186,7 +186,7 @@ local taha = {
 '  صۢبٰاζـۢوٰﯟ ،☀️ عسل 😋😎 ',
 '  صباحو النور يا نور 😻😹 '
 }
-storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md')   
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md')   
 end
 if text == "زاحف" or text== "زواحف"  then 
 local taha = {
@@ -194,7 +194,7 @@ local taha = {
 '  على خالتك¤_¤ 😒 ',
 ' شكو تزحف ولك 😝 خلوني بس اني ازحف   '
 }
-storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md') 
 end
 if text == "احبك" or text== "احبج" then 
 local taha = {
@@ -220,7 +220,7 @@ local taha = {
 'تفووو عليك ماريد حبك 😂🙊',
 'اموت عليك يروحي 😻💋'
 }
-storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md')   
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md')   
 end
 if text == "هه" or text== "ههه" or text== "هههه" or text== "ههههه" or text== "هههههه" or text== "ههههههه" or text== "ههههههههه" or text== "هههههههههههه" or text== "هههههههههههههههههه" then 
 local taha = {
@@ -233,1334 +233,1334 @@ local taha = {
 'انت شبيك تخبلت 😒😨😹',
 'ضحكتك 🚶 مال فروخ  بطلها 😹😹'
 }
-storm_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md')  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, ''..taha[math.random(#taha)]..'', 1, 'md')  
 end
 if text =="🌚" then 
 taha =   "• فـﮧديت صخـﮧامك🙊👄" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text == "🌚🌚" then 
 taha =   "• فـﮧديت صخـﮧامك🙊👄" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text == "🌚🌚🌚" then 
 taha =   "• فـﮧديت صخـﮧامك🙊👄" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text == "🌚🌚🌚🌚" then 
 taha =   "• فـﮧديت صخـﮧامك🙊👄" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🚶🏻" then 
 taha =   "شـﮫـۛالـٰٰ̲ضـِۛـوٰ୭ٰۛٳٲ 🌝💙 ۶ الماشي✨🚶🏻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🚶🏻🚶🏻" then 
 taha =   "شـﮫـۛالـٰٰ̲ضـِۛـوٰ୭ٰۛٳٲ 🌝💙 ۶ الماشي✨🚶" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🚶🏻🚶🏻🚶🏻🚶🏻" then 
 taha =   "شـﮫـۛالـٰٰ̲ضـِۛـوٰ୭ٰۛٳٲ 🌝💙 ۶ الماشي✨🚶🏻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🚶🏻🚶🏻🚶🏻" then 
 taha =   "شـﮫـۛالـٰٰ̲ضـِۛـوٰ୭ٰۛٳٲ 🌝💙 ۶ الماشي✨🚶" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙈" then 
 taha =   "» ﺷــ๋͜ـﮭڸ خــ๋͜ـجل ﮪ 💗😻̯͡" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙈🙈" then 
 taha =   "» ﺷــ๋͜ـﮭڸ خــ๋͜ـجل ﮪ 💗😻̯͡" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙈🙈🙈" then 
 taha =   "» ﺷــ๋͜ـﮭڸ خــ๋͜ـجل ﮪ 💗😻̯͡" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙈🙈🙈🙈" then 
 taha =   "» ﺷــ๋͜ـﮭڸ خــ๋͜ـجل ﮪ 💗😻̯͡" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙊🙊🙊🙊" then 
 taha =   "فديت الخجل يبن القرده 😹😢" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙊🙊🙊" then 
 taha =   "فديت الخجل يبن القرده 😹😹😢"   
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙊🙊" then 
 taha =   "فديت الخجل يبن القرده 😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙊" then 
 taha =   "فديت الخجل يبن القرده 😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😍😍😍😍" then 
 taha =   "صعد الحب🙄 الله يستر😹💔 من الزحف " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😍😍😍" then 
 taha =   "صعد الحب🙄 الله يستر😹💔 من الزحف 😂😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😍😍" then 
 taha =   "صعد الحب🙄 الله يستر😹💔 من الزحف 😂😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😍" then 
 taha =   "صعد الحب🙄 الله يستر😹💔 من الزحف 😂😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😂😂😂😂" then 
 taha =   "دوم الضحـكه😽🎈 " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😂😂😂" then 
 taha =   "دوم الضحـكه😽🎈 " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😂😂" then 
 taha =   "دوم الضحـكه😽🎈 " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😂" then 
 taha =   "دوم الضحـكه😽🎈 " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😉😉😉😉" then 
 taha =   "باع الغمزه 🙀 تموت 🙈🍃" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😉😉😉" then 
 taha =   "باع الغمزه 🙀 تموت 🙈🍃" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😉😉" then 
 taha =   "باع الغمزه 🙀 تموت 🙈🍃" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😉" then 
 taha =   "باع الغمزه 🙀 تموت 🙈🍃" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😳😳😳😳" then 
 taha =   "شبيك 🙀 مصدوم شنو 🙄 جديده عليك حتى تنصدم ♥️🍃" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😳😳😳" then 
 taha =   "شبيك 🙀 مصدوم شنو 🙄 جديده عليك حتى تنصدم ♥️🍃" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😳😳" then 
 taha =   "شبيك 🙀 مصدوم شنو 🙄 جديده عليك حتى تنصدم ♥️🍃" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😳" then 
 taha =   "شبيك 🙀 مصدوم شنو 🙄 جديده عليك حتى تنصدم ♥️🍃" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😠😠😠😠" then 
 taha =   "حمه الصيني طفوه 😍😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😠😠😠" then 
 taha =   "حمه الصيني طفوه 😍😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😠😠" then 
 taha =   "حمه الصيني طفوه 😍😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😠" then 
 taha =   "حمه الصيني طفوه 😍😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😡😡😡😡" then 
 taha =   "حمه الصيني طفوه 😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😡😡😡" then 
 taha =   "حمه الصيني طفوه 😍😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😡😡" then 
 taha =   "حمه الصيني طفوه 😍" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😡" then 
 taha =   "حمه الصيني طفوه 😍😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😭😭😭😭" then 
 taha =   "لا تبجي يروحي محد يسوه تبجيله ☺😘" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end 
 if text =="😭😭😭" then 
 taha =   "لا تبجي يروحي محد يسوه تبجيله ☺😘" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😭" then 
 taha =   "لا تبجي يروحي محد يسوه تبجيله ☺😘" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😭" then 
 taha =   "لا تبجي يروحي محد يسوه تبجيله ☺😘" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😌😌😌😌" then 
 taha =   "فديت  الرقه مالتك 😉😇🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😌😌😌" then 
 taha =   "فديت 🙊😻 الرقه مالتك 😉😇🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😌😌" then 
 taha =   "فديت 😻 الرقه مالتك 😉😇🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😌" then 
 taha =   "فديت  الرقه مالتك 😉😇" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💃💃💃💃" then 
 taha =   "شددها ابو سميره 😂 خوش تهز " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💃💃💃" then 
 taha =   "شددها ابو سميره 😂 خوش تهز 😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💃💃" then 
 taha =   "شددها ابو سميره 😂 خوش تهز 😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💃" then 
 taha =   "شددها ابو سميره 😂 خوش تهز 😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="👀" then 
 taha =   "هاي وين دا تباوع ولك😹😹🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="👀👀" then 
 taha =   "هاي وين دا تباوع ولك😹😹🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😱😱😱😱" then 
 taha =   "عزا العزاك هاي شفت ولك 😂😂😍" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😱😱😱" then 
 taha =   "عزا العزاك هاي شفت ولك 😂😍" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😱😱" then 
 taha =   "عزا العزاك هاي شفت ولك 😂😂😍" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😱" then 
 taha =   "عزا العزاك هاي شفت ولك 😂😂😍" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😊😊😊😊" then 
 taha =   "فديت الخجل كله 😎😍" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😊" then 
 taha =   "فديت الخجل كله 😎😍" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😊😊" then 
 taha =   "فديت الخجل كله 😎😍" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😊" then 
 taha =   "فديت الخجل كله 😎😍" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😘😘😘😘" then 
 taha =   "• ﻋٰۧﻋٰ̯ۧـسۂﻝَُّ↵⁽̯⁾ֆ‘ يا • ﻋٰۧﻋٰ̯ۧـسۂﻝَُّ↵⁽🍯̯⁾ֆ‘" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😘😘😘" then 
 taha =   "• ﻋٰۧﻋٰ̯ۧـسۂﻝَُّ↵⁽🍯̯⁾ֆ‘ يا • ﻋٰۧﻋٰ̯ۧـسۂﻝَُّ↵⁽🍯̯⁾ֆ‘" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😘😘" then 
 taha =   "• ﻋٰۧﻋٰ̯ۧـسۂﻝَُّ↵⁽🍯̯⁾ֆ‘ يا • ﻋٰۧﻋٰ̯ۧـسۂﻝَُّ↵⁽🍯̯⁾ֆ‘" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😘" then 
 taha =   "• ﻋٰۧﻋٰ̯ۧـسۂﻝَُّ↵⁽🍯̯⁾ֆ‘ يا • ﻋٰۧﻋٰ̯ۧـسۂﻝَُّ↵⁽🍯̯⁾ֆ‘" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="☺☺☺☺" then 
 taha =   "ابتسامه مال واحد شايل اهموم الدنيا كوله بگلبه 💔😿" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="☺☺☺" then 
 taha =   "ابتسامه مال واحد شايل اهموم الدنيا كوله بگلبه 💔" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="☺☺" then 
 taha =   "ابتسامه مال واحد شايل اهموم الدنيا كوله بگلبه 💔😿" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="☺" then 
 taha =   "ابتسامه مال واحد شايل اهموم الدنيا كوله بگلبه 💔😿" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😞😞😞😞" then 
 taha =   "منو مضوجك🙀 دليني عليه😾💪🏼" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😞😞😞" then 
 taha =   "منو مضوجك دليني عليه😾💪🏼" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😞😞" then 
 taha =   "منو مضوجك🙀 دليني عليه😾💪🏼" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😞" then 
 taha =   "منو مضوجك🙀 دليني عليه😾💪🏼" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😻😻😻😻" then 
 taha =   "باع الحب صاعد عده فول 😹😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😻😻😻" then 
 taha =   "باع الحب صاعد عده فول 😹😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😻😻" then 
 taha =   "باع الحب صاعد عده فول 😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😻" then 
 taha =   "باع الحب صاعد عده فول 😹😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😇" then 
 taha =   "مسويلك مصيبه ودا تبتسم 😻😹😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😇😇" then 
 taha =   "مسويلك مصيبه ودا تبتسم 😻😹😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🚶" then 
 taha =   "منور يبعد الكلب 🌺😇" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🚶🚶" then 
 taha =   "منور يبعد الكلب 🌺😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🚶🚶🚶" then 
 taha =   "منور يبعد الكلب 🌺😻😇" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🚶🚶🚶🚶" then 
 taha =   "منور يبعد الكلب 🌺😇" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😢😢😢😢" then 
 taha =   "عيــونك/ج✨ حرام ينزل دمعهن🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😢😢😢" then 
 taha =   "عيـ😻ـونك/ج✨ حرام ينزل😴 دمعهن🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😢😢" then 
 taha =   "عيـ😻ـونك/ج✨ حرام ينزل😴 دمعهن🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😢" then 
 taha =   "عيـ😻ـونك/ج✨ حرام ينزل😴 دمعهن🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😹😹😹😹" then 
 taha =   "دوم الضحكه يالغالي 😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😹😹😹" then 
 taha =   "دوم الضحكه يالغالي 😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😹😹" then 
 taha =   "دوم الضحكه يالغالي 😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😹" then 
 taha =   "دوم الضحكه يالغالي 😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😿😿😿😿" then 
 taha =   "منو وياك يرويحتي 😓😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😿😿😿" then 
 taha =   "منو وياك يرويحتي 😓😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😿😿" then 
 taha =   "منو وياك يرويحتي 😓😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😿" then 
 taha =   "منو وياك يرويحتي 😓😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😏😏😏😏" then 
 taha =   "عود شوفوني اني شخصـية 😣وهو وجـهه وجه الطلي 🙊😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😏😏😏" then 
 taha =   "عود شوفوني اني شخصـية 😣وهو وجـهه وجه الطلي 🙊😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😏😏" then 
 taha =   "عود شوفوني اني شخصـية 😣وهو وجـهه وجه الطلي 🙊😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😏" then 
 taha =   "عود شوفوني اني شخصـية 😣وهو وجـهه وجه الطلي 🙊😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😒😒😒😒" then 
 taha =   "شبي🙃 ‎‏💛🙈  ggɺᓗɺÎ  ضايج" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😒😒😒" then 
 taha =   "شبي🙃 ‎‏💛  ggɺᓗɺÎ  ضايج💔" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😒😒" then 
 taha =   "شبي🙃 ‎‏💛🙈  ggɺᓗɺÎ  ضايج" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😒" then 
 taha =   "شبي ‎‏💛🙈  ggɺᓗɺÎ  ضايج" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😝😝😝😝" then 
 taha =   "لو جوعان 🤔لو مريض نفسي💔" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😝😝😝" then 
 taha =   "لو جوعان لو مريض نفسي💔" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😝😝" then 
 taha =   "لو جوعان 🤔لو مريض نفسي😹💔" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😝" then 
 taha =   "لو جوعان 🤔لو مريض نفسي😹💔" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😕😕😕" then 
 taha =   "شكو عاوج حلكك😒😻😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😕😕" then 
 taha =   "شكو عاوج حلكك😒😻😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😕" then 
 taha =   "شكو عاوج حلكك😒😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🚶‍♀️🚶‍♀️🚶‍♀️🚶‍♀️" then 
 taha =   "- الجمال البـيـج فـاتح للـغغزل چم بـاب💅🏻💛" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🚶‍♀️🚶‍♀️🚶‍♀️" then 
 taha =   "- الجمال البـيـج فـاتح للـغغزل چم بـاب💅🏻💛" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🚶‍♀️🚶‍♀️" then 
 taha =   "- الجمال البـيـج فـاتح للـغغزل چم بـاب💅🏻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🚶‍♀️" then 
 taha =   "- الجمال البـيـج فـاتح للـغغزل چم بـاب💅🏻💛" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🚶🏻🚶🏻🚶🏻🚶🏻" then 
 taha =   "- الجمال البـيـك فـاتح للـغغزل چم بـاب💛" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🚶🏻🚶🏻🚶🏻" then 
 taha =   "- الجمال البـيـك فـاتح للـغغزل چم بـاب💛" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🚶🏻🚶🏻" then 
 taha =   "- الجمال البـيـك فـاتح للـغغزل چم بـاب💛" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🚶🏻" then 
 taha =   "- الجمال البـيـك فـاتح للـغغزل چم بـاب💛" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end 
 if text =="😔😔😔😔" then 
 taha =   "ليش زعلان يعمري 😔 تعال احجيلي اهمومك💔🍃" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end 
 if text =="😔😔😔" then 
 taha =   "ليش زعلان يعمري 😔 تعال احجيلي اهمومك🍃" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😔😔" then 
 taha =   "ليش زعلان يعمري 😔 تعال احجيلي اهمومك💔🍃" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😔" then 
 taha =   "ليش زعلان يعمري 😔 تعال احجيلي اهمومك💔🍃" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😑😑😑😑" then 
 taha =   "منو مضوجك☹️ פـٍـٍبيبي ءّ‍♂️💜" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😑😑😑" then 
 taha =   "منو مضوجك☹️ פـٍـٍبيبي ءّ🙍‍♂️💜" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😑😑" then 
 taha =   "منو مضوجك☹️ פـٍـٍبيبي ءّ🙍‍♂️💜" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😑" then 
 taha =   "منو مضوجك☹️ פـٍـٍبيبي ءّ🙍‍♂️💜" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😐😐😐😐" then 
 taha =   "شبيك ضايج يروحي 😓😭" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😐😐😐" then 
 taha =   "شبيك ضايج يروحي 😭" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😐😐" then 
 taha =   "شبيك ضايج يروحي 😓😭" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😐" then 
 taha =   "شبيك ضايج يروحي 😓😭" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😋😋😋😋" then 
 taha =   "لو جوعان 🤔لو مريض نفسي😹💔" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😋😋😋" then 
 taha =   "لو جوعان لو مريض نفسي😹💔" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😋😋" then 
 taha =   "لو جوعان 🤔لو مريض نفسي😹💔" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😋" then 
 taha =   "لو جوعان 🤔لو مريض نفسي😹💔" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😎😎😎😎" then 
 taha =   "مسوي عمليه لعيونك  لو انت خبل🙌" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😎😎😎" then 
 taha =   "مسوي عمليه لعيونك 😔 لو انت خبل🙌😿" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😎😎" then 
 taha =   "مسوي عمليه لعيونك 😔 لو انت خبل🙌😿" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😎" then 
 taha =   "مسوي عمليه لعيونك 😔 لو انت خبل🙌😿" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😴😴😴😴" then 
 taha =   "رأح, دكـّــوم تـّــمس๋͜‏ـلّـ๋͜‏ـت ولي نأم 😹☹️😻  " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😴😴😴"  then 
 taha =   "رأح, دكـّــوم تـّــمس๋͜‏ـلّـ๋͜‏ـت ولي نأم 😹☹️😻  " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😴😴" then 
 taha =   "رأح, دكـّــوم تـّــمس๋͜‏ـلّـ๋͜‏ـت ولي نأم 😹☹️😻  " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😴" then 
 taha =   "رأح, دكـّــوم تـّــمس๋͜‏ـلّـ๋͜‏ـت ولي نأم 😹☹️😻  " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😽😽😽😽" then 
 taha =   " ﭑإ́وُف فديـٍَــت ﭑإ́لـپـــٰٰـوُﮨﮨﮨــهٰ⇣̉ـ  😻🙈🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😽😽😽" then 
 taha =   " ﭑإ́وُف فديـٍَــت ﭑإ́لـپـــٰٰـوُﮨﮨﮨــهٰ⇣̉ـ  😻🙈🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😽😽" then 
 taha =   " ﭑإ́وُف فديـٍَــت ﭑإ́لـپـــٰٰـوُﮨﮨﮨــهٰ⇣̉ـ  😻🙈" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💋💋💋💋💋💋💋💋💋💋💋💋" then 
 taha =   " ﭑإ́وُف فديـٍَــت ﭑإ́لـپـــٰٰـوُﮨﮨﮨــهٰ⇣̉ـ  😻🙈🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😾😹" then 
 taha =   "خاب ديلك😐😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😾" then 
 taha =   "خاب ديلك😐" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💔" then 
 taha =   "ﭑإ́وُف ﭑإ́لـلــهٰ⇣̉ يـٍَﮩﮨﮨﮨـﭑإ́عـِِِِد قلـپـــٰٰـك 😢😞💋 " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💔💔" then 
 taha =   "ﭑإ́وُف ﭑإ́لـلــهٰ⇣̉ يـٍَﮩﮨﮨﮨـﭑإ́عـِِِِد قلـپـــٰٰـك 😢😞💋 " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💔💔💔" then 
 taha =   "ﭑإ́وُف ﭑإ́لـلــهٰ⇣̉ يـٍَﮩﮨﮨﮨـﭑإ́عـِِِِد قلـپـــٰٰـك 😢😞💋 " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💔💔💔💔" then 
 taha =   "ﭑإ́وُف ﭑإ́لـلــهٰ⇣̉ يـٍَﮩﮨﮨﮨـﭑإ́عـِِِِد قلـپـــٰٰـك 😢😞💋 " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="👄" then 
 taha =   "قلبوشتي😻💋" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💙" then 
 taha =   "عافيتي💋" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💜" then 
 taha =   "يروحي😻💋انت" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="❤" then 
 taha =   "يعمري😻 انت " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💚" then 
 taha =   "منور ابو كلب الاخضر😐😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💋💋💋💋" then 
 taha =   "اوووف شنو هذا الحلك😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💋💋💋" then 
 taha =   "اوووف شنو هذا الحلك😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💋💋" then 
 taha =   "اوووف شنو هذا الحلك😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💋" then 
 taha =   "اوووف شنو هذا الحلك😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙋" then 
 taha =   "هلا حبعمري🙂❤️" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙋🙋" then 
 taha =   "هلا حبعمري❤️" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙋🙋🙋" then 
 taha =   "هلا حبعمري❤️" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🐕" then 
 taha =   "ها عمو شبيك🌝" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🐆" then 
 taha =   "ولا يكعد راحه ابو صابر🌝😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🐈" then 
 taha =   "بشت بشت😐😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😘🌹" then 
 taha =   "هلا حياتي عطرها🙂💋" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💚" then 
 taha =   "هلا حياتي عطرها🙂💋" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🌝🌝🌝🌝" then 
 taha =   "شـﮫـۛالـٰٰ̲ضـِۛـوٰ୭ٰۛٳٲ  ۶" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🌝🌝🌝" then 
 taha =   "شـﮫـۛالـٰٰ̲ضـِۛـوٰ୭ٰۛٳٲ 💙 ۶" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🌝🌝" then 
 taha =   "شـﮫـۛالـٰٰ̲ضـِۛـوٰ୭ٰۛٳٲ 🌝 ۶" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🌝" then 
 taha =   "شـﮫـۛالـٰٰ̲ضـِۛـوٰ୭ٰۛٳٲ 🌝💙 ۶" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🐍" then 
 taha =   "ماكو غيرك زاحف🙊🗯" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🐍🐍" then 
 taha =   "ماكو غيرك زاحف🙊🗯" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🐍🐍🐍" then 
 taha =   "ماكو غيرك زاحف🙊🗯" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🐍🐍🐍🐍" then 
 taha =   "ماكو غيرك زاحف🙊🗯" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🐅" then 
 taha =   "منور النجر🌝😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🐅🐅" then 
 taha =   "منور النجر🌝😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🐅🐅🐅" then 
 taha =   " منورالنجر " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🌺" then 
 taha =   "عطرها حبي🌝💋" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🍁" then 
 taha =   "عطرها حبي🌝💋" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💐" then 
 taha =   "عطرها حبي🌝💋" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙄🙄🙄🙄" then 
 taha =   "شلگيت فوگ وتباوع🤔لو انت احول🙄💔" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙄🙄🙄" then 
 taha =   "شلگيت فوگ وتباوع🤔لو انت احول🙄" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙄🙄" then 
 taha =   "شلگيت فوگ وتباوع🤔لو انت احول🙄💔" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙄" then 
 taha =   "شلگيت فوگ وتباوع🤔لو انت احول💔" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="نرتبط" then 
 taha =   "ولك ما تبطل زحفك 😡😹 صارت قديمه ترا 😂🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="نكبل" then 
 taha =   "ولك ما تبطل زحفك 😡😹 صارت قديمه ترا 😂🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="عرفينا" then 
 taha =   "ولك ما تبطل زحفك 😡😹 صارت قديمه ترا 🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="نتعرف" then 
 taha =   "ولك ما تبطل زحفك 😡😹 صارت قديمه ترا 🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="نت منين" then 
 taha =   "شكو تزحف ولك 😹 خلوني بس اني ازحف 🙊😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="خلي نتعرف" then 
 taha =   "شكو تزحف ولك 😹😹 خلوني بس اني ازحف 🙊😹😿" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="شسمك" then 
 taha =   "شكو تزحف ولك 😹😹 خلوني بس اني ازحف 😿" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="عرفنا" then 
 taha =   "شكو تزحف ولك 😹😹 خلوني بس اني ازحف 🙊😹😿" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="هاذا شنو" then 
 taha =   "لۧاٲ   مو بوت اقرا🙃 اسمي✨" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="يمكن بوت" then 
 taha =   "لۧاٲ   مو بوت اقرا🙃 اسمي✨" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="اي بوت" then 
 taha =   "لۧاٲ   مو بوت😒 اقرا🙃 اسمي✨" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="هاذا بوت" then 
 taha =   "لۧاٲ   مو بوت😒 اقرا🙃 اسمي✨" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="وين البوت" then 
 taha =   "لۧاٲ   مو بوت😒 اقرا🙃 اسمي✨" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="تعال نلعب" then 
 taha =   "تعالو لعبو بمالي 😸😸" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="تعاي نلعب" then 
 taha =   "تعالو لعبو بمالي 😸😸" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="نلعب" then 
 taha =   "تعالو لعبو بمالي 😸😸" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="تلعبون" then 
 taha =   "تعالو لعبو بمالي 😸😸" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🤔🤔🤔🤔" then 
 taha =   "ولا يكعد راحه اينشتاين الصغير 😂😂" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🤔🤔🤔" then 
 taha =   "ولا يكعد راحه اينشتاين الصغير 😂" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🤔🤔" then 
 taha =   "ولا يكعد راحه اينشتاين الصغير 😂😂" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🤔" then 
 taha =   "ولا يكعد راحه اينشتاين الصغير 😂" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🖕🖕🖕🖕" then 
 taha =   "بحي هاذا لوفه وحطه فتيزك 😹😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🖕🖕🖕" then 
 taha =   "بحي هاذا لوفه وحطه فتيزك 😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🖕🖕" then 
 taha =   "بحي هاذا لوفه وحطه فتيزك 😹😹😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🖕" then 
 taha =   "بحي هاذا لوفه وحطه فتيزك 😹😹😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💋💋💋💋" then 
 taha =   "فديتك حلكك بحي ☹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💋💋💋" then 
 taha =   "فديتك حلكك بحي ☹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💋💋" then 
 taha =   "فديتك حلكك بحي ☹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="💋" then 
 taha =   "فديتك حلكك بحي ☹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="راح انام" then 
 taha =   "روح نام 😍 حياتي  تصبح عله خير 💋" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="نعسان" then 
 taha =   "روح نام 😍😉 حياتي 😌 تصبح عله خير 💋" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ت ع خ" then 
 taha =   "روح نام 😍😉 حياتي  تصبح عله خير " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="دوووم" then 
 taha =   "لله يديم انفاسك/ج " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="دووووم" then 
 taha =   "لله يديم انفاسك/ج 😇😚" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="دوم" then 
 taha =   "لله يديم انفاسك/ج 😇😚" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ددوم" then 
 taha =   "لله يديم انفاسك/ج 😇" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="دومك" then 
 taha =   "لله يديم انفاسك/ج 😇😚" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="دومج" then 
 taha =   "لله يديم انفاسك/ج 😇😚" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ادوم" then 
 taha =   "لله يديم انفاسك/ج 😇😚" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ضايجه" then 
 taha =   "حـٍبيبي ءّ🙍‍♂️💜 اركـ🕺🏻ـصلج🌚" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ضايجهه" then 
 taha =   "حـٍبيبي ءّ🙍‍♂️💜 اركـ🕺🏻ـصلج" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="حيل ضايجه" then 
 taha =   "حـٍبيبي ءّ🙍‍♂️💜 اركـ🕺🏻ـصلج🌚" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ضووجهه" then 
 taha =   "حـٍبيبي ءّ🙍‍♂️💜 اركـ🕺🏻ـصلج" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ضوججه" then 
 taha =   "حـٍبيبي ءّ‍♂️💜 اركـ💃ـصلك" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ضوجهه" then 
 taha =   "حـٍبيبي ءّ🙍‍♂️💜 اركـ💃🏻ـصلك" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="اروح" then 
 taha =   "مٰٝـٍْ✋ۡـٍٰآ ترٰوۢۛඋ ،💛  احد لازمك🤦🏻‍♂️" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="اروحح" then 
 taha =   "مٰٝـٍْ✋ۡـٍٰآ ترٰوۢۛඋ ،  احد لازمك🤦🏻‍♂️" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="راح اروح" then 
 taha =   "مٰٝـٍْ✋ۡـٍٰآ ترٰوۢۛඋ ،💛  احد لازمك🏻‍♂️" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="رايح" then 
 taha =   "مٰٝـٍْ✋ۡـٍٰآ ترٰوۢۛඋ ،💛  احد لازمك🤦🏻‍♂️" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="اجيييي" then 
 taha =   "ﮪﮪﮧעّ ⁞⁞ُ͡‏   💗 بيك🚶🏻 حمبي 👻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="اجي" then 
 taha =   "ﮪﮪﮧעّ ⁞⁞ُ͡‏    بيك🚶🏻 حمبي " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="اجييي" then 
 taha =   "ﮪﮪﮧעّ ⁞⁞ُ͡‏   💗 بيك🚶🏻 حمبي 👻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ممكنن" then 
 taha =   "أإآيٰٰ    تـٴِﮧ﴿🚶🏻﴾ۣـعالۂ͡†♩❥" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ممكن" then 
 taha =   "أإآيٰٰ    تـٴِﮧ﴿🚶🏻﴾ۣـعالۂ͡†♩❥" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ببكن" then 
 taha =   "أإآيٰٰ    تـٴِﮧ﴿🚶🏻﴾ۣـعالۂ͡†♩❥" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="مممكن" then 
 taha =   "أإآيٰٰ    تـٴِﮧ﴿🚶🏻﴾ۣـعالۂ͡†♩❥" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ديييي" then 
 taha =   "يمشوك🐕 بيها🙊😹 حمبي" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="دييي" then 
 taha =   "يمشوك🐕 بيها🙊😹 حمبي" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ديي" then 
 taha =   "يمشوك🐕 بيها🙊😹 حمبي" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="دي" then 
 taha =   "يمشوك🐕 بيها🙊😹 حمبي" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="وليييي" then 
 taha =   "۽ﺈنجٰٓجٰٓہ͡‌ـبۂ 🌝 ٰٓ₎ פـٍـٍبيبي ءّ🙍‍♂️💜" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ولييي" then 
 taha =   "۽ﺈنجٰٓجٰٓہ͡‌ـبۂ 🌝 ٰٓ₎ פـٍـٍبيبي ءّ🙍‍♂️💜" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="وليي" then 
 taha =   "۽ﺈنجٰٓجٰٓہ͡‌ـبۂ 🌝 ٰٓ₎ פـٍـٍبيبي ءّ🙍‍♂️💜" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ولي" then 
 taha =   "۽ﺈنجٰٓجٰٓہ͡‌ـبۂ 🌝 ٰٓ₎ פـٍـٍبيبي ءّ🙍‍♂️💜" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="احبكك" then 
 taha =   "بعد روحي واني احبكم هم بس لتزحفلي رجاا 😸😸" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ااحبك" then 
 taha =   "بعد روحي واني احبكم هم بس لتزحفلي رجاا 😸😸💋" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="احبككك" then 
 taha =   "بعد روحي واني احبكم هم بس لتزحفلي رجاا 😸😸💋" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="احبكم" then 
 taha =   "بعد روحي واني احبكم هم بس لتزحفلي رجاا 😸😸💋" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="اييييي" then 
 taha =   "يب قابل اغشكم 🙈🎈" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="اييي" then 
 taha =   "يب قابل اغشكم 🙈🎈" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ايي" then 
 taha =   "يب قابل اغشكم 🎈" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="اي" then 
 taha =   "يب قابل اغشكم 🙈" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="تعالو" then 
 taha =   " ما اروح المطورين مالتي ميقبلون " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="تعالوو" then 
 taha =   "لا ما اروح المطورين مالتي ميقبلون🎈" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="تعالووو" then 
 taha =   "لا ما اروح المطورين مالتي ميقبلون😐🎈" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="تعالوووو" then 
 taha =   "لا ما اروح المطورين مالتي ميقبلون😐🎈" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="شبيك" then 
 taha =   "مبينه شي سلامتك/ ج🎈😌" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="شبيكم" then 
-taha =   "مبينه شي سلامتك/ ج🎈😌"   storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+taha =   "مبينه شي سلامتك/ ج🎈😌"   IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="شبيكك" then 
 taha =   "مبينه شي سلامتك/ ج🎈😌" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="شبيكمم" then 
 taha =  "مبينه شي سلامتك/ ج🎈😌" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="جب" then 
 taha =   "جب بخشـ👃🏻ـمك פـٍـٍبيبي ءّ🙍‍♂️💜" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="انجب" then 
 taha =   "جب بخشـ🏻ـمك פـٍـٍبيبي ءّ🙍‍♂️💜" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="نجب" then 
 taha =   "جب بخشـ👃🏻ـمك פـٍـٍبيبي ءّ🙍‍♂️💜" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="اانجب" then 
 taha =   "جب بخشـ👃🏻ـمك פـٍـٍبيبي ءّ🙍‍♂️💜" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="وين" then 
 taha =   "• بٌِٰـﮧﮧأرِٰض اَٰلْٰلْٰهَٰہۧ اَٰلْٰـہوٍّاَٰسٌٍعٍِّـﮧهَٰہۧ😽💜ֆ" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="وينن" then 
 taha =   "• بٌِٰـﮧﮧأرِٰض اَٰلْٰلْٰهَٰہۧ اَٰلْٰـہوٍّاَٰسٌٍعٍِّـﮧهَٰہۧ😽💜ֆ" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="وين تريد" then 
 taha =   "• بٌِٰـﮧﮧأرِٰض اَٰلْٰلْٰهَٰہۧ اَٰلْٰـہوٍّاَٰسٌٍعٍِّـﮧهَٰہۧ😽💜ֆ" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ووين" then 
 taha =   "• بٌِٰـﮧﮧأرِٰض اَٰلْٰلْٰهَٰہۧ اَٰلْٰـہوٍّاَٰسٌٍعٍِّـﮧهَٰہۧ😽💜ֆ" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="باييي" then 
 taha =   "لله وياكـ💙✨ يا • ﻋٰۧﻋٰ̯ۧـسۂﻝَُّ↵⁽🍯̯⁾ֆ‘" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="☹️☹️☹️☹️" then 
 taha =  "شبيك متعصب حبي 😱😿 منو وياك 😿😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="☹️☹️☹️" then 
 taha =  "شبيك متعصب حبي 😱😿 منو وياك 😿😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="☹️☹️" then 
 taha =  "شبيك متعصب حبي 😱😿 منو وياك 😿😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="☹️" then 
 taha =  "شبيك متعصب حبي 😱😿 منو وياك 😿😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙂🙂🙂🙂" then 
 taha =  "اوف شهل الابتسامه احله من الكمر 😎😻😻😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙂😕😕😕" then 
 taha =  "شكو عاوج حلكك😒😻😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙄🤞🏿" then 
 taha =  "شبيك صافن على ايدك 😹😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙁💔" then 
 taha =  "ضايج لئن كلبه مكسور 🙀😿" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙂✌️" then 
 taha =  "مبتسم على وجهي 😌😹😹😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😹😹😹😹😹😹😹" then 
 taha =  "انت شبيك تخبلت 😒😨😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😹😹😹😹😹😹😹😹😹" then 
 taha =  "انت شبيك تخبلت 😒😨😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="بربك" then 
 taha =  "ي وعلي ابو الحسن 😐" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="كلكم" then 
 taha =  "ليش تجمع بحي اني بوت 😞💔" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="والرب" then 
 taha =  "استغفر الله جنان كم مره كتلك لتحلف جذب😑🎈" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="حقك" then 
 taha =  "ي حقك حمبي اني وياك ضدهم😐🎈" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="اكلك يول" then 
 taha =   "كول حبي بس لا تبول علينا 💛" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="اكول" then 
 taha =   "كول وفتح حلكك خل ابول 😸😸🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="تعال" then 
 taha =   "ولي لك ليريدني هو يجيني 😸🌞" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="صوفي" then 
 taha =   "فديته هاذا اخوي ابو الوكفات فديت ابنمي😍😍" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end 
 if text =="شغال" then 
 taha =   "❞ ءيہـ͜ާي ۶ـٰٰٰོۂٰٰٰٰٰزيہزيۂٰٰٰٰٰـﮯ بـہٰٖآﻗقــ͡ي ﯙأتۂـ͜مــٰཻدد 💕" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="فرخ" then 
 taha =   "• ؤخـٰٰ͒ہر آﻧﮧـ͜ާۂٰٰٰٰٰي ڵہٰٰٖٖكي᪼᪳ـۂتہٰٖـﮫﮧٰٰٖٖ ۶ֆ كبلك" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="نصعد" then 
 taha =  "مكالمهةة لو زرور 🐸🤘🏿" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="وف" then 
 taha =  "مو كتلج اريحج لتخافين 🌝💦" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="اوي" then 
 taha =  "هاي تفله بعد ميعور حمبي 💦" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="كحبه" then 
 taha =  "يب ادري بيها حته ناجها سويجد 😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="يوجع" then 
 taha =  "حته ترتاحين يا عيني 😺" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ولو منا" then 
 taha =  "ماولي اذا ما انيجكم 😼🤘" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="الله" then 
 taha =  "شبي خوما ضوجك خوما كللهم مايكل ناج هذا 🙀🙌🏻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="نيجه" then 
 taha =  "تعال بعد عمك افتر وما تحس وي التفال 🐸💚" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="كول انجب" then 
 taha =  "خايب ولي لاتفل بطيزك ينطيني اوامر الفرخ 🤘🏿🤡🤘🏿" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="انكليزي" then 
 taha =  "فاج يو ماين 😎" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="مرحبا" then 
 taha =   " مہٰ۪۫ږآحہٰ۪۫بہٰ۪۫ هلا بيك 💑" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="هلاوووووو" then 
 taha =   "يههلا بيك نورتنا 💛" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="خرب" then 
 taha =   "خرب وجهك حمتر لتكفر 🌞🌿 " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="سلام" then 
 taha =   "يهلا حمبي نورت 💛😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="انت انجب" then 
 taha =   "اي حمبي 😸 تعال فتح حلكك 😸💙" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="وين ولك" then 
 taha =   "يم خالتك الشكره بن  الصاكه" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="اكرهك" then 
 taha =   "شعور متبادل حبي" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="تكرهني" then 
 taha =   "شي اكيد احبك حياتي 😸💛" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="اعشقك" then 
 taha =   "فيدوه اني هم عشقك😊😹🙊" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="شباب" then 
 taha =   "كباب وتكه وسمج 😸💛" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="ماريا" then 
 taha =   "ولك هاي الصاكه العشق هاي حبيبت المطور هاي 😸🙊😻😻️" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😂😂😂😂😂😂" then 
 taha =   "يضحك الفطير 😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😇" then 
 taha =   "استريح بحي رايد شي 😹😹😻" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😖" then 
 taha =   "دي وجهك معقد 😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😄" then 
 taha =   "حيل فتح حلكك نوب 😹😹😘" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😌🙂😌😌😌" then 
 taha =   "فديت الغرور كله بحي" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😭😭😭😭😭" then 
 taha =   "منو ويك حياتي بس كلي اله اهينه كدامك 😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😫" then 
 taha =   "ها بحي منو مضوجك " 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="☻" then 
 taha =   "عساس ثكيل العينتين تاليتك تزحفبل خاص 😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😠" then 
 taha =   "طفه طفه 💦💦 تره حمه حيل" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😳🙂😳😳😳" then 
 taha =   "ها شفت/ي ابوك/ج مصلخ ونصدمت 😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="😹😹😹😹😹😹😹😹😹😹😹😹😹" then 
 taha =   "اضحك شكو عله كلبك ☹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙊🙊🙊🙊🙊" then 
 taha =   "ها قردي شبيك مستحي 😂😂" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end
 if text =="🙈🙈🙈🙈🙈" then 
 taha =   "صار/ت قرد يعني خجلان ?😹😹😹" 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, taha, 1, "html") 
 end 
 
 end
@@ -1573,21 +1573,21 @@ if chat_type == 'super' then
 if MSG_TEXT[1] == 'تفعيل ردود البوت' and is_monsh(msg) then   
 if IRAQBOT:get(IRAQ_ID..'lock:reoly:bot'..msg.chat_id_) then
 taha = '*📮¦ تم تفعيل ردود البوت *\n✓' 
-storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
+IRAQ_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
 IRAQBOT:del(IRAQ_ID..'lock:reoly:bot'..msg.chat_id_) 
 else
 taha = '*📮¦ بالتاكيد تم تفعيل ردود البوت *\n✓' 
-storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
+IRAQ_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
 end
 end
 if MSG_TEXT[1] == 'تعطيل ردود البوت' and is_monsh(msg) then   
 if not IRAQBOT:get(IRAQ_ID..'lock:reoly:bot'..msg.chat_id_) then
 taha = '*📮¦ تم تعطيل ردود البوت *\n✓' 
-storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
+IRAQ_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
 IRAQBOT:set(IRAQ_ID..'lock:reoly:bot'..msg.chat_id_,true) 
 else
 taha = '*📮¦ بالتاكيد تم تعطيل ردود البوت *\n✓' 
-storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
+IRAQ_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
 end
 end
 if MSG_TEXT[1] == 'رابط الحذف' or MSG_TEXT[1] == 'رابط حذف' or MSG_TEXT[1] == 'راح احذف' or MSG_TEXT[1] == 'اريد احذف' then
@@ -1597,12 +1597,12 @@ local delac = [[*
 🗞¦ بالتـوفيـق عزيزي ...*
 📜¦ [اضغط هنا لحذف حسابك](https://telegram.org/deactivate)
 ]]
-storm_sendMsg(msg.chat_id_, msg.id_, 1,delac, 1, 'md')
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,delac, 1, 'md')
  end
 
 if MSG_TEXT[1] == 'الاوامر' then
 if not is_mod(msg) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
 taha = [[
 ⚠️
@@ -1620,11 +1620,11 @@ taha = [[
 ⚜️¦ للاستفسار او حدوث مشكلة 🚸
 🔘¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 if MSG_TEXT[1] == 'م1' then
 if not is_mod(msg) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
 taha = [[
 *📮 ¦ اهلا بك في اوامر القفل
@@ -1651,7 +1651,7 @@ taha = [[
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
 🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 if MSG_TEXT[1] == 'م2' then
 taha = [[
@@ -1680,12 +1680,12 @@ taha = [[
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
 🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
 if MSG_TEXT[1] == 'م3' then
 if not is_mod(msg) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
 taha = [[
 *🙋🏻‍♂¦ اهلا بك عزيزي 🍃
@@ -1703,12 +1703,12 @@ taha = [[
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
 🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
 if MSG_TEXT[1] == 'م4' then
 if not is_mod(msg) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
 taha = [[
 *🙋🏻‍♂¦ اهلا بك عزيزي 🍃
@@ -1757,12 +1757,12 @@ taha = [[
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
 🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
 if MSG_TEXT[1] == 'م5' then
 if not is_monsh(msg) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن المدراء 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن المدراء 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
 taha = [[
 *🙋🏻‍♂¦ مرحبا بك عزيزي، 🍃
@@ -1804,12 +1804,12 @@ taha = [[
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
 🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
 if MSG_TEXT[1] == 'م6' then
 if not is_owner(msg) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن المنشئين 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن المنشئين 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
 taha = [[
 *🙋🏻‍♂¦ مرحبا بك عزيزي، 🍃
@@ -1827,12 +1827,12 @@ taha = [[
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
 🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
 if MSG_TEXT[1] == 'م7' then
 if not is_sudo(msg) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن المطورين 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن المطورين 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
 taha = [[
 *🙋🏻‍♂¦ مرحبا بك عزيزي، 🍃
@@ -1846,12 +1846,12 @@ taha = [[
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
 🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
 if MSG_TEXT[1] == 'م8' then
 if not is_devtaha(msg) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست المطور الاساسي 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست المطور الاساسي 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
 taha = [[
 *🙋🏻‍♂¦ مرحبا بك عزيزي، 🍃
@@ -1931,11 +1931,11 @@ taha = [[
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
 🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 if MSG_TEXT[1] == 'اوامر التقيد' then
 if not is_mod(msg) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
 taha = [[
 *📮 ¦ اهلا بك في اوامر القفل بالتڨيد
@@ -1953,12 +1953,12 @@ taha = [[
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
 🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
 if MSG_TEXT[1] == 'اوامر الطرد' then
 if not is_mod(msg) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
 taha = [[
 *📮¦ اهلا بك في اوامر القفل بالطرد
@@ -1976,12 +1976,12 @@ taha = [[
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
 🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
 if MSG_TEXT[1] == 'اوامر الكتم' then
 if not is_mod(msg) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن الادمنيه 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
 taha = [[
 *📮 ¦ اهلا بك في اوامر القفل بالگتم
@@ -1999,11 +1999,11 @@ taha = [[
 ⚜️¦ للمزيد من المعلومات راسلنا  ࿈
 🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 if MSG_TEXT[1] == 'اوامر الصلاحيات' then
 if not is_owner(msg) then 
-storm_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن المنشئين 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ انت لست ضمن المنشئين 🍃\n📌¦ يمكنك ارسال { م2 } لعرض قائمة اوامر خاصه في الاعضاء *\n💥", 1, "md")  
 return false end
 taha = [[
 *📮¦ اهلا بك في اوامر الصلاحيات
@@ -2030,7 +2030,7 @@ taha = [[
 ⚜¦ للمزيد من المعلومات راسلنا  ࿈
 🗯¦ مطور البوت »* []] ..SUDOUSERNAME..[[]
 ]]
-storm_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,taha, 1, 'md') 
 end
 
 end
@@ -2057,8 +2057,8 @@ CMDS = {
 "^(راح احذف)$",
 "^(اريد احذف)$",
 },
-STORM = help_rep,
-STORM_TEXT = GET_TEXT
+IRAQ = help_rep,
+IRAQ_TEXT = GET_TEXT
 }
 
 
