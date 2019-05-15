@@ -1,6 +1,6 @@
 local function GET_TEXT(msg)
 if chat_type == 'super' then 
-if not tahadevstorm:get(DEVSTOR..'lock:reoly:bot'..msg.chat_id_) then
+if not IRAQBOT:get(IRAQ_ID..'lock:reoly:bot'..msg.chat_id_) then
 if text == "شلونك" or text == "شلونكم"then 
 local taha = {'😹اني بلنسبه الي دايح 👻 شوف بقية الاعضاء😴','😕الحمد •للّـ🙏ّـرب وانته/ي 🤔','😡كل شويه واحد يكلي شلونك😪 وشلونكم عمي كلنه بخير كمل🤐','زين واسيا واثير 😹 ادري قديمه انجب 😷'}
 storm_sendMsg(msg.chat_id_, msg.id_, 1,taha[math.random(#taha)], 1, 'html')  
@@ -1571,20 +1571,20 @@ end
 local function help_rep(msg, MSG_TEXT)
 if chat_type == 'super' then 
 if MSG_TEXT[1] == 'تفعيل ردود البوت' and is_monsh(msg) then   
-if tahadevstorm:get(DEVSTOR..'lock:reoly:bot'..msg.chat_id_) then
+if IRAQBOT:get(IRAQ_ID..'lock:reoly:bot'..msg.chat_id_) then
 taha = '*📮¦ تم تفعيل ردود البوت *\n✓' 
 storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
-tahadevstorm:del(DEVSTOR..'lock:reoly:bot'..msg.chat_id_) 
+IRAQBOT:del(IRAQ_ID..'lock:reoly:bot'..msg.chat_id_) 
 else
 taha = '*📮¦ بالتاكيد تم تفعيل ردود البوت *\n✓' 
 storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
 end
 end
 if MSG_TEXT[1] == 'تعطيل ردود البوت' and is_monsh(msg) then   
-if not tahadevstorm:get(DEVSTOR..'lock:reoly:bot'..msg.chat_id_) then
+if not IRAQBOT:get(IRAQ_ID..'lock:reoly:bot'..msg.chat_id_) then
 taha = '*📮¦ تم تعطيل ردود البوت *\n✓' 
 storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
-tahadevstorm:set(DEVSTOR..'lock:reoly:bot'..msg.chat_id_,true) 
+IRAQBOT:set(IRAQ_ID..'lock:reoly:bot'..msg.chat_id_,true) 
 else
 taha = '*📮¦ بالتاكيد تم تعطيل ردود البوت *\n✓' 
 storm_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
