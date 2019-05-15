@@ -2005,8 +2005,12 @@ if text ==('المجموعات 📇') and is_devtaha(msg) then    local list = I
 if text == "تحديث السورس 🔱" and is_devtaha(msg) then  IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, '♻ • جاري تحديث السورس • ♻', 1, 'md') 
 os.execute('rm -rf IRAQ.lua') 
 os.execute("rm -fr plugins_/help_rep.lua")
+os.execute("rm -fr plugins_/ZHRFA.lua")
+os.execute("rm -fr plugins_/games.lua")
 os.execute('wget https://raw.githubusercontent.com/surse/iraq/master/IRAQ.lua') 
 os.execute('cd plugins_;wget https://raw.githubusercontent.com/surse/iraq/master/plugins_/help_rep.lua') 
+os.execute('cd plugins_;wget https://raw.githubusercontent.com/surse/iraq/master/plugins_/ZHRFA.lua') 
+os.execute('cd plugins_;wget https://raw.githubusercontent.com/surse/iraq/master/plugins_/games.lua') 
 sleep(0.5) 
 IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, '🚸*¦* تم تحديث ♻ السورس ✔ ', 1, 'md') 
 dofile('IRAQ.lua')  
@@ -2713,7 +2717,7 @@ IRAQBOT:set(IRAQ_ID.."lock:user:name"..msg.chat_id_,'kick')
 monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم قفـل المعرفات بالطرد \n✓',msg.sender_user_id_)  
 elseif text == 'فتح المعرفات' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 IRAQBOT:del(IRAQ_ID.."lock:user:name"..msg.chat_id_)  
-monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n📮¦ تـم فتح المعرفات \n✓',msg.sender_user_id_)  
+monsend(msg,msg.chat_id_,'💥¦ اهــلا عـزيـزي {'..get_rtba(msg)..'} 🍃\n??¦ تـم فتح المعرفات \n✓',msg.sender_user_id_)  
 end
 if text == 'قفل التاك' and is_mod(msg) and msg.reply_to_message_id_ == 0 then 
 IRAQBOT:set(IRAQ_ID.."lock:hashtak"..msg.chat_id_,'del')  
@@ -4238,8 +4242,12 @@ if text == "تحديث السورس" and is_devtaha(msg) then
 IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, '♻ • جاري تحديث السورس • ♻', 1, 'md') 
 os.execute('rm -rf IRAQ.lua') 
 os.execute("rm -fr plugins_/help_rep.lua")
+os.execute("rm -fr plugins_/ZHRFA.lua")
+os.execute("rm -fr plugins_/games.lua")
 os.execute('wget https://raw.githubusercontent.com/surse/iraq/master/IRAQ.lua') 
 os.execute('cd plugins_;wget https://raw.githubusercontent.com/surse/iraq/master/plugins_/help_rep.lua') 
+os.execute('cd plugins_;wget https://raw.githubusercontent.com/surse/iraq/master/plugins_/ZHRFA.lua') 
+os.execute('cd plugins_;wget https://raw.githubusercontent.com/surse/iraq/master/plugins_/games.lua') 
 sleep(0.5) 
 IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, '🚸*¦* تم تحديث ♻ السورس ✔ ', 1, 'md') 
 dofile('IRAQ.lua')  
@@ -7659,7 +7667,7 @@ if result and result.type_ and result.type_.channel_ and result.type_.channel_.I
 IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ هاذا المعرف قناة وليس معرف حساب *\n💥', 1, 'md') 
 return false  end
 if tonumber(result.id_) == tonumber(bot_id) then  
-IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, '*📮¦ انا البوت ولست مكتوم * \n', 1, 'md')  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, '*??¦ انا البوت ولست مكتوم * \n', 1, 'md')  
 return false  end 
 tdcli_function ({
 ID = "GetUser",
