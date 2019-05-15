@@ -920,7 +920,7 @@ local klishwelc = IRAQBOT:get("klish:welc"..bot_id)
 sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, photo,klishwelc)     
 else   
 local klishwelc = '🚨¦ مرحبا صديقي انا بوت حمايه ،\n🛠¦ يمڪنني حمايه مجموعتڬ ،\n📮¦ ارفعني ڪمشرف في المجموعه ،\n📛¦ ۅمن بعدها يتم تفعيل المجموعه ،\n🎲¦ ويتم رفع الادمنيه والمدير تلقائيا\n'
-sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil,'./requfiles/photo_IRAQ.jpg',klishwelc)     
+sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil,'./requfiles/IMG_20190515_215611_840.jpg',klishwelc)     
 end 
 end   
 end 
