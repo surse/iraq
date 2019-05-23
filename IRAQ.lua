@@ -138,7 +138,7 @@ SUDO = tonumber(sudos.SUDO)
 sudo_users = {SUDO}
 SUDOUSERNAME = sudos.USERNAME
 IRAQ_ID = sudos.token:match("(%d+)")  
-NAMEBOT = (IRAQBOT:get(IRAQ_ID..'IRAQ:name') or 'ستورم')
+NAMEBOT = (IRAQBOT:get(IRAQ_ID..'IRAQ:name') or 'عراق')
 bot_id = sudos.token:match("(%d+)")  
 chaneel = sudos.token 
 plugins = {}
@@ -4874,7 +4874,7 @@ IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📮¦* لا يوجد قوانين هن
 end    
 end
 if text == 'السورس' or text =='سورس' or text=='يا سورس' then
-local text = [[
+local text = [[ 
 🎫┇اهلا بك في سورس عراق 🇮🇶┇
 
 🇮🇶┇[IRAQ TEAM](t.me/BECIQ) 
@@ -4885,7 +4885,7 @@ local text = [[
 
 🔖┇ [لـ تنصيب سورس عراق☑️](t.me/BECIQ) 
 
-📮┇[لـ تواصل📩](t.me/Bec7bot)
+📮┇[لـ تواصل📩](t.me/Bec7bot) 
 ]] 
 IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,text, 1, 'md')   
 end
