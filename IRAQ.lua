@@ -10397,12 +10397,9 @@ for i=0,#mem_id do
 if msg.content_.members_[i].type_.ID == "UserTypeBot" and IRAQBOT:get(IRAQ_ID.."lock:Bot:kick"..msg.chat_id_) == 'del'  and not is_vipgroup(msg) then  
 kick(msg,msg.chat_id_,mem_id[i].id_)
 end  
-if IRAQBOT:get(IRAQ_ID..'lock:tagservrbot'..msg.chat_id_) then
-delete_msg(msg.chat_id_,{[0] = msg.id_}) 
-end
 end  
 end
-if msg.content_.ID == "MessageChatDeleteMember" and IRAQBOT:get(IRAQ_ID..'lock:tagservrbot'..msg.chat_id_) then
+if msg.content_.ID == "MessageChatDeleteMember" and IRAQBOT:get(IRAQ_ID..'lock:tagservr'..msg.chat_id_) then
 delete_msg(msg.chat_id_,{[0] = msg.id_}) 
 end 
 if msg.content_.ID == "MessageChatAddMembers" then  
@@ -10413,9 +10410,6 @@ kick(msg,msg.chat_id_,mem_id[i].id_)
 HTTPS.request("https://api.telegram.org/bot" .. chaneel .. "/restrictChatMember?chat_id=" ..msg.chat_id_.. "&user_id=" ..msg.sender_user_id_.."") 
 IRAQBOT:sadd(IRAQ_ID..'tedmembars'..msg.chat_id_,msg.sender_user_id_)
 end  
-if IRAQBOT:get(IRAQ_ID..'lock:tagservrbot'..msg.chat_id_) then
-delete_msg(msg.chat_id_,{[0] = msg.id_}) 
-end
 end  
 end
 if msg.content_.ID == "MessageChatAddMembers" then  
@@ -10425,9 +10419,6 @@ if msg.content_.members_[i].type_.ID == "UserTypeBot" and IRAQBOT:get(IRAQ_ID.."
 kick(msg,msg.chat_id_,mem_id[i].id_)
 changeChatMemberStatus(msg.chat_id_, msg.sender_user_id_, "Kicked")
 end  
-if IRAQBOT:get(IRAQ_ID..'lock:tagservrbot'..msg.chat_id_) then
-delete_msg(msg.chat_id_,{[0] = msg.id_}) 
-end
 end  
 end
 IRAQadd(data.message_,data)   
@@ -10439,76 +10430,10 @@ if tonumber(msg.sender_user_id_) == tonumber(bot_id) then
 return false end
 local function edited_cb(extra,ta,success)    
 local text = ta.content_.text_
-if text:find('ايدي') then
-return false end
-IRAQadd(ta,data)   
-IRAQ(ta,data)   
-if not text and not is_monsh(ta) then
-if IRAQBOT:get(IRAQ_ID..'lock:edit:media'..data.chat_id_) then 
-delete_msg(data.chat_id_,{[0] = data.message_id_}) 
-end    
-end
-local txxt = ta.content_.text_
-if txxt and not is_vipgroup(ta) then  
-if is_filter(ta,txxt) then    
+if not is_owner(ta) and IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then
 delete_msg(data.chat_id_,{[0] = data.message_id_}) 
 end
-if txxt:find("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Dd][Oo][Gg]/") and IRAQBOT:get(IRAQ_ID.."lock:Link"..msg.chat_id_) == "del" then 
-if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
-delete_msg(data.chat_id_,{[0] = data.message_id_}) 
-end    
-end    
-if txxt:find(".[Pp][Ee]") and IRAQBOT:get(IRAQ_ID..'lock:links'..msg.chat_id_) then 
-if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
-delete_msg(data.chat_id_,{[0] = data.message_id_}) 
-end    
-end    
-if txxt:find("[Tt][Ll][Gg][Rr][Mm].[Mm][Ee]/") and IRAQBOT:get(IRAQ_ID.."lock:Link"..msg.chat_id_) == "del" then 
-if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
-delete_msg(data.chat_id_,{[0] = data.message_id_}) 
-end    
-end    
-if txxt:find("[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]/") and IRAQBOT:get(IRAQ_ID.."lock:Link"..msg.chat_id_) == "del" then 
-if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
-delete_msg(data.chat_id_,{[0] = data.message_id_}) 
-end    
-end    
-if txxt:find("[Tt].[Mm][Ee]/") and IRAQBOT:get(IRAQ_ID.."lock:Link"..msg.chat_id_) == "del" then 
-if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
-delete_msg(data.chat_id_,{[0] = data.message_id_}) 
-end    
-end    
-if txxt:find("[Ww][Ww][Ww].") and IRAQBOT:get(IRAQ_ID.."lock:Link"..msg.chat_id_) == "del" then 
-if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
-delete_msg(data.chat_id_,{[0] = data.message_id_}) 
-end    
-end    
-if txxt:find(".[Cc][Oo][Mm]") then
-if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) and IRAQBOT:get(IRAQ_ID.."lock:Link"..msg.chat_id_) == "del" then 
-delete_msg(data.chat_id_,{[0] = data.message_id_}) 
-end    
-end    
-if txxt:find('@[%a%d_]+') and IRAQBOT:get(IRAQ_ID.."lock:user:name"..msg.chat_id_) == "del" then
-if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
-delete_msg(data.chat_id_,{[0] = data.message_id_}) 
-end    
-end
-if txxt:find('@(.+)') and IRAQBOT:get(IRAQ_ID.."lock:user:name"..msg.chat_id_) == "del" then
-if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
-delete_msg(data.chat_id_,{[0] = data.message_id_}) 
-end    
-end
-if txxt:find('#[%a%d_]+') and IRAQBOT:get(IRAQ_ID.."lock:hashtak"..msg.chat_id_) == "del" then
-if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
-delete_msg(data.chat_id_,{[0] = data.message_id_}) 
-end    
-end
-if txxt:find('#(.+)') and IRAQBOT:get(IRAQ_ID.."lock:hashtak"..msg.chat_id_) == "del" then
-if IRAQBOT:get(IRAQ_ID..'lock:edit'..data.chat_id_) then 
-delete_msg(data.chat_id_,{[0] = data.message_id_}) 
-end    
-end
-end
+
 end   
 tdcli_function ({   ID = "GetMessage", chat_id_ = data.chat_id_,   message_id_ = data.message_id_    }, edited_cb, nil)  
 elseif (data.ID == "UpdateOption" and data.name_ == "my_id") then  
