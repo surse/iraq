@@ -562,13 +562,13 @@ t = 'مطور البوت 👨🏻‍💻'
 elseif IRAQBOT:sismember(IRAQ_ID..'moder'..chat_id,user_id) then
 t = 'منشئ 👨🏻‍✈️'
 elseif IRAQBOT:sismember(IRAQ_ID..'modergroup'..chat_id,user_id) then
-t = 'مدير 👨🏻‍💼'
+t = IRAQBOT:get(IRAQ_ID.."Comd:New:rt:user:"..chat_id..user_id) or 'مدير 👨🏻‍💼'
 elseif IRAQBOT:sismember(IRAQ_ID..'mods:'..chat_id,user_id) then
-t = 'ادمن 👮🏻‍♂'
+t = IRAQBOT:get(IRAQ_ID.."Comd:New:rt:user:"..chat_id..user_id) or 'ادمن 👮🏻‍♂'
 elseif IRAQBOT:sismember(IRAQ_ID..'vip:groups',user_id) then
 t = 'مميز عام 🌟'
 elseif IRAQBOT:sismember(IRAQ_ID..'vip:group'..chat_id,user_id) then
-t = 'مميز ⭐'
+t = IRAQBOT:get(IRAQ_ID.."Comd:New:rt:user:"..chat_id..user_id) or 'مميز ⭐'
 else
 t = 'عضو 🙋🏻‍♂'
 end
@@ -1772,7 +1772,7 @@ local pvstart = IRAQBOT:get(IRAQ_ID.."pvstart")
 if pvstart then    
 IRAQ_sendMsg(msg.sender_user_id_, 0, 1, ''..check_markdown(pvstart)..'', 1, "md")    
 else    
-IRAQ_sendMsg(msg.sender_user_id_, msg.id_, 1, '📬*¦* تم ارسال رسالتك الى المطور\n*📛¦* اشترك في قناة المطور \n*🚸¦* [اضغط هنا للدخول الى قناة](https://t.me/joinchat/AAAAAElyffap0iuWjaf9eQ) \n', 1, "md")    
+IRAQ_sendMsg(msg.sender_user_id_, msg.id_, 1, '\n📬*¦* تم ارسال رسالتك الى المطور\n*📛¦* اشترك في قناة المطور \n*🚸¦* [اضغط هنا للدخول الى قناة](t.me/BECIQ) \n', 1, "md")    
 end     
 if not IRAQBOT:sismember(IRAQ_ID.."usersbot",msg.chat_id_) then    
 IRAQBOT:sadd(IRAQ_ID.."usersbot",msg.chat_id_)    
@@ -8884,13 +8884,13 @@ t = 'مطور البوت ✨'
 elseif is_owner(msg) then 
 t = 'المنشئ 🔥'  
 elseif is_monsh(msg) then 
-t = 'المدير ☄'     
+t = IRAQBOT:get(IRAQ_ID.."Comd:New:rt:user:"..msg.chat_id_..msg.sender_user_id_) or 'المدير ☄'     
 elseif is_mod(msg) then 
-t = 'الادمن 💐' 
+t = IRAQBOT:get(IRAQ_ID.."Comd:New:rt:user:"..msg.chat_id_..msg.sender_user_id_) or 'الادمن 💐' 
 elseif is_vipgroups(msg) then 
 t = 'مميز عام 🍃'  
 elseif is_vipgroup(msg) then 
-t = 'مميز 🏅'   
+t = IRAQBOT:get(IRAQ_ID.."Comd:New:rt:user:"..msg.chat_id_..msg.sender_user_id_) or 'مميز 🏅'   
 else 
 t = 'عضو 👧'   
 end       
@@ -9188,6 +9188,153 @@ end,nil)
 end,nil)
 end,nil)
 end
+if text and text:match('اضف صلاحيه (.*)') and is_vipgroup(msg) then 
+ComdNew = text:match('اضف صلاحيه (.*)')
+IRAQBOT:set(IRAQ_ID.."Comd:New:rt"..msg.chat_id_..msg.sender_user_id_,ComdNew)  
+IRAQBOT:setex(IRAQ_ID.."Comd:New"..msg.chat_id_..""..msg.sender_user_id_,200,true)  
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ ارسل نوع الرتبه {مدير - ادمن - مميز - عضو}*\n✓", 1, "md") 
+end
+if text and text:match('مسح صلاحيه (.*)') and is_vipgroup(msg) then 
+ComdNew = text:match('مسح صلاحيه (.*)')
+IRAQBOT:del(IRAQ_ID.."Comd:New:rt:bot:"..ComdNew..msg.chat_id_)
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ تم مسح الصلاحيه *\n✓", 1, "md") 
+end
+if IRAQBOT:get(IRAQ_ID.."Comd:New"..msg.chat_id_..""..msg.sender_user_id_) then 
+if text and text:match("^الغاء$") then 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ تم الغاء الامر *\n✓", 1, "md") 
+IRAQBOT:del(IRAQ_ID.."Comd:New"..msg.chat_id_..""..msg.sender_user_id_) 
+return false  
+end 
+if text == 'مدير' then
+if not is_owner(msg) then
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ تستطيع اضافه صلاحيات {ادمن - مميز - عضو} \n📥¦ ارسل الصلاحيه مجددا*\n", 1, "md") 
+return false
+end
+end
+if text == 'ادمن' then
+if not is_monsh(msg) then 
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ تستطيع اضافه صلاحيات {مميز - عضو} \n📥¦ ارسل الصلاحيه مجددا*\n", 1, "md") 
+return false
+end
+end
+if text == 'مميز' then
+if not is_mod(msg) then
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ تستطيع اضافه صلاحيات {عضو} \n📥¦ ارسل الصلاحيه مجددا*\n", 1, "md") 
+return false
+end
+end
+if text == 'مدير' or text == 'ادمن' or text == 'مميز' or text == 'عضو' then
+local textn = IRAQBOT:get(IRAQ_ID.."Comd:New:rt"..msg.chat_id_..msg.sender_user_id_)  
+IRAQBOT:set(IRAQ_ID.."Comd:New:rt:bot:"..textn..msg.chat_id_,text)
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ تم اضافه الامر *\n✓", 1, "md") 
+IRAQBOT:del(IRAQ_ID.."Comd:New"..msg.chat_id_..""..msg.sender_user_id_) 
+return false  
+end 
+end
+if text and text:match('رفع (.*)') and tonumber(msg.reply_to_message_id_) > 0 and is_vipgroup(msg) then 
+local RTPA = text:match('رفع (.*)')
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+local iraqrt = IRAQBOT:get(IRAQ_ID.."Comd:New:rt:bot:"..RTPA..msg.chat_id_)
+if iraqrt == 'مميز' and is_mod(msg) then
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم رفعه ('..RTPA..') هنا\n',result.sender_user_id_)  
+IRAQBOT:set(IRAQ_ID.."Comd:New:rt:user:"..msg.chat_id_..result.sender_user_id_,RTPA) 
+IRAQBOT:sadd(IRAQ_ID..'vip:group'..msg.chat_id_,result.sender_user_id_)  
+elseif iraqrt == 'ادمن' and is_monsh(msg) then 
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم رفعه ('..RTPA..') هنا\n',result.sender_user_id_)   
+IRAQBOT:set(IRAQ_ID.."Comd:New:rt:user:"..msg.chat_id_..result.sender_user_id_,RTPA)
+IRAQBOT:sadd(IRAQ_ID..'mods:'..msg.chat_id_,result.sender_user_id_)  
+elseif iraqrt == 'مدير' and is_owner(msg) then
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم رفعه ('..RTPA..') هنا\n',result.sender_user_id_) 
+IRAQBOT:set(IRAQ_ID.."Comd:New:rt:user:"..msg.chat_id_..result.sender_user_id_,RTPA)  
+IRAQBOT:sadd(IRAQ_ID..'modergroup'..msg.chat_id_,result.sender_user_id_)  
+elseif iraqrt == 'عضو' and is_vipgroup(msg) then
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم رفعه ('..RTPA..') هنا\n',result.sender_user_id_)   
+end
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('تنزيل (.*)') and tonumber(msg.reply_to_message_id_) > 0 and is_vipgroup(msg) then 
+local RTPA = text:match('تنزيل (.*)')
+function by_reply(extra, result, success)   
+tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
+local iraqrt = IRAQBOT:get(IRAQ_ID.."Comd:New:rt:bot:"..RTPA..msg.chat_id_)
+if iraqrt == 'مميز' and is_mod(msg) then
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم تنزيله من ('..RTPA..') هنا\n',result.sender_user_id_)   
+IRAQBOT:srem(IRAQ_ID..'vip:group'..msg.chat_id_,result.sender_user_id_)  
+IRAQBOT:del(IRAQ_ID.."Comd:New:rt:user:"..msg.chat_id_..result.sender_user_id_)
+elseif iraqrt == 'ادمن' and is_monsh(msg) then 
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم تنزيله من ('..RTPA..') هنا\n',result.sender_user_id_)   
+IRAQBOT:srem(IRAQ_ID..'mods:'..msg.chat_id_,result.sender_user_id_) 
+IRAQBOT:del(IRAQ_ID.."Comd:New:rt:user:"..msg.chat_id_..result.sender_user_id_)
+elseif iraqrt == 'مدير' and is_owner(msg) then
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم تنزيله من ('..RTPA..') هنا\n',result.sender_user_id_)   
+IRAQBOT:srem(IRAQ_ID..'modergroup'..msg.chat_id_,result.sender_user_id_)  
+IRAQBOT:del(IRAQ_ID.."Comd:New:rt:user:"..msg.chat_id_..result.sender_user_id_)
+elseif iraqrt == 'عضو' and is_vipgroup(msg) then
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم تنزيله من ('..RTPA..') هنا\n',result.sender_user_id_)   
+end
+end,nil)   
+end   
+tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
+end
+if text and text:match('^رفع (.*) @(.*)') and is_vipgroup(msg) then 
+local text1 = {string.match(text, "^(رفع) (.*) @(.*)$")}
+function py_username(extra, result, success)   
+if result.id_ then
+local iraqrt = IRAQBOT:get(IRAQ_ID.."Comd:New:rt:bot:"..RTPA..msg.chat_id_)
+if iraqrt == 'مميز' and is_mod(msg) then
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم رفعه ('..text1[1]..') هنا\n',result.id_)   
+IRAQBOT:sadd(IRAQ_ID..'vip:group'..msg.chat_id_,result.sender_user_id_)  
+IRAQBOT:set(IRAQ_ID.."Comd:New:rt:user:"..msg.chat_id_..result.id_,text1[1])
+elseif iraqrt == 'ادمن' and is_monsh(msg) then 
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم رفعه ('..text1[1]..') هنا\n',result.id_)   
+IRAQBOT:sadd(IRAQ_ID..'mods:'..msg.chat_id_,result.sender_user_id_)  
+IRAQBOT:set(IRAQ_ID.."Comd:New:rt:user:"..msg.chat_id_..result.id_,text1[1])
+elseif iraqrt == 'مدير' and is_owner(msg) then
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم رفعه ('..text1[1]..') هنا\n',result.id_)   
+IRAQBOT:sadd(IRAQ_ID..'modergroup'..msg.chat_id_,result.sender_user_id_)  
+IRAQBOT:set(IRAQ_ID.."Comd:New:rt:user:"..msg.chat_id_..result.id_,text1[1])
+elseif iraqrt == 'عضو' and is_vipgroup(msg) then
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم رفعه ('..text1[1]..') هنا\n',result.id_)   
+end
+else
+info = '📌| المعرف غلط'
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,info, 1, 'md')
+end
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = text1[2]},py_username,nil) 
+end 
+if text and text:match('^تنزيل (.*) @(.*)') and is_vipgroup(msg) then 
+local text1 = {string.match(text, "^(تنزيل) (.*) @(.*)$")}
+function py_username(extra, result, success)   
+if result.id_ then
+local iraqrt = IRAQBOT:get(IRAQ_ID.."Comd:New:rt:bot:"..RTPA..msg.chat_id_)
+if iraqrt == 'مميز' and is_mod(msg) then
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم تنريله من ('..text1[1]..') هنا\n',result.id_)   
+IRAQBOT:srem(IRAQ_ID..'vip:group'..msg.chat_id_,result.sender_user_id_)  
+IRAQBOT:del(IRAQ_ID.."Comd:New:rt:user:"..msg.chat_id_..result.id_)
+elseif iraqrt == 'ادمن' and is_monsh(msg) then 
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم تنريله من ('..text1[1]..') هنا\n',result.id_)   
+IRAQBOT:srem(IRAQ_ID..'mods:'..msg.chat_id_,result.sender_user_id_)  
+IRAQBOT:del(IRAQ_ID.."Comd:New:rt:user:"..msg.chat_id_..result.id_)
+elseif iraqrt == 'مدير' and is_owner(msg) then
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم تنريله من ('..text1[1]..') هنا\n',result.id_)   
+IRAQBOT:srem(IRAQ_ID..'modergroup'..msg.chat_id_,result.sender_user_id_)  
+IRAQBOT:del(IRAQ_ID.."Comd:New:rt:user:"..msg.chat_id_..result.id_)
+elseif iraqrt == 'عضو' and is_vipgroup(msg) then
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم تنريله من ('..text1[1]..') هنا\n',result.id_)   
+end
+else
+info = '📌| المعرف غلط'
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,info, 1, 'md')
+end
+end
+tdcli_function ({ID = "SearchPublicChat",username_ = text1[2]},py_username,nil) 
+end  
+
+
 
 if text == 'قفل التثبيت' and tonumber(msg.reply_to_message_id_) > 0 and is_owner(msg) then   
 tdcli_function ({ ID = "GetChannelFull",  channel_id_ = getChatId(msg.chat_id_).ID }, function(arg,data)  IRAQBOT:set(IRAQ_ID..'pinned'..msg.chat_id_,data.pinned_message_id_)  end,nil)
@@ -9208,7 +9355,7 @@ tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,
 tdcli_function ({ID = "GetChatMember",chat_id_ = msg.chat_id_,user_id_ = result.sender_user_id_},function(arg,da) 
 if da and da.status_.ID == "ChatMemberStatusEditor" or da and da.status_.ID == "ChatMemberStatusCreator" then
 IRAQBOT:sadd(IRAQ_ID..'LOCK:PINMSG'..msg.chat_id_,result.sender_user_id_)     
-sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertp(data.first_name_)..'}'..'\n📬¦ تم منعه من التثبيت هنا\n',result.sender_user_id_)   
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منعه من التثبيت هنا\n',result.sender_user_id_)   
 else
 if IRAQBOT:sismember(IRAQ_ID..'modergroup'..msg.chat_id_,result.sender_user_id_) then
 tt = 'مدير'
@@ -9219,7 +9366,7 @@ tt = 'عضو'
 end
 if tt ~= 'عضو' then 
 IRAQBOT:sadd(IRAQ_ID..'LOCK:PINMSG'..msg.chat_id_,result.sender_user_id_)     
-sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertp(data.first_name_)..'}'..'\n📬¦ تم منعه من التثبيت هنا\n',result.sender_user_id_)   
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم منعه من التثبيت هنا\n',result.sender_user_id_)   
 else
 IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ هذا مجرد عضو هنا\n👨🏻‍✈️*")   
 end
@@ -9256,7 +9403,7 @@ IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ المعرف غير صحيح \n👨🏻�
 return false  
 end   
 IRAQBOT:sadd(IRAQ_ID..'LOCK:PINMSG'..msg.chat_id_,result.id_)     
-sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من التثبيت هنا\n',result.id_)   
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من التثبيت هنا\n',result.id_)   
 else
 if IRAQBOT:sismember(IRAQ_ID..'modergroup'..msg.chat_id_,result.id_) then
 tt = 'مدير'
@@ -9267,7 +9414,7 @@ tt = 'عضو'
 end
 if tt ~= 'عضو' then
 IRAQBOT:sadd(IRAQ_ID..'LOCK:PINMSG'..msg.chat_id_,result.id_)     
-sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من التثبيت هنا\n',result.id_)   
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم منعه من التثبيت هنا\n',result.id_)   
 else
 IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ هذا مجرد عضو \n👨🏻‍✈️*")   
 end
@@ -9281,7 +9428,7 @@ if text == 'فتح التثبيت' and tonumber(msg.reply_to_message_id_) > 0 an
 function by_reply(extra, result, success)   
 tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
 IRAQBOT:srem(IRAQ_ID..'LOCK:PINMSG'..msg.chat_id_,result.sender_user_id_)     
-sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertp(data.first_name_)..'}'..'\n📬¦ تم الغاء منع التثبيت عنه \n',result.sender_user_id_)   
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(data.first_name_)..'}'..'\n📬¦ تم الغاء منع التثبيت عنه \n',result.sender_user_id_)   
 end,nil)   
 end   
 tdcli_function ({ ID = "GetMessage", chat_id_ = msg.chat_id_, message_id_ = tonumber(msg.reply_to_message_id_) }, by_reply, nil)
@@ -9298,7 +9445,7 @@ IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ هاذا معرف قناة \n👨🏻‍
 return false 
 end      
 IRAQBOT:srem(IRAQ_ID..'LOCK:PINMSG'..msg.chat_id_,result.id_)     
-sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منع التثبيت عنه \n',result.id_)   
+sendMention(msg,msg.chat_id_,'📮¦ العضو » {'..CatchNamertprtp(result.type_.user_.first_name_)..'}'..'\n📬¦ تم الغاء منع التثبيت عنه \n',result.id_)   
 end    
 tdcli_function ({ID = "SearchPublicChat",username_ = username},py_username,nil) 
 end
@@ -9467,7 +9614,7 @@ IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ لا تستطيع منعي من ارسا
 return false  
 end   
 if getrtp(msg.chat_id_,result.sender_user_id_) then   
-IRAQ_send(msg.chat_id_,msg.id_,"*📮¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
+IRAQ_send(msg.chat_id_,msg.id_,"*??¦ عذرا لا تستطيع منع » { المنشئين والمطورين } \n👨🏻‍✈️*")   
 return false  
 end    
 tdcli_function ({ID = "GetUser",user_id_ = result.sender_user_id_},function(arg,data) 
