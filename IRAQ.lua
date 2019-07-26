@@ -1419,12 +1419,6 @@ setChatDescription(msg.chat_id_, Description)
 IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,'\n📬*¦* تم وضع وصف للمجموعه \n', 1, 'md')   
 end 
 
-if IRAQBOT:get(IRAQ_ID.."photo:bot" .. msg.chat_id_ .. "" .. msg.sender_user_id_) then 
-if text and text:match("^الغاء$") then 
-IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ تم الغاء الامر *\n✓", 1, "md") 
-IRAQBOT:del(IRAQ_ID.."photo:bot" .. msg.chat_id_ .. "" .. msg.sender_user_id_)
-return false  end 
-IRAQBOT:del(IRAQ_ID.."photo:bot" .. msg.chat_id_ .. "" .. msg.sender_user_id_)  local pro = tonumber(text:match("(%d+)")) local function myprofile(extra, result, success) if result.total_count_ == 0 then IRAQ_sendMsg(msg.chat_id_, msg.id_,  1, '*🔖¦* عذرا انت لا تمتلك صور في البروفايل\n', 1, 'md') else if result.total_count_ >= pro then if result.photos_[0] then sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, result.photos_[0].sizes_[1].photo_.persistent_id_, '\n🌄¦ صورتك رقم  '..pro..' \n📋¦ عدد صورك  '..result.total_count_..' \n📊¦ حجم صورتك  '..result.photos_[0].sizes_[1].photo_.size_..' ') end else IRAQ_sendMsg(msg.chat_id_, msg.id_,  1, '\n*📛¦* انت لا تمتلك صوره رقم  *{'..pro..'}*\n*🌁¦* عدد صورك هي *{'..result.total_count_..'}*', 1, 'md')  end end end getUserProfilePhotos(msg.sender_user_id_, pro-1, 1000, myprofile)  end
 if IRAQBOT:get(IRAQ_ID.."link:group"..msg.chat_id_) == 'setlinkwai' and is_mod(msg) then 
 if text and text:match("^الغاء$") then 
 IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, "*📬¦ تم الغاء الامر *\n✓", 1, "md") 
@@ -2984,11 +2978,6 @@ IRAQBOT:setex(IRAQ_ID.."welc:bot" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 
 local t = '*📃¦* ارسل النص الذي تريده '  
 local tt = '\n*📬¦* ايضا يمكنك وضع \n*📛¦* دالة طباعه الاسم `name` \n*📛¦* ودالة طباعه اسم المجموعه `ngp`'
 IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,t..tt, 1, 'md') 
-end
-if text and text:match("^جلب صوره$") and not IRAQBOT:get(IRAQ_ID.."lock:get:photo"..msg.chat_id_) then  
-IRAQBOT:setex(IRAQ_ID.."photo:bot" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 10000, true)  
-local t = '*📛¦* ارسل رقم الصوره الان '  
-IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,t, 1, 'md') 
 end
 if text and text == 'تغير كليشه الترحيب' and is_devtaha(msg)  then    
 IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, '*🚸¦ حسنآ ارسل لي نص الترحيب *\n', 1, 'md')   
@@ -8810,23 +8799,6 @@ taha = '*📮¦ بالتاكيد تم تعطيل { الحظر - الطرد } *\n
 IRAQ_sendMsg( msg.chat_id_, msg.id_, 1, taha, 1, "md") 
 end
 end
-if text and text:match("^صورتي (%d+)") and not IRAQBOT:get(IRAQ_ID.."lock:get:photo"..msg.chat_id_)  then 
-local pro = tonumber(text and text:match("^صورتي (%d+)")) 
-local function myprofile(extra, result, success) 
-if result.total_count_ == 0 then 
-IRAQ_sendMsg(msg.chat_id_, msg.id_,  1, '*💥¦* عذرا انت لا تضع صوره في حسابك', 1, 'md') 
-else 
-if result.total_count_ >= pro then 
-if result.photos_[0] then 
-sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, result.photos_[0].sizes_[1].photo_.persistent_id_, '\n🌁¦ صورتك رقم  '..pro..' \n📑¦ عدد صورك  '..result.total_count_..' \n📊¦ حجم صورتك  '..result.photos_[0].sizes_[1].photo_.size_..' ') 
-end 
-else 
-IRAQ_sendMsg(msg.chat_id_, msg.id_,  1, '\n*📮¦* انت لا تمتلك صوره رقم  *{'..pro..'}*\n*🌁¦* عدد صورك هي *{'..result.total_count_..'}*', 1, 'md')   
-end 
-end 
-end 
-getUserProfilePhotos(msg.sender_user_id_, pro-1, 1000, myprofile) 
-end
 if text ==('ايدي') and msg.reply_to_message_id_ ~= 0 and not msg.forward_info_  then   
 function id_reply(extra, result, success)   
 if not result.forward_info_ then  
@@ -9128,12 +9100,12 @@ elseif da.status_.ID == "ChatMemberStatusMember" then
 rtpa = 'عضو'
  end
 if result.username_ then 
-username = '\n🎫¦ مـعرفك • @'..result.username_..'' 
+username = '\n🎫¦ مـعرفك ¤ (@'..result.username_..')' 
 else 
 username = '' 
 end
 if result.username_ then 
-usernamee = '\n🎫¦ مـعرفك •  [@'..result.username_..']' 
+usernamee = '\n🎫¦ مـعرفك ¤ ([@'..result.username_..'])' 
 else usernamee = '' 
 end
 if result.username_ then 
@@ -9141,6 +9113,16 @@ USERNAME_GET = '@'..result.username_..''
 else 
 USERNAME_GET = ' لا يوجد ' 
 end
+random_photo = {
+'طالع حلو 💙😌',
+'ءمنور ☻💛',
+'ليش متحذف حسابك 😪',
+'نفسيةة ☹️💔',
+'غير صورتك 😐',
+'ليش مغير صورتك 😹😹',
+'خلصت دياحه وجيت ؟'
+}
+Text_Photo = random_photo[math.random(#random_photo)]
 local msguser = tonumber(IRAQBOT:get(IRAQ_ID..'user:messages:'..msg.chat_id_..':'..msg.sender_user_id_) or 1) 
 local addmempar = tonumber(IRAQBOT:get(IRAQ_ID..'add:mempar'..msg.chat_id_..':'..msg.sender_user_id_) or 0) 
 t = get_rtpa(msg.chat_id_,msg.sender_user_id_)
@@ -9164,12 +9146,12 @@ end
 end
 else
 if result.status_.ID == "UserStatusRecently" and result.profile_photo_ ~= false then
-sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, taha.photos_[0].sizes_[1].photo_.persistent_id_,'\n🔹¦ ايديــك • '..msg.sender_user_id_..''..username..'\n🎖¦ موقعـك • '..get_rtpa(msg.chat_id_,msg.sender_user_id_)..'\n📮¦ موقع الكروب • '..rtpa..'\n🎲¦ تفاعـلك • '..formsgg(msguser)..'\n📧¦ رسائلك • '..(msguser)..'\n🌁¦ صورك • '..taha.total_count_..'\n')       
+sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, taha.photos_[0].sizes_[1].photo_.persistent_id_,'🎇¦'..Text_Photo..'\n🔹¦ ايديــك ¤ ('..msg.sender_user_id_..')'..username..'\n🎖¦ موقعـك ¤ ('..get_rtpa(msg.chat_id_,msg.sender_user_id_)..')\n📮¦ موقع الكروب ¤ ('..rtpa..')\n🎲¦ تفاعـلك ¤ ('..formsgg(msguser)..')\n📧¦ رسائلك ¤ ('..(msguser)..')\n🖼¦صورك ¤ ('..taha.total_count_..')\n💰¦نقودك ¤ ('..NUMPGAME..')\n📞¦ جهاتك ¤ ('..addmempar..')')       
 else 
 if result.status_.ID == "UserStatusEmpty" and result.profile_photo_ == false then
-IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,'\n🔹¦ ايديــك • '..msg.sender_user_id_..''..usernamee..'\n🎖¦ موقعـك • '..get_rtpa(msg.chat_id_,msg.sender_user_id_)..'\n📮¦ موقع الكروب • '..rtpa..'\n🎲¦ تفاعـلك • '..formsgg(msguser)..'\n📧¦ رسائلك • '..(msguser)..'\n'..'\n🌇¦ لا يمكنني عرض صورتك لانك قمت بحظر البوت', 1, 'md')   
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,'🔹¦ ايديــك ¤ ('..msg.sender_user_id_..')'..username..'\n🎖¦ موقعـك ¤ ('..get_rtpa(msg.chat_id_,msg.sender_user_id_)..')\n📮¦ موقع الكروب ¤ ('..rtpa..')\n🎲¦ تفاعـلك ¤ ('..formsgg(msguser)..')\n📧¦ رسائلك ¤ ('..(msguser)..')\n💰¦نقودك ¤ ('..NUMPGAME..')\n📞¦ جهاتك ¤ ('..addmempar..')'..'\n🌇¦ لا يمكنني عرض صورتك لانك قمت بحظر البوت', 1, 'html')   
 else
-IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, '\n📷¦ ليس لديك صور في حسابك 🍃'..'\n🔹¦ ايديــك • '..msg.sender_user_id_..''..usernamee..'\n🎖¦ موقعـك • '..get_rtpa(msg.chat_id_,msg.sender_user_id_)..'\n📮¦ موقع الكروب • '..rtpa..'\n🎲¦ تفاعـلك • '..formsgg(msguser)..'\n📧¦ رسائلك • '..(msguser)..'\n',1, 'md')      
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1, '\n📷¦ ليس لديك صور في حسابك 🍃'..'\n🔹¦ ايديــك ¤ ('..msg.sender_user_id_..')'..username..'\n🎖¦ موقعـك ¤ ('..get_rtpa(msg.chat_id_,msg.sender_user_id_)..')\n📮¦ موقع الكروب ¤ ('..rtpa..')\n🎲¦ تفاعـلك ¤ ('..formsgg(msguser)..')\n📧¦ رسائلك ¤ ('..(msguser)..')\n💰¦ نقودك ¤ ('..NUMPGAME..')\n📞¦ جهاتك ¤ ('..addmempar..')',1, 'html')      
 end 
 end
 end
@@ -9179,7 +9161,7 @@ local get_id_text = IRAQBOT:get(IRAQ_ID.."KLISH:ID")
 if get_id_text then
 IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,get_id(msg,taha,get_id_text), 1, 'html')   
 else
-IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,'🔹¦ ايديــك • '..msg.sender_user_id_..''..usernamee..'\n🎖¦ موقعـك • '..get_rtpa(msg.chat_id_,msg.sender_user_id_)..'\n📮¦ موقع الكروب • '..rtpa..'\n🎲¦ تفاعـلك • '..formsgg(msguser)..'\n📧¦ رسائلك • '..(msguser)..'\n📱¦ جهاتك • '..(addmempar)..'', 1, 'md')   
+IRAQ_sendMsg(msg.chat_id_, msg.id_, 1,'🔹¦ ايديــك ¤ ('..msg.sender_user_id_..')'..username..'\n🎖¦ موقعـك ¤ ('..get_rtpa(msg.chat_id_,msg.sender_user_id_)..')\n📮¦ موقع الكروب ¤ ('..rtpa..')\n🎲¦ تفاعـلك ¤ ('..formsgg(msguser)..')\n📧¦ رسائلك ¤ ('..(msguser)..')\n💰¦نقودك ¤ ('..NUMPGAME..')\n📞¦ جهاتك ¤ ('..addmempar..')', 1, 'html')   
 end
 end
 end
